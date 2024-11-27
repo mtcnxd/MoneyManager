@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\CryptoController;
+use App\Http\Controllers\CardsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 });
+
+Route::resource('/cards', CardsController::class);
 
 Route::resource('/investments', InvestmentController::class);
 

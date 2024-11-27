@@ -9,30 +9,34 @@
 @endsection
 
 @section('container')
-<nav class="navbar bg-body-tertiary">
-	<div class="container-fluid">
-		<h2>Dashboard</h2>
-	</div>
-</nav>
+	<nav class="navbar bg-body-tertiary">
+		<h3>Dashboard</h3>
+	</nav>
 
-<div class="row mb-4">
-	<form action="{{ route('investments.store') }}" method="post">
-		@csrf
-		<div class="col-md-4">
-			<label>Instrument</label>
-			<select name="instrument_id" class="form-select">
-				@foreach ($instruments as $instrument)
-					<option>{{ $instrument }}</option>	
-				@endforeach
-			</select>
-		</div>
-		<div class="col-md-4 mt-2">
-			<label>Amount</label>
-			<input type="text" name="amount" class="form-control">
-		</div>
-		<div class="col-md-4 mt-2">
-			<input type="submit" value="Enviar" class="btn btn-primary">
-		</div>
-	</form>
-</div>
+	@if ( session('message') )
+	<div class="alert alert-warning">
+		{{ session('message') }}
+	</div>
+	@endif
+
+	<div class="row mb-4">
+		<form action="{{ route('investments.store') }}" method="post">
+			@csrf
+			<div class="col-md-4">
+				<label>Instrument</label>
+				<select name="instrument_id" class="form-select">
+					@foreach ($instruments as $instrument)
+						<option>{{ $instrument }}</option>	
+					@endforeach
+				</select>
+			</div>
+			<div class="col-md-4 mt-2">
+				<label>Amount</label>
+				<input type="text" name="amount" class="form-control">
+			</div>
+			<div class="col-md-4 mt-2">
+				<input type="submit" value="Enviar" class="btn btn-primary">
+			</div>
+		</form>
+	</div>
 @endsection

@@ -3,22 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use App\Models\CardsModel;
 
-class CryptoController extends Controller
+class CardsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $response = Http::get('https://api-stage.bitso.com/api/v3/ticker');
-        $json = $response->json();
-        $results = $json['payload'];
-
-        # dd ($results);
-
-        return view('dashboard.crypto_index', compact('results'));
+        return view('dashboard.cards_index');
     }
 
     /**
@@ -26,7 +20,7 @@ class CryptoController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.cards_create');
     }
 
     /**
@@ -34,7 +28,10 @@ class CryptoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        CardsModel::create($request->all());
+
+        return to_route('cards.index')
+            ->with('message','Data saved successfully');
     }
 
     /**

@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cryptocurrency', function (Blueprint $table) {
+        Schema::create('credit_cards', function (Blueprint $table) {
             $table->id();
-            $table->string('parity');
-            $table->string('price');
-            $table->string('amount');
+            $table->string('name');
+            $table->string('color');
+            $table->double('limit');
+            $table->string('cutoff_day');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cryptocurrency');
+        Schema::dropIfExists('credit_cards');
     }
 };

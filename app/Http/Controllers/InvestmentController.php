@@ -41,7 +41,7 @@ class InvestmentController extends Controller
     {
         InstrumentModel::create($request->all());
 
-        return to_route('instrument.index')
+        return to_route('investments.index')
             ->with('message', 'Data save successfully');
     }
 }

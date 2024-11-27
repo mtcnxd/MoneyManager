@@ -10,9 +10,7 @@
 
 @section('container')		
 	<nav class="navbar bg-body-tertiary">
-		<div class="container-fluid">
-			<h2>Resume</h2>
-		</div>
+		<h3>Crypto currencies</h3>
 	</nav>
 	
 	@if ( session('message') )
@@ -119,6 +117,14 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($results as $result)
+                    <tr>
+                        <td>{{ $result['book'] }}</td>
+                        <td>{{ $result['last'] }}</td>
+                        <td>{{ $result['high'] }}</td>
+                        <td>{{ $result['low'] }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

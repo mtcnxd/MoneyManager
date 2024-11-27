@@ -1,39 +1,39 @@
 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li>
-            <a href="{{ route('investments.create') }}" class="nav-link px-3 link-dark hstack gap-1">
+            <a href="{{ route('investments.index') }}" class="nav-link px-3 link-dark hstack gap-1">
             <x-feathericon-layers class="main-menu-icon"/>
-            Resumen</a>
+            Resume</a>
         </li>
         <li>
-            <a href="{{ route('investments.create') }}" class="nav-link px-3 link-dark hstack gap-1">
+            <a href="{{ route('cards.index') }}" class="nav-link px-3 link-dark hstack gap-1">
             <x-feathericon-book class="main-menu-icon"/>
-            Cartera</a>
+            Cards</a>
         </li>
         <li>
             <a href="{{ route('investments.create') }}" class="nav-link px-3 link-dark hstack gap-1">
             <x-feathericon-database class="main-menu-icon"/>
-            Ahorros</a>
+            Savings</a>
         </li>
         <li>
             <a href="{{ route('investments.index') }}" class="nav-link px-3 link-dark hstack gap-1">
             <x-feathericon-dollar-sign class="main-menu-icon"/>
-            Inversiones</a>
+            Investments</a>
         </li>
         <li>
             <a href="{{ route('cryptocurrencies.index') }}" class="nav-link px-3 link-dark hstack gap-1">
             <x-feathericon-bold class="main-menu-icon"/>
-            Cripto</a>
+            Crypto</a>
         </li>
         <li>
             <a href="{{ route('investments.create') }}" class="nav-link px-3 link-dark hstack gap-1">
             <x-feathericon-file-text class="main-menu-icon"/>
-            Reportes</a>
+            Reports</a>
         </li>
         <li>
             <a href="{{ route('investments.create') }}" class="nav-link px-3 link-dark hstack gap-1">
             <x-feathericon-align-justify class="main-menu-icon"/>
-            Categorias</a>
+            Categories</a>
         </li>
     </ul>
 </div>

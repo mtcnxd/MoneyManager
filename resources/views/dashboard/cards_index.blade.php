@@ -10,7 +10,7 @@
 
 @section('container')		
 	<nav class="navbar bg-body-tertiary">
-		<h3>Resume</h3>
+		<h3>Credit cards</h3>
 	</nav>
 	
 	@if ( session('message') )
@@ -20,13 +20,13 @@
 	@endif
 	
 	<div class="row mb-4">
-		@foreach ($results as $result)
+		@foreach (['BBVA Azul'] as $result)
 			<div class="col">
 				@include('components.card', [
-					'card_title' 	 => $result->getName(), 
-					'card_content_1' => "$".number_format( $result->getCurrentInvest(), 2),
-					'card_content_2' => $result->getLastInvestDate(),
-					'card_content_3' => "$".number_format( $result->getTotalInvest(), 2),
+					'card_title' 	 => "BBVA Azul", 
+					'card_content_1' => "",
+					'card_content_2' => "",
+					'card_content_3' => "",
 				])
 			</div>							
 		@endforeach
@@ -34,7 +34,7 @@
 	<hr>
 	<div class="row mb-4">
 		<div class="col-md-4">
-			<button class="btn btn-sm btn-secondary">Add new</button>
+			<a href="{{ route('cards.create') }}" class="btn btn-sm btn-secondary">Add new</a>
 		</div>
 	</div>
 @endsection
