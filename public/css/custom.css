@@ -1,0 +1,122 @@
+@font-face {
+    font-family: "Roboto";
+ src: url('fonts/Roboto-Regular.ttf');
+}
+
+.main-menu-icon {
+    width: 17px;
+    color: #444;
+    margin-top: -1px;
+}
+
+body {
+ background:#edf2f9;
+}
+
+a {
+ text-decoration: none;
+ color: #000;	
+}
+
+.border-custom {
+ border-color:#b0bec5 !important
+}
+
+.table-custom, .bg-custom {
+ background: #daedfc;
+}
+
+.bg-custom-menu {
+ background: #f6f8fa;
+}
+
+.table-link-item {
+ text-decoration: none !important;
+}
+
+.fs-7 {
+ font-size:11px;
+}
+
+.bg-blanchedalmond {
+ background-color: blanchedalmond;
+}
+
+.alert-custom {
+ background-color:  #fffae6;
+ border-left: 5px solid #ffdb4d;
+ border-radius: 0%;
+}
+
+.card-header {
+ background-color:#f6f8fa;
+}
+
+.card-header-title{
+ width: 100%;
+ margin-top:4px;
+ margin-bottom:4px;
+}
+
+.card-header-icon {
+ margin:4px;
+}
+
+.card-header {
+ display:flex;
+}
+
+.calendar {
+ background-color: #fff;
+ border: solid 1px #ddd;
+ border-radius: 5px;
+}
+
+.calendar .week {
+ display: inline-flex;
+ justify-content: space-evenly;
+ width: 100%;
+}
+
+.calendar .day {
+ border: solid 1px #ddd;
+ display: inline-flex;
+ width: 14.2%;
+ padding: 10px;
+ height: 100px;
+ justify-content: space-between;
+ flex-wrap: wrap;
+}
+
+.calendar .day .active {
+ background-color: blanchedalmond;
+}
+
+.calendar .name {
+ border: solid 1px #ddd;
+ display: inline-flex;
+ width: 14.2%;
+ padding: 5px;
+ justify-content: space-around;
+ background-color: blanchedalmond;
+}
+
+.calendar .date {
+ background-color: #dddddd;
+ border-radius: 4px;
+ text-align: center;
+ width: 50px;
+ height: 25px;
+}
+
+.row .categories {
+ padding: 10px 0px 5px 0px;
+ margin: 0px;
+}
+
+.row .categories:hover {
+ padding: 10px 0px 5px 0px;
+ background-color: #f5f5f5;
+ border-radius: 3px;
+ margin: 0px;
+}
