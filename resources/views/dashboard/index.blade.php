@@ -10,9 +10,7 @@
 
 @section('container')
 <nav class="navbar bg-body-tertiary">
-	<div class="container-fluid">
-		<h2>Dashboard</h2>
-	</div>
+	<h4 class="text-uppercase fw-bold">Dashboard</h4>
 </nav>
 
 <div class="row mb-4">

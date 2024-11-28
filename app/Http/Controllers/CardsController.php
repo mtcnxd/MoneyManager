@@ -12,7 +12,10 @@ class CardsController extends Controller
      */
     public function index()
     {
-        return view('dashboard.cards_index');
+        $results = array();
+        $results = CardsModel::get();
+
+        return view('dashboard.cards_index', compact('results'));
     }
 
     /**

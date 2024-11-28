@@ -10,7 +10,7 @@
 
 @section('container')		
 	<nav class="navbar bg-body-tertiary">
-		<h3>Crypto currencies</h3>
+        <h4 class="text-uppercase fw-bold">Crypto currencies</h4>
 	</nav>
 	
 	@if ( session('message') )

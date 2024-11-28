@@ -10,7 +10,7 @@
 
 @section('container')
     <nav class="navbar bg-body-tertiary">
-        <h3>Create new card</h3>
+        <h4 class="text-uppercase fw-bold">Create new card</h4>
     </nav>
 
     <div class="row mb-4">
@@ -27,6 +27,13 @@
             <div class="col-md-4 mt-2">
                 <label>Cut-off day</label>
                 <input type="text" name="cutoff_day" class="form-control">
+            </div>
+            <div class="col-md-4 mt-2">
+                <label>Network</label>
+                <select name="network" class="form-select">
+                    <option>VISA</option>
+                    <option>MASTER CARD</option>
+                </select>
             </div>
             <div class="col-md-4 mt-2">
                 <label>Color</label>

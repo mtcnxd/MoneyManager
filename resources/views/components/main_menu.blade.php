@@ -2,12 +2,12 @@
     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li>
             <a href="{{ route('investments.index') }}" class="nav-link px-3 link-dark hstack gap-1">
-            <x-feathericon-layers class="main-menu-icon"/>
+            <x-feathericon-layout class="main-menu-icon"/>
             Resume</a>
         </li>
         <li>
             <a href="{{ route('cards.index') }}" class="nav-link px-3 link-dark hstack gap-1">
-            <x-feathericon-book class="main-menu-icon"/>
+            <x-feathericon-credit-card class="main-menu-icon"/>
             Cards</a>
         </li>
         <li>
@@ -17,7 +17,7 @@
         </li>
         <li>
             <a href="{{ route('investments.index') }}" class="nav-link px-3 link-dark hstack gap-1">
-            <x-feathericon-dollar-sign class="main-menu-icon"/>
+            <x-feathericon-trending-up class="main-menu-icon"/>
             Investments</a>
         </li>
         <li>

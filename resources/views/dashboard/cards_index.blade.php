@@ -10,7 +10,7 @@
 
 @section('container')		
 	<nav class="navbar bg-body-tertiary">
-		<h3>Credit cards</h3>
+		<h4 class="text-uppercase fw-bold">credit cards</h4>
 	</nav>
 	
 	@if ( session('message') )
@@ -20,21 +20,44 @@
 	@endif
 	
 	<div class="row mb-4">
-		@foreach (['BBVA Azul'] as $result)
-			<div class="col">
-				@include('components.card', [
-					'card_title' 	 => "BBVA Azul", 
-					'card_content_1' => "",
-					'card_content_2' => "",
-					'card_content_3' => "",
-				])
+		@foreach ($results as $result)
+			<div class="col-md-4 mb-4">
+				<div class="card border-custom shadow-sm">
+					<div class="card-body">
+						<div class="align-items-center row">
+							<div class="col">
+								<div class="card-subtitle mb-2">
+									<div style="display: flex; justify-content: space-between;" class="mb-1">
+										<div>{{ $result->name }}</div>
+									</div>
+									<div style="display: flex; justify-content: space-between;" class="mb-1">
+										<div>Limit</div>
+										<div><span class="text-muted"><div>{{ $result->limit }}</div></span></div>
+									</div>
+									<div style="display: flex; justify-content: space-between;" class="mb-1">
+										<div>Usage</div>
+										<div><span class="text-muted">35%</span></div>
+									</div>
+									<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+										<div class="progress-bar" style="width: 30%"></div>
+									</div>
+									<div style="display: flex; justify-content: space-between;" class="mt-2">
+										<div></div>
+										<div><span class="text-muted">{{ $result->network }}</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>													
+				</div>
 			</div>							
 		@endforeach
 	</div>
 	<hr>
 	<div class="row mb-4">
 		<div class="col-md-4">
-			<a href="{{ route('cards.create') }}" class="btn btn-sm btn-secondary">Add new</a>
+			<a href="{{ route('cards.create') }}" class="btn btn-sm btn-secondary">Add card</a>
+			<a href="{{ route('cards.create') }}" class="btn btn-sm btn-secondary">Add spending</a>
 		</div>
 	</div>
 @endsection

@@ -15,6 +15,7 @@ class CardsModel extends Model
         'name',
         'color',
         'limit',
-        'cutoff_day'
+        'cutoff_day',
+        'network'
     ];
 }
