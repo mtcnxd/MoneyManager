@@ -57,7 +57,7 @@
 	<div class="row mb-4">
 		<div class="col-md-4">
 			<a href="{{ route('cards.create') }}" class="btn btn-sm btn-secondary">Add card</a>
-			<a href="{{ route('cards.create') }}" class="btn btn-sm btn-secondary">Add spending</a>
+			<a href="{{ route('spends.create') }}" class="btn btn-sm btn-secondary">Add spending</a>
 		</div>
 	</div>
 @endsection

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\CryptoController;
 use App\Http\Controllers\CardsController;
+use App\Http\Controllers\SpendsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,5 @@ Route::resource('/cards', CardsController::class);
 Route::resource('/investments', InvestmentController::class);
 
 Route::resource('/cryptocurrencies', CryptoController::class);
+
+Route::resource('/spends', SpendsController::class);
