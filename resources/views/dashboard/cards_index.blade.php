@@ -32,14 +32,14 @@
 									</div>
 									<div style="display: flex; justify-content: space-between;" class="mb-1">
 										<div>Limit</div>
-										<div><span class="text-muted"><div>{{ $result->limit }}</div></span></div>
+										<div><span class="text-muted"><div>{{ "$".number_format($result->limit,2) }}</div></span></div>
 									</div>
 									<div style="display: flex; justify-content: space-between;" class="mb-1">
 										<div>Usage</div>
-										<div><span class="text-muted">35%</span></div>
+										<div><span class="text-muted">{{ "$".number_format($current[$result->name], 2) }}</span></div>
 									</div>
 									<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-										<div class="progress-bar" style="width: 30%"></div>
+										<div class="progress-bar" style="width: {{ $usage[$result->name] }}%"></div>
 									</div>
 									<div style="display: flex; justify-content: space-between;" class="mt-2">
 										<div></div>

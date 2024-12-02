@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CardsModel;
+use App\Services;
+use DB;
 
 class CardsController extends Controller
 {
@@ -15,7 +17,16 @@ class CardsController extends Controller
         $results = array();
         $results = CardsModel::get();
 
-        return view('dashboard.cards_index', compact('results'));
+        foreach ($results as $key => $card) {
+            $currentUsage = DB::table('credit_cards_movs')
+                ->where('card_id', $card->id)
+                ->sum('amount');
+
+            $current[$card->name] = $currentUsage;
+            $usage[$card->name]   = number_format(($currentUsage/$card->limit) * 100, 2);
+        }
+
+        return view('dashboard.cards_index', compact('results','usage','current'));
     }
 
     /**
