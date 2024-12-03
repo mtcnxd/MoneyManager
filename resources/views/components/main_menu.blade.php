@@ -1,7 +1,7 @@
 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li>
-            <a href="{{ route('investments.index') }}" class="nav-link px-3 link-dark hstack gap-1">
+            <a href="{{ route('dashboard') }}" class="nav-link px-3 link-dark hstack gap-1">
             <x-feathericon-layout class="main-menu-icon"/>
             Resume</a>
         </li>

@@ -20,7 +20,7 @@
 	<body class="bg-light">
 		<div class="col-md-4 position-absolute top-50 start-50 translate-middle">
 			<div class="header rounded border bg-white shadow-sm">
-				<form action="index.php" method="post">
+				<form action="{{ route('dashboard') }}" method="post">
 					<div class="card-header pt-0">
 						<h3 class="p-3 pb-0">Iniciar sesión</h3>
 					</div>					

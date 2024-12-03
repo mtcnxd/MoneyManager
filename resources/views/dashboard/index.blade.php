@@ -14,20 +14,37 @@
 </nav>
 
 <div class="row mb-4">
-	<form action="{{ route('investments.store') }}" method="post">
-		@csrf
-		<div class="col-md-4">
-			<label>Instrument</label>
-			<select name="instrument_id" class="form-select">
-			</select>
+	<div class="col-md-4">
+		<div class="card">
+			<div class="card-header">
+				Ingresos
+			</div>
+			<div class="card-body">
+				body
+			</div>
 		</div>
-		<div class="col-md-4 mt-2">
-			<label>Amount</label>
-			<input type="text" name="amount" class="form-control">
+	</div>
+
+	<div class="col-md-4">
+		<div class="card">
+			<div class="card-header">
+				Egresos
+			</div>
+			<div class="card-body">
+				body
+			</div>
 		</div>
-		<div class="col-md-4 mt-2">
-			<input type="submit" value="Enviar" class="btn btn-primary">
+	</div>
+
+	<div class="col-md-4">
+		<div class="card">
+			<div class="card-header">
+				Inversiones
+			</div>
+			<div class="card-body">
+				body
+			</div>
 		</div>
-	</form>
+	</div>
 </div>
 @endsection

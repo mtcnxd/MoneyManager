@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('card_id');
             $table->string('concept');
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->double('amount');
             $table->timestamps();
         });

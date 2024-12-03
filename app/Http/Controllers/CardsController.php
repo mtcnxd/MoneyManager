@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CardsModel;
-use App\Services;
+use App\Services\Card;
 use Carbon\Carbon;
 use DB;
 
@@ -58,7 +58,9 @@ class CardsController extends Controller
             ->where('card_id', $id)
             ->get();
 
-        return view('dashboard.cards_show', compact('movs'));
+        $card = new Card($id);
+
+        return view('dashboard.cards_show', compact('movs', 'card'));
     }
 
     /**
