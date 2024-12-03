@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CardsModel;
 use App\Services;
+use Carbon\Carbon;
 use DB;
 
 class CardsController extends Controller
@@ -53,7 +54,11 @@ class CardsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $movs = DB::table('credit_cards_movs')
+            ->where('card_id', $id)
+            ->get();
+
+        return view('dashboard.cards_show', compact('movs'));
     }
 
     /**

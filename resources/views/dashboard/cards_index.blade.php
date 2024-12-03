@@ -27,7 +27,7 @@
 						<div class="align-items-center row">
 							<div class="col">
 								<div class="card-subtitle mb-2">
-									<div style="display: flex; justify-content: space-between;" class="mb-1">
+									<div style="display: flex; justify-content: space-between;" class="mb-1 fs-5">
 										<div>{{ $result->name }}</div>
 									</div>
 									<div style="display: flex; justify-content: space-between;" class="mb-1">
@@ -43,7 +43,7 @@
 									</div>
 									<div style="display: flex; justify-content: space-between;" class="mt-2">
 										<div></div>
-										<div><span class="text-muted">{{ $result->network }}</span></div>
+										<div><a href="{{ route('cards.show', $result->id) }}" class="btn btn-sm">Detalles</a></div>
 									</div>
 								</div>
 							</div>

@@ -1,6 +1,10 @@
 @font-face {
     font-family: "Roboto";
- src: url('fonts/Roboto-Regular.ttf');
+    src: url('fonts/Roboto-Regular.ttf');
+}
+
+.fs-7 {
+    font-size: 12px !important;
 }
 
 .main-menu-icon {
