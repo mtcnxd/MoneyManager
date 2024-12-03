@@ -68,6 +68,8 @@
                         <td><a href="#" id="{{ $mov->id }}" onClick="deleteSpending(this.id)"><x-feathericon-x-circle class="icon-in-table"/></a></td>
                     </tr>
                     @php
+                        $labels[] = $mov->concept;
+                        $values[] = $mov->amount;
                         $total += $mov->amount
                     @endphp
                 @endforeach
@@ -84,9 +86,48 @@
             </tfoot>
         </table>
 	</div>
+
+    <div class="row">
+        <div class="col-md-6 bg-white border p-4 rounded">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
 @endsection
 
+@section('javascript')
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
+<script>
+    const barChart = document.getElementById('myChart').getContext('2d');
+    const myBar = new Chart(barChart, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode($labels) !!},
+            datasets: [{
+                label: 'Spends',
+                data: {{ json_encode($values) }},
+                borderColor: [
+                    "#1c83c6","#8d2f87","#000000","#2e9f30","#563d7c","#01d781"
+                ],
+                backgroundColor: [
+                    "#1c83c644","#8d2f8744","#00000044","#2e9f3044","#563d7c44","#01d78144"
+                ],
+                borderWidth: 0.5
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position:'none'
+                }
+            }
+        }
+    });
+</script>
+
 <script>
     function deleteSpending(id){
         $.ajax({
@@ -106,3 +147,4 @@
         });
     }
 </script>
+@endsection

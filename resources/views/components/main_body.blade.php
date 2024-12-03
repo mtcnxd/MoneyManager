@@ -3,7 +3,7 @@
 		@yield('main_head')
 	</head>
 
-	<body>
+	<body class="mb-5">
 		<header class="p-3 mb-3 border-bottom border-custom bg-custom-menu shadow-sm">
 			<div class="container">
 				@yield('main_menu')
@@ -20,4 +20,5 @@
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</body>
+	@yield('javascript')
 </html>
