@@ -80,8 +80,15 @@ class CardsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $deleted = DB::table('credit_cards_movs')->where('id', $request->id)->delete();
+        
+        if ($deleted){
+            return response()->json([
+                'success' => true,
+                'message' => 'Los datos se eliminaron con exito',
+            ]);
+        }
     }
 }

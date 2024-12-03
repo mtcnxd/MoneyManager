@@ -23,7 +23,7 @@
     <div class="row mb-4">
         <form action="{{ route('spends.store') }}" method="post">
             @csrf
-            <div class="col-md-4 mt-2">
+            <div class="col-md-4">
                 <label>Credit card</label>
                 <select name="credit_card" class="form-select">
                     @foreach ($creditCards as $card)
@@ -31,15 +31,19 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mt-3">
                 <label>Concept</label>
                 <input type="text" name="concept" class="form-control">
             </div>
-            <div class="col-md-4 mt-2">
+            <div class="col-md-4 mt-3">
+                <label>Comment</label>
+                <input type="text" name="comment" class="form-control">
+            </div>
+            <div class="col-md-4 mt-3">
                 <label>Amount</label>
                 <input type="text" name="amount" class="form-control">
             </div>
-            <div class="col-md-4 mt-2">
+            <div class="col-md-4 mt-3">
                 <input type="submit" value="Enviar" class="btn btn-primary">
             </div>
         </form>

@@ -13,6 +13,12 @@
     margin-top: -1px;
 }
 
+.icon-in-table {
+    width: 17px;
+    color: #444;
+    margin-top: -5px;
+}
+
 body {
  background:#edf2f9;
 }

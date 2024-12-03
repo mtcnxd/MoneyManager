@@ -34,6 +34,7 @@ class SpendsController extends Controller
         DB::table('credit_cards_movs')->insert([
             "card_id"    => $request->credit_card,
             "concept"    => $request->concept,
+            "comment"    => $request->comment,
             "amount"     => $request->amount,
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now()
