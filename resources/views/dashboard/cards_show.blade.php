@@ -40,6 +40,11 @@
                 {{ $card->getPercentageUsed()."%" }}
             </div>
         </div>
+        <div class="col text-center">
+            <div class="rounded p-1" style="background-color: #efefef;">
+                <input type="button" onclick="processMonth()" value="Restart month" class="btn btn-sm">
+            </div>
+        </div>
     </div>
 	
 	<div class="row mt-5">
@@ -57,6 +62,8 @@
             <tbody>
                 @php
                     $total = 0;
+                    $labels = array();
+                    $values = array();
                 @endphp
                 @foreach ($movs as $mov)
                     <tr>
@@ -92,7 +99,6 @@
             <canvas id="myChart"></canvas>
         </div>
     </div>
-
 @endsection
 
 @section('javascript')
@@ -108,13 +114,9 @@
             datasets: [{
                 label: 'Spends',
                 data: {{ json_encode($values) }},
-                borderColor: [
-                    "#1c83c6","#8d2f87","#000000","#2e9f30","#563d7c","#01d781"
-                ],
-                backgroundColor: [
-                    "#1c83c644","#8d2f8744","#00000044","#2e9f3044","#563d7c44","#01d78144"
-                ],
-                borderWidth: 0.5
+                borderColor: ["#1c83c6","#8d2f87","#000000","#2e9f30","#563d7c","#01d781"],
+                backgroundColor: ["#1c83c666","#8d2f8766","#00000066","#2e9f3066","#563d7c66","#01d78166"],
+                borderWidth: 0.1
             }]
         },
         options: {
@@ -134,6 +136,23 @@
             url: '/api/deleteSpending',
             type:'post',
             data:{ id },
+            success:function(json){
+                Swal.fire({
+                    text: json.message,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                })
+                .then(() => {
+                    location.reload();
+                });
+            }
+        });
+    }
+
+    function processMonth(){
+        $.ajax({
+            url: '/api/processMonth',
+            type:'post',
             success:function(json){
                 Swal.fire({
                     text: json.message,

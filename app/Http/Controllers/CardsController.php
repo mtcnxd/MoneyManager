@@ -56,6 +56,7 @@ class CardsController extends Controller
     {
         $movs = DB::table('credit_cards_movs')
             ->where('card_id', $id)
+            ->where('active', true)
             ->get();
 
         $card = new Card($id);
@@ -74,9 +75,18 @@ class CardsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function process()
     {
-        //
+        $update = DB::table('credit_cards_movs')->where('active', true)->update([
+            'active' => false
+        ]);
+        
+        if ($update){
+            return response()->json([
+                'success' => true,
+                'message' => 'Data updated successfully',
+            ]);
+        }
     }
 
     /**
@@ -89,7 +99,7 @@ class CardsController extends Controller
         if ($deleted){
             return response()->json([
                 'success' => true,
-                'message' => 'Los datos se eliminaron con exito',
+                'message' => 'Data save successfully',
             ]);
         }
     }

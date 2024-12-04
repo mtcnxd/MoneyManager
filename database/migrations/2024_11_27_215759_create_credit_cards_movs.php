@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('concept');
             $table->text('comment')->nullable();
             $table->double('amount');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
