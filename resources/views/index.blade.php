@@ -20,7 +20,7 @@
 	<body class="bg-light">
 		<div class="col-md-4 position-absolute top-50 start-50 translate-middle">
 			<div class="header rounded border bg-white shadow-sm">
-				<form action="{{ route('dashboard') }}" method="post">
+				<form action="" method="post">
 					<div class="card-header pt-0">
 						<h3 class="p-3 pb-0">Iniciar sesión</h3>
 					</div>					
@@ -41,7 +41,7 @@
 						</div>
 							
 						<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-							<button class="btn btn-primary" type="submit">Aceptar</button>
+							<button class="btn btn-primary" type="button" onclick="login()">Aceptar</button>
 						  	<button class="btn btn-primary" type="reset">Cancel</button>
 						</div>
 					</div>
@@ -56,3 +56,9 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</body>
 </html>
+
+<script>
+	function login(){
+		location.replace('dashboard');
+	}
+</script>

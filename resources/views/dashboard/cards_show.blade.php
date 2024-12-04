@@ -42,7 +42,7 @@
         </div>
         <div class="col text-center">
             <div class="rounded p-1" style="background-color: #efefef;">
-                <input type="button" onclick="processMonth()" value="Restart month" class="btn btn-sm">
+                <input type="button" onclick="processMonth({{ $card->getCardInfo()->id }})" value="Restart month" class="btn btn-sm">
             </div>
         </div>
     </div>
@@ -72,11 +72,9 @@
                         <td>{{ $mov->concept}}</td>
                         <td>{{ $mov->comment}}</td>
                         <td class="text-end">{{ "$".number_format($mov->amount, 2) }}</td>
-                        <td><a href="#" id="{{ $mov->id }}" onClick="deleteSpending(this.id)"><x-feathericon-x-circle class="icon-in-table"/></a></td>
+                        <td><a href="#" id="{{ $mov->id }}" onClick="deleteSpending(this.id)"><x-feathericon-x-circle class="icon-vertical-align"/></a></td>
                     </tr>
                     @php
-                        $labels[] = $mov->concept;
-                        $values[] = $mov->amount;
                         $total += $mov->amount
                     @endphp
                 @endforeach
@@ -104,6 +102,13 @@
 @section('javascript')
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
+@foreach ($chart as $item)
+@php
+    $labels[] = $item->concept;
+    $values[] = $item->amount;
+@endphp
+@endforeach
 
 <script>
     const barChart = document.getElementById('myChart').getContext('2d');
@@ -149,10 +154,13 @@
         });
     }
 
-    function processMonth(){
+    function processMonth(card){
+        console.log(card);
+
         $.ajax({
             url: '/api/processMonth',
             type:'post',
+            data:{ card },
             success:function(json){
                 Swal.fire({
                     text: json.message,

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\InstrumentInterface;
 use App\Models\InstrumentModel;
 use Carbon\Carbon;
+use Exception;
 
 class Instrument
 {  
@@ -15,10 +16,9 @@ class Instrument
 
     public function __construct($name)
     {
-        $values = InstrumentModel::where('instrument_id',$name)->latest()->first();
+        $values = InstrumentModel::where('instrument_id', $name)->latest()->first();
 
         $this->investName       = $name;
-        $this->currentInvest    = $values->amount;
         $this->lastInvestDate   = $values->created_at;
         $this->lastInvestAmount = $values->amount;
     }
@@ -28,16 +28,24 @@ class Instrument
         return $this->investName;
     }
 
-    public function getCurrentInvest()
+    public function getLatestInvest()
     {
-        return $this->currentInvest;
+        $db = InstrumentModel::where('instrument_id', $this->investName)
+            ->orderBy('created_at','desc')
+            ->limit(2)
+            ->pluck('amount')
+            ->toArray();
+
+        if (count($db) < 2){
+            return 0;
+        }
+
+        return ($db[0] - $db[1]);
     }
 
     public function getTotalInvest()
-    {
-        $total = InstrumentModel::where('instrument_id', $this->investName)->sum('amount');
-        
-        return $total;
+    {        
+        return $this->lastInvestAmount;
     }
 
     public function getLastInvestDate()

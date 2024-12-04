@@ -54,14 +54,21 @@ class CardsController extends Controller
      */
     public function show(string $id)
     {
+        $card = new Card($id);
+
         $movs = DB::table('credit_cards_movs')
             ->where('card_id', $id)
             ->where('active', true)
             ->get();
+        
+        $chart = DB::table('credit_cards_movs')
+            ->select('concept', DB::raw('sum(amount) as amount'))
+            ->where('card_id', $id)
+            ->where('active', true)
+            ->groupBy('concept')
+            ->get();
 
-        $card = new Card($id);
-
-        return view('dashboard.cards_show', compact('movs', 'card'));
+        return view('dashboard.cards_show', compact('movs', 'card', 'chart'));
     }
 
     /**
@@ -75,11 +82,14 @@ class CardsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function process()
+    public function process(Request $request)
     {
-        $update = DB::table('credit_cards_movs')->where('active', true)->update([
-            'active' => false
-        ]);
+        $update = DB::table('credit_cards_movs')
+            ->where('active', true)
+            ->where('card_id', $request->card)
+            ->update([
+                'active' => false
+            ]);
         
         if ($update){
             return response()->json([

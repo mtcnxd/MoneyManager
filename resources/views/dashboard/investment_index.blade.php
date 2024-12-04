@@ -21,10 +21,10 @@
 	
 	<div class="row mb-4">
 		@foreach ($results as $result)
-			<div class="col">
+			<div class="col-md-4">
 				@include('components.card', [
 					'card_title' 	 => $result->getName(), 
-					'card_content_1' => "$".number_format( $result->getCurrentInvest(), 2),
+					'card_content_1' => "$".number_format( $result->getLatestInvest(), 2),
 					'card_content_2' => $result->getLastInvestDate(),
 					'card_content_3' => "$".number_format( $result->getTotalInvest(), 2),
 				])
@@ -34,7 +34,7 @@
 	<hr>
 	<div class="row mb-4">
 		<div class="col-md-4">
-			<button class="btn btn-sm btn-secondary">Add new</button>
+			<a href="{{ route('investments.create') }}" class="btn btn-sm btn-secondary">Add new</a>
 		</div>
 	</div>
 @endsection

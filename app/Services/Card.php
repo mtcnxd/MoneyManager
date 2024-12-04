@@ -14,7 +14,7 @@ class Card
 
     public function __construct($id)
     {
-        $this->info = CardsModel::where('id',$id)->first();
+        $this->info = CardsModel::where('id', $id)->first();
 
         $this->id = $id;
         $this->name = $this->info->name;
