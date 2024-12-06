@@ -43,7 +43,7 @@
 									</div>
 									<div style="display: flex; justify-content: space-between;" class="mt-2">
 										<div></div>
-										<div><a href="{{ route('cards.show', $result->id) }}" class="btn btn-sm">Detalles</a></div>
+										<div><a href="{{ route('cards.show', $result->id) }}" class="btn btn-sm">Details</a></div>
 									</div>
 								</div>
 							</div>

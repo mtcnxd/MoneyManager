@@ -27,6 +27,7 @@
 					'card_content_1' => "$".number_format( $result->getLatestInvest(), 2),
 					'card_content_2' => $result->getLastInvestDate(),
 					'card_content_3' => "$".number_format( $result->getTotalInvest(), 2),
+					'card_link'		 => route('dashboard')
 				])
 			</div>							
 		@endforeach
@@ -34,7 +35,7 @@
 	<hr>
 	<div class="row mb-4">
 		<div class="col-md-4">
-			<a href="{{ route('investments.create') }}" class="btn btn-sm btn-secondary">Add new</a>
+			<a href="{{ route('investments.create') }}" class="btn btn-sm btn-primary">Add new</a>
 		</div>
 	</div>
 @endsection

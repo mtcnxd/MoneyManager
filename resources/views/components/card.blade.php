@@ -18,6 +18,10 @@
                         <div>Total invest amount:</div>
                         <div><span class="text-muted">{{ $card_content_3 }}</span></div>
                     </div>
+                    <div style="display: flex; justify-content: space-between;" class="mt-4">
+                        <div></div>
+                        <div><a href="{{ $card_link }}">Details</a></div>
+                    </div>
                 </div>
             </div>
         </div>

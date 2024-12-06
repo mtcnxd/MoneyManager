@@ -14,37 +14,19 @@
 </nav>
 
 <div class="row mb-4">
-	<div class="col-md-4">
-		<div class="card">
-			<div class="card-header">
-				Ingresos
-			</div>
-			<div class="card-body">
-				body
-			</div>
-		</div>
-	</div>
+	@php
+		$cards = [
+			"title" => 'hola',
+			"body" => 'hola',
+			"hola" => 'mundo'
+		];
+	@endphp
 
-	<div class="col-md-4">
-		<div class="card">
-			<div class="card-header">
-				Egresos
-			</div>
-			<div class="card-body">
-				body
-			</div>
-		</div>
-	</div>
-
-	<div class="col-md-4">
-		<div class="card">
-			<div class="card-header">
-				Inversiones
-			</div>
-			<div class="card-body">
-				body
-			</div>
-		</div>
-	</div>
+	@foreach ($cards as $card)
+		@include('components.resume_card', [
+			'card_title' => 'title',
+			'card_body'  => 'body'
+		])
+	@endforeach
 </div>
 @endsection
