@@ -95,6 +95,38 @@
     </div>
 
     <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Parity</th scope="col">
+                    <th scope="col" class="text-end">Change 24</th>
+                    <th scope="col" class="text-end">Last price</th>
+                    <th scope="col" class="text-end">Highter price</th>
+                    <th scope="col" class="text-end">Lower price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($results as $result)
+                    @php
+                        $currency = explode("_", $result['book']);
+                    @endphp
+                    @if ($currency[1] == 'usdt')
+                        <tr>
+                            <td>{{ $result['book'] }}</td>
+                            <td class="text-end">
+                                <span class="badge text-bg-success">{{ $result['change_24'] }}</span>
+                            </td>
+                            <td class="text-end">{{ $result['last'] }}</td>
+                            <td class="text-end">{{ $result['high'] }}</td>
+                            <td class="text-end">{{ $result['low'] }}</td>
+                        </tr>
+                    @endif
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row mt-5">
         <h5>Shopping list
             <a href="#" style="padding-left: 3px;" data-bs-toggle="modal" data-bs-target="#addShopping">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle" style="margin-bottom: 2px;">
@@ -117,14 +149,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($results as $result)
-                    <tr>
-                        <td>{{ $result['book'] }}</td>
-                        <td>{{ $result['last'] }}</td>
-                        <td>{{ $result['high'] }}</td>
-                        <td>{{ $result['low'] }}</td>
-                    </tr>
-                @endforeach
+
             </tbody>
         </table>
     </div>

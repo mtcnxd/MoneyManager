@@ -7,6 +7,10 @@
     font-size: 12px !important;
 }
 
+.text-bg-success { 
+    background-color: RGBA(var(--bs-success-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
 .main-menu-icon {
     width: 17px;
     color: #444;
