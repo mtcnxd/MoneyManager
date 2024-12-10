@@ -21,7 +21,7 @@
 	
 	<div class="row mb-4">
 		@foreach ($results as $result)
-			<div class="col-md-4">
+			<div class="col-md-4 mb-4">
 				@include('components.card', [
 					'card_title' 	 => $result->getName(), 
 					'card_content_1' => "$".number_format( $result->getLatestInvest(), 2),

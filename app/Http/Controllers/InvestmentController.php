@@ -30,6 +30,7 @@ class InvestmentController extends Controller
         $instruments = [
             'Cetes',
             'Doopla',
+            'GBM',
             'Mercado Pago',
             'Yo te presto',
         ];

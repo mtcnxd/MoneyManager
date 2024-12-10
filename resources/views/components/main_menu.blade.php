@@ -26,7 +26,7 @@
             Crypto</a>
         </li>
         <li>
-            <a href="{{ route('investments.create') }}" class="nav-link px-3 link-dark hstack gap-1">
+            <a href="{{ route('reports') }}" class="nav-link px-3 link-dark hstack gap-1">
             <x-feathericon-file-text class="main-menu-icon"/>
             Reports</a>
         </li>

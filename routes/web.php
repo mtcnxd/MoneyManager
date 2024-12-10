@@ -25,6 +25,19 @@ Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->name('dashboard');
 
+Route::get('/reports', function () {
+    $subquery = DB::table('investments')
+        ->selectRaw('MAX(id) as id')
+        ->groupBy('instrument_id');
+
+    $totalInvestment = DB::table('investments')
+        ->whereIn('id', $subquery)
+        ->sum('amount');
+
+    return view('dashboard.reports_index', compact('totalInvestment'));
+
+})->name('reports');
+
 Route::resource('/cards', CardsController::class);
 
 Route::resource('/investments', InvestmentController::class);
