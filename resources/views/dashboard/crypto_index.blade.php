@@ -109,6 +109,7 @@
                 @foreach ($results as $result)
                     @php
                         $currency = explode("_", $result['book']);
+                        $favorites[$result['book']] = $result['last'];
                     @endphp
                     @if ($currency[1] == 'usdt')
                         <tr>
@@ -140,7 +141,7 @@
             <thead>
                 <tr>
                     <th scope="col">Parity</th scope="col">
-                    <th scope="col">Amount</th>
+                    <th scope="col" class="text-end">Amount</th>
                     <th scope="col" class="text-end">Purchase price</th>
                     <th scope="col" class="text-end">Purchase value</th>
                     <th scope="col" class="text-end">Current value</th>
@@ -150,13 +151,21 @@
             </thead>
             <tbody>
                 @foreach ($myCurrencies as $currency)
+                    @php
+                        $diff = ($currency->amount * $favorites[$currency->parity])-($currency->amount * $currency->price);
+                    @endphp
                     <tr>
                         <td>{{ $currency->parity }}</td>
                         <td class="text-end">{{ $currency->amount }}</td>
                         <td class="text-end">{{ $currency->price }}</td>
-                        <td class="text-end">{{ $currency->amount * $currency->price }}</td>
-                        <td class="text-end">{{ $currency->amount * $currency->price }}</td>
-                        <td class="text-end">{{ $currency->amount * $currency->price }}</td>
+                        <td class="text-end">{{ number_format($currency->amount * $currency->price, 3) }}</td>
+                        <td class="text-end">{{ number_format($currency->amount * $favorites[$currency->parity], 3) }}</td>
+                        <td class="text-end">{{ number_format($diff, 3) }}</td>
+                        <td>
+                            <a href="#" onclick="deleteRow({{ $currency->id }})">
+                                <x-feathericon-trash-2 class="icon-vertical-align"/>
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -196,6 +205,10 @@
 @endsection
 
 <script>
+    function deleteRow(id){
+        console.log(id)
+    }
+
     function insertData(){
         let parity = $("#parity");
         let amount = $("#amount");
