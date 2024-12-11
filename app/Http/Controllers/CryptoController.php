@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
+use DB;
 
 class CryptoController extends Controller
 {
@@ -16,9 +18,9 @@ class CryptoController extends Controller
         $json = $response->json();
         $results = $json['payload'];
 
-        # dd ($results);
+        $myCurrencies = DB::table('crypto_currencies')->get();
 
-        return view('dashboard.crypto_index', compact('results'));
+        return view('dashboard.crypto_index', compact('results','myCurrencies'));
     }
 
     /**
@@ -34,6 +36,13 @@ class CryptoController extends Controller
      */
     public function store(Request $request)
     {
+        DB::table('crypto_currencies')->insert([
+            "parity" => $request->parity,
+            "amount" => $request->amount,
+            "price"  => $request->price,
+            "created_at" => Carbon::now(),
+        ]);
+
         return response()->json([
             "success" => true,
             "message" => "Data save successfully"

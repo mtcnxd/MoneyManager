@@ -149,7 +149,16 @@
                 </tr>
             </thead>
             <tbody>
-
+                @foreach ($myCurrencies as $currency)
+                    <tr>
+                        <td>{{ $currency->parity }}</td>
+                        <td class="text-end">{{ $currency->amount }}</td>
+                        <td class="text-end">{{ $currency->price }}</td>
+                        <td class="text-end">{{ $currency->amount * $currency->price }}</td>
+                        <td class="text-end">{{ $currency->amount * $currency->price }}</td>
+                        <td class="text-end">{{ $currency->amount * $currency->price }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -195,7 +204,11 @@
         $.ajax({
             url: "/api/storeCryto",
             type:'POST',
-            data:{},
+            data:{
+                parity:parity.val(),
+                amount:amount.val(),
+                price:price.val()
+            },
             success:function(jsonResponse){
                 console.log(jsonResponse)
             }
