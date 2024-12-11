@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CardsController;
+use App\Http\Controllers\CryptoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,7 @@ Route::post('deleteSpending', [
 Route::post('processMonth', [
     CardsController::class, 'process'
 ])->name('processMonth');
+
+Route::post('storeCryto', [
+    CryptoController::class, 'store'
+])->name('storeCryto');

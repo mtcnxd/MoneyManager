@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('parity');
             $table->string('price');
             $table->string('amount');
+            $table->string('status');
             $table->timestamps();
         });
     }

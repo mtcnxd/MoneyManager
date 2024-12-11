@@ -34,7 +34,10 @@ class CryptoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json([
+            "success" => true,
+            "message" => "Data save successfully"
+        ]);
     }
 
     /**
