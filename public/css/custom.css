@@ -15,6 +15,27 @@
     background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
+.autocomplete {
+    border: solid 1px #ddd;
+    border-radius: 0 0 5px 5px;
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    cursor: default;
+    width: 20%;
+}
+
+.autocomplete-item {
+    list-style: none;
+    margin-left: -32px;
+    padding: 5px;
+    padding-left: 15px;
+}
+
+.autocomplete-item:hover {
+    background-color: #ddd;
+}
+
 .main-menu-icon {
     width: 17px;
     color: #444;

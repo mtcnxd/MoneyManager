@@ -33,7 +33,8 @@
             </div>
             <div class="col-md-4 mt-3">
                 <label>Concept</label>
-                <input type="text" name="concept" class="form-control">
+                <input type="text" name="concept" class="form-control" onkeyup="searchItem(this.value)" id="concept">
+                <ul id="autocomplete" class="autocomplete shadow"></ul>
             </div>
             <div class="col-md-4 mt-3">
                 <label>Comment</label>
@@ -49,3 +50,28 @@
         </form>
     </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    function searchItem(value){
+        if (value.length >= 3){
+            $.ajax({
+                url: '/api/searchItems',
+                type:'POST',
+                data:{value},
+                success:function(json){
+                    $("#autocomplete").show();
+                    $("#autocomplete").empty();
+                    json.suggestions.forEach(element => {
+                        $("#autocomplete").append("<li class='autocomplete-item' onClick='selectItem(this)'>" + element.concept +"</li>");
+                    });
+                }
+            });
+        }
+    }
+
+    function selectItem(item){
+        $("#concept").val($(item).text());
+        $("#autocomplete").hide();
+    };
+</script>

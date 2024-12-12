@@ -75,4 +75,20 @@ class SpendsController extends Controller
     {
         //
     }
+
+    /**
+     * Suggestions for select concept
+     */
+    public function searchItems(Request $request)
+    {
+        $items = DB::table('credit_cards_movs')
+            ->select('concept')
+            ->where('concept', 'like', '%'.$request->value.'%')
+            ->groupBy('concept')
+            ->get();
+
+        return response()->json([
+            "suggestions" => $items
+        ]);
+    }
 }

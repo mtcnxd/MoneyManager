@@ -115,9 +115,13 @@
                         <tr>
                             <td>{{ $result['book'] }}</td>
                             <td class="text-end">
-                                <span class="badge text-bg-success">{{ $result['change_24'] }}</span>
+                                @if ($result['change_24'] < 0)
+                                    <span class="badge text-bg-danger">{{ $result['change_24'] }}</span>
+                                @else
+                                    <span class="badge text-bg-success">{{ $result['change_24'] }}</span>
+                                @endif
                             </td>
-                            <td class="text-end">{{ $result['last'] }}</td>
+                            <td class="text-end">{{ number_format($result['last'],2) }}</td>
                             <td class="text-end">{{ $result['high'] }}</td>
                             <td class="text-end">{{ $result['low'] }}</td>
                         </tr>
@@ -146,21 +150,31 @@
                     <th scope="col" class="text-end">Purchase value</th>
                     <th scope="col" class="text-end">Current value</th>
                     <th scope="col" class="text-end">G/L</th>
+                    <th scope="col" class="text-end">G/L $</th>
                     <th scope="col" style="width: 30px;"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($myCurrencies as $currency)
                     @php
+                        $crypto_price = $favorites[$currency->parity];
+						$difference   = $crypto_price - $currency->price;
+						$percentage   = $difference/$crypto_price * 100;
+
                         $diff = ($currency->amount * $favorites[$currency->parity])-($currency->amount * $currency->price);
                     @endphp
                     <tr>
                         <td>{{ $currency->parity }}</td>
                         <td class="text-end">{{ $currency->amount }}</td>
-                        <td class="text-end">{{ $currency->price }}</td>
+                        <td class="text-end">{{ number_format($currency->price,3) }}</td>
                         <td class="text-end">{{ number_format($currency->amount * $currency->price, 3) }}</td>
                         <td class="text-end">{{ number_format($currency->amount * $favorites[$currency->parity], 3) }}</td>
-                        <td class="text-end">{{ number_format($diff, 3) }}</td>
+                        <td class="text-end">
+                            <span class="badge text-bg-success">{{ number_format($percentage, 2)."%" }}</span>
+                        </td>
+                        <td class="text-end">
+                            <span class="badge text-bg-success">{{ number_format($diff, 3) }}</span>
+                        </td>
                         <td>
                             <a href="#" onclick="deleteRow({{ $currency->id }})">
                                 <x-feathericon-trash-2 class="icon-vertical-align"/>

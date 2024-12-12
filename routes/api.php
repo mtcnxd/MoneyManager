@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CardsController;
 use App\Http\Controllers\CryptoController;
+use App\Http\Controllers\SpendsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,7 @@ Route::post('storeCryto', [
 Route::post('destroyCryto', [
     CryptoController::class, 'destroy'
 ])->name('destroyCryto');
+
+Route::post('searchItems', [
+    SpendsController::class, 'searchItems'
+])->name('searchItems');
