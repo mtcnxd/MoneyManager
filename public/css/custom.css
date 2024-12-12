@@ -11,6 +11,10 @@
     background-color: RGBA(var(--bs-success-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
+.text-bg-danger {
+    background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
+}
+
 .main-menu-icon {
     width: 17px;
     color: #444;

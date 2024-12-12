@@ -31,3 +31,7 @@ Route::post('processMonth', [
 Route::post('storeCryto', [
     CryptoController::class, 'store'
 ])->name('storeCryto');
+
+Route::post('destroyCryto', [
+    CryptoController::class, 'destroy'
+])->name('destroyCryto');

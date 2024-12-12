@@ -206,7 +206,15 @@
 
 <script>
     function deleteRow(id){
-        console.log(id)
+        $.ajax({
+            url: "/api/destroyCryto",
+            type:'POST',
+            data:{id},
+            success:function(jsonResponse){
+                console.log(jsonResponse);
+                location.reload();
+            }
+        });      
     }
 
     function insertData(){
@@ -223,7 +231,8 @@
                 price:price.val()
             },
             success:function(jsonResponse){
-                console.log(jsonResponse)
+                console.log(jsonResponse);
+                location.reload();
             }
         });
     }

@@ -76,8 +76,13 @@ class CryptoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        DB::table('crypto_currencies')->where('id', $request->id)->delete();
+
+        return response()->json([
+            "success" => true,
+            "message" => "Data delete successfully"
+        ]);
     }
 }
