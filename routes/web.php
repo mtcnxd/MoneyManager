@@ -5,6 +5,7 @@ use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\CryptoController;
 use App\Http\Controllers\CardsController;
 use App\Http\Controllers\SpendsController;
+use App\Http\Controllers\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,5 @@ Route::resource('/investments', InvestmentController::class);
 Route::resource('/cryptocurrencies', CryptoController::class);
 
 Route::resource('/spends', SpendsController::class);
+
+Route::resource('/categories', CategoriesController::class);

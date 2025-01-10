@@ -37,6 +37,17 @@
                 <ul id="autocomplete" class="autocomplete shadow"></ul>
             </div>
             <div class="col-md-4 mt-3">
+                <label>Category</label>
+                <select name="category" class="form-select">
+                    <option value="">Servicios</option>
+                    <option value="">Entretenimiento</option>
+                    <option value="">Gastos de casa</option>
+                    <option value="">Gustos y caprichos</option>
+                    <option value="">Imprevistos y otros</option>
+                    <option value="">Mantenimiento y casa</option>
+                </select>
+            </div>
+            <div class="col-md-4 mt-3">
                 <label>Comment</label>
                 <input type="text" name="comment" class="form-control">
             </div>
