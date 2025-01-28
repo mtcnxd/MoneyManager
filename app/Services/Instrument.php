@@ -9,7 +9,7 @@ use Exception;
 
 class Instrument
 {  
-    protected $investName;
+    public $investName;
     protected $currentInvest;
     protected $lastInvestDate;
     protected $lastInvestAmount;
@@ -18,7 +18,8 @@ class Instrument
     {
         $values = InstrumentModel::where('instrument_id', $name)->latest()->first();
 
-        $this->investName       = $name;
+        $this->id               = $values->id;
+        $this->investName       = $values->instrument_id;
         $this->lastInvestDate   = $values->created_at;
         $this->lastInvestAmount = $values->amount;
     }

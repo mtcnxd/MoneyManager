@@ -50,7 +50,7 @@
 					'card_content_1' => "$".number_format( $result->getLatestInvest(), 2),
 					'card_content_2' => $result->getLastInvestDate(),
 					'card_content_3' => "$".number_format( $result->getTotalInvest(), 2),
-					'card_link'		 => route('dashboard')
+					'card_link'		 => route('investments.show', $result->investName)
 				])
 			</div>							
 		@endforeach

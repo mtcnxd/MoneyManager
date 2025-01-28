@@ -17,7 +17,6 @@ class InvestmentController extends Controller
             ->get();
 
         $results = array();
-
         foreach($instruments as $instrument){
             $results[] = new Instrument($instrument->instrument_id);
         }
@@ -44,6 +43,17 @@ class InvestmentController extends Controller
         ];
 
         return view('dashboard.investment_create', compact('instruments'));
+    }
+
+    public function show(String $request)
+    {
+        $results = DB::table('investments')
+            ->where('instrument_id', $request)
+            ->orderBy('created_at','desc')
+            ->limit(10)
+            ->get();
+
+        return view('dashboard.investment_show', compact('results'));
     }
 
     public function store(Request $request)
