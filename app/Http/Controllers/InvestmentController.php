@@ -22,7 +22,15 @@ class InvestmentController extends Controller
             $results[] = new Instrument($instrument->instrument_id);
         }
 
-        return view('dashboard.investment_index', compact('results'));
+        $instruments = [
+            'Cetes',
+            'Doopla',
+            'GBM',
+            'Mercado Pago',
+            'Yo te presto',
+        ];
+
+        return view('dashboard.investment_index', compact('results','instruments'));
     }
 
     public function create()

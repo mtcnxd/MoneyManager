@@ -14,13 +14,14 @@
 	</nav>
 
 	@if ( session('message') )
-	<div class="alert alert-warning">
-		{{ session('message') }}
-	</div>
+		<div class="alert alert-warning">
+			{{ session('message') }}
+		</div>
 	@endif
 
-	<div class="row mb-4 card p-4">
-		<form action="{{ route('investments.store') }}" method="post">
+	<div class="row mb-4 card p-3">
+		<h6>Spends and incomes</h6>
+		<form action="{{ route('categories.store') }}" method="post" class="border p-3">
 			@csrf
 			<div class="col-md-4">
 				<label class="mb-2">Name</label>

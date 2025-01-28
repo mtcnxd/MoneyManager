@@ -13,7 +13,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('investments.create') }}" class="nav-link px-3 link-dark hstack gap-1">
+            <a href="#" class="nav-link px-3 link-dark hstack gap-1">
                 <x-feathericon-database class="main-menu-icon"/>
                 Savings
             </a>

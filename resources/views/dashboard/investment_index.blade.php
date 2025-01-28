@@ -18,6 +18,29 @@
 			{{ session('message') }}
 		</div>
 	@endif
+
+	<div class="row mb-4 p-3">
+		<form action="{{ route('investments.store') }}" method="post" class="border p-4 mb-0 bg-white rounded">
+			@csrf
+			<h6 class="fs-7 text-uppercase">Update instrument</h6>
+			<hr>
+			<div class="col-md-4">
+				<label class="mb-2">Instrument</label>
+				<select name="instrument_id" class="form-select">
+					@foreach ($instruments as $instrument)
+						<option>{{ $instrument }}</option>	
+					@endforeach
+				</select>
+			</div>
+			<div class="col-md-4 mt-3">
+				<label class="mb-2">Amount</label>
+				<input type="text" name="amount" class="form-control">
+			</div>
+			<div class="col-md-4 mt-2">
+				<input type="submit" class="btn btn-sm btn-primary" value="Done">
+			</div>
+		</form>
+	</div>
 	
 	<div class="row mb-4">
 		@foreach ($results as $result)
