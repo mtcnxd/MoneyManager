@@ -11,6 +11,10 @@
 @section('container')		
 	<nav class="navbar bg-body-tertiary">
 		<h5 class="text-uppercase fw-bold">Shopping list</h5>
+        <a href="{{ route('cards.index') }}" class="btn btn-secondary">
+			<x-feathericon-arrow-left class="main-menu-icon" style="color: #fff;"/>
+			Back
+		</a>
 	</nav>
 	
 	@if ( session('message') )

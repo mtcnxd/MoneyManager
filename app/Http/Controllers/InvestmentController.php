@@ -53,7 +53,11 @@ class InvestmentController extends Controller
             ->limit(10)
             ->get();
 
-        return view('dashboard.investment_show', compact('results'));
+        $first = $results->first();
+        $last  = $results->last();
+        $change = number_format( (($first->amount - $last->amount) / $first->amount) * 100, 2 );
+
+        return view('dashboard.investment_show', compact('results', 'first', 'last', 'change'));
     }
 
     public function store(Request $request)
