@@ -35,7 +35,13 @@ Route::get('/reports', function () {
         ->whereIn('id', $subquery)
         ->sum('amount');
 
-    return view('dashboard.reports_index', compact('totalInvestment'));
+    $totalSpends = DB::table('credit_cards_movs')
+        ->selectRaw('credit_cards.name, SUM(amount) as amount')
+        ->join('credit_cards','credit_cards_movs.card_id','credit_cards.id')
+        ->groupBy('card_id')
+        ->get();
+
+    return view('dashboard.reports_index', compact('totalInvestment','totalSpends'));
 
 })->name('reports');
 

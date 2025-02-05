@@ -10,7 +10,7 @@
 
 @section('container')
     <nav class="navbar bg-body-tertiary">
-        <h5 class="text-uppercase fw-bold">new move</h5>
+        <h5 class="text-uppercase fw-bold">Add account movement</h5>
     </nav>
 
     @if ( session('message') )
@@ -24,7 +24,7 @@
         <form action="{{ route('spends.store') }}" method="post">
             @csrf
             <div class="col-md-4">
-                <label>Credit card</label>
+                <label class="mb-1 fs-8 text-uppercase fw-bold">Credit card</label>
                 <select name="credit_card" class="form-select">
                     @foreach ($creditCards as $card)
                         <option value="{{ $card->id }}">{{ $card->name }}</option>
@@ -32,12 +32,12 @@
                 </select>
             </div>
             <div class="col-md-4 mt-3">
-                <label>Concept</label>
+                <label class="mb-1 fs-8 text-uppercase fw-bold">Concept</label>
                 <input type="text" name="concept" class="form-control" onkeyup="searchItem(this.value)" id="concept">
                 <ul id="autocomplete" class="autocomplete shadow"></ul>
             </div>
             <div class="col-md-4 mt-3">
-                <label>Category</label>
+                <label class="mb-1 fs-8 text-uppercase fw-bold">Category</label>
                 <select name="category" class="form-select">
                     <option value="">Abono a tarjeta</option>
                     <option value="">Pago a tarjeta</option>
@@ -52,15 +52,18 @@
                 </select>
             </div>
             <div class="col-md-4 mt-3">
-                <label>Comment</label>
+                <label class="mb-1 fs-8 text-uppercase fw-bold">Comment</label>
                 <input type="text" name="comment" class="form-control">
             </div>
             <div class="col-md-4 mt-3">
-                <label>Amount</label>
+                <label class="mb-1 fs-8 text-uppercase fw-bold">Amount</label>
                 <input type="text" name="amount" class="form-control">
             </div>
             <div class="col-md-4 mt-3">
-                <input type="submit" value="Enviar" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary">
+                    Save
+                    <x-feathericon-save class="icon-vertical-align" style="color: #fff;"/>
+                </button>
             </div>
         </form>
     </div>

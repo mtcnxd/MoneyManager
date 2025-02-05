@@ -1,51 +1,55 @@
 @font-face {
-    font-family: "Roboto";
-    src: url('fonts/Roboto-Regular.ttf');
+	font-family: "Roboto";
+	src: url('fonts/Roboto-Regular.ttf');
 }
 
 .fs-7 {
-    font-size: 12px !important;
+	font-size:12px;
+}
+
+.fs-8 {
+	font-size:12px;
 }
 
 .text-bg-success { 
-    background-color: RGBA(var(--bs-success-rgb), var(--bs-bg-opacity, 1)) !important;
+	background-color: RGBA(var(--bs-success-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-danger {
-    background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
+	background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1)) !important;
 }
 
 .autocomplete {
-    border: solid 1px #ddd;
-    border-radius: 0 0 5px 5px;
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    cursor: default;
-    width: 20%;
+	border: solid 1px #ddd;
+	border-radius: 0 0 5px 5px;
+	display: none;
+	position: absolute;
+	background-color: #fff;
+	cursor: default;
+	width: 20%;
 }
 
 .autocomplete-item {
-    list-style: none;
-    margin-left: -32px;
-    padding: 5px;
-    padding-left: 15px;
+	list-style: none;
+	margin-left: -32px;
+	padding: 5px;
+	padding-left: 15px;
 }
 
 .autocomplete-item:hover {
-    background-color: #ddd;
+	background-color: #ddd;
 }
 
 .main-menu-icon {
-    width: 17px;
-    color: #444;
-    margin-top: -1px;
+	width: 17px;
+	color: #444;
+	margin-top: -1px;
 }
 
 .icon-vertical-align {
-    width: 17px;
-    color: #444;
-    margin-top: -3px;
+	width: 17px;
+	color: #444;
+	margin-top: -3px;
 }
 
 body {
@@ -62,73 +66,69 @@ a {
 }
 
 .table-custom, .bg-custom {
- background: #daedfc;
+background: #daedfc;
 }
 
 .bg-custom-menu {
- background: #f6f8fa;
+	background: #f6f8fa;
 }
 
 .table-link-item {
- text-decoration: none !important;
-}
-
-.fs-7 {
- font-size:11px;
+	text-decoration: none !important;
 }
 
 .bg-blanchedalmond {
- background-color: blanchedalmond;
+	background-color: blanchedalmond;
 }
 
 .alert-custom {
- background-color:  #fffae6;
- border-left: 5px solid #ffdb4d;
- border-radius: 0%;
+	background-color:  #fffae6;
+	border-left: 5px solid #ffdb4d;
+	border-radius: 0%;
 }
 
 .card-header {
- background-color:#f6f8fa;
+	 background-color:#f6f8fa;
 }
 
 .card-header-title{
- width: 100%;
- margin-top:4px;
- margin-bottom:4px;
+	width: 100%;
+	margin-top:4px;
+	margin-bottom:4px;
 }
 
 .card-header-icon {
- margin:4px;
+	margin:4px;
 }
 
 .card-header {
- display:flex;
+	display:flex;
 }
 
 .calendar {
- background-color: #fff;
- border: solid 1px #ddd;
- border-radius: 5px;
+	background-color: #fff;
+	border: solid 1px #ddd;
+	border-radius: 5px;
 }
 
 .calendar .week {
- display: inline-flex;
- justify-content: space-evenly;
- width: 100%;
+	display: inline-flex;
+	justify-content: space-evenly;
+	width: 100%;
 }
 
 .calendar .day {
- border: solid 1px #ddd;
- display: inline-flex;
- width: 14.2%;
- padding: 10px;
- height: 100px;
- justify-content: space-between;
- flex-wrap: wrap;
+	border: solid 1px #ddd;
+	display: inline-flex;
+	width: 14.2%;
+	padding: 10px;
+	height: 100px;
+	justify-content: space-between;
+	flex-wrap: wrap;
 }
 
 .calendar .day .active {
- background-color: blanchedalmond;
+	background-color: blanchedalmond;
 }
 
 .calendar .name {
