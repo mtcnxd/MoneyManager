@@ -10,7 +10,7 @@
 
 @section('container')		
 	<nav class="navbar bg-body-tertiary">
-		<h4 class="text-uppercase fw-bold">Dashboard</h4>
+		<h5 class="text-uppercase fw-bold">Investment portfolio</h5>
 	</nav>
 	
 	@if ( session('message') )
@@ -21,7 +21,7 @@
 	@endif
 
 	<div class="row mb-4 p-3">
-		<form action="{{ route('investments.store') }}" method="post" class="border p-4 mb-0 bg-white rounded">
+		<form action="{{ route('investments.store') }}" method="post" class="border border-custom p-4 mb-0 bg-white rounded">
 			@csrf
 			<h6 class="fs-7 text-uppercase">Update instrument</h6>
 			<hr>

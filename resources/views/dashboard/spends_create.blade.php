@@ -10,7 +10,7 @@
 
 @section('container')
     <nav class="navbar bg-body-tertiary">
-        <h4 class="text-uppercase fw-bold">Create new spend</h4>
+        <h5 class="text-uppercase fw-bold">new move</h5>
     </nav>
 
     @if ( session('message') )
@@ -39,12 +39,16 @@
             <div class="col-md-4 mt-3">
                 <label>Category</label>
                 <select name="category" class="form-select">
-                    <option value="">Servicios</option>
-                    <option value="">Entretenimiento</option>
-                    <option value="">Gastos de casa</option>
-                    <option value="">Gustos y caprichos</option>
-                    <option value="">Imprevistos y otros</option>
-                    <option value="">Mantenimiento y casa</option>
+                    <option value="">Abono a tarjeta</option>
+                    <option value="">Pago a tarjeta</option>
+                    <optgroup label="Spends">
+                        <option value="">Servicios</option>
+                        <option value="">Entretenimiento</option>
+                        <option value="">Gastos de casa</option>
+                        <option value="">Gustos y caprichos</option>
+                        <option value="">Imprevistos y otros</option>
+                        <option value="">Mantenimiento y casa</option>
+                    </optgroup>
                 </select>
             </div>
             <div class="col-md-4 mt-3">

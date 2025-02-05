@@ -10,7 +10,7 @@
 
 @section('container')		
 	<nav class="navbar bg-body-tertiary">
-		<h4 class="text-uppercase fw-bold">credit cards</h4>
+		<h5 class="text-uppercase fw-bold">credit cards</h5>
 	</nav>
 	
 	@if ( session('message') )
@@ -43,7 +43,12 @@
 									</div>
 									<div style="display: flex; justify-content: space-between;" class="mt-2">
 										<div></div>
-										<div><a href="{{ route('cards.show', $result->id) }}" class="btn btn-sm">Details</a></div>
+										<div>
+											<a href="{{ route('cards.show', $result->id) }}" class="btn btn-sm btn-secondary">
+												Details
+												<x-feathericon-info class="icon-vertical-align" style="color: #fff;"/>
+											</a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -56,8 +61,8 @@
 	<hr>
 	<div class="row mb-4">
 		<div class="col-md-4">
-			<a href="{{ route('cards.create') }}" class="btn btn-sm btn-secondary">Add card</a>
-			<a href="{{ route('spends.create') }}" class="btn btn-sm btn-primary">Add spending</a>
+			<a href="{{ route('cards.create') }}" class="btn btn-sm btn-secondary">Create new card</a>
+			<a href="{{ route('spends.create') }}" class="btn btn-sm btn-primary">Account movement</a>
 		</div>
 	</div>
 @endsection

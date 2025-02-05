@@ -10,7 +10,7 @@
 
 @section('container')
 	<nav class="navbar bg-body-tertiary">
-		<h4 class="text-uppercase fw-bold">Categories</h4>
+		<h5 class="text-uppercase fw-bold">Categories</h5>
 	</nav>
 
 	@if ( session('message') )
