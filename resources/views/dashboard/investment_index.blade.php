@@ -10,7 +10,10 @@
 
 @section('container')		
 	<nav class="navbar bg-body-tertiary">
-		<h5 class="text-uppercase fw-bold">Investment portfolio</h5>
+		<h5 class="text-uppercase fw-bold">
+			<x-feathericon-trending-up class="icon-vertical-align" style="color: #000;"/>
+			Investment portfolio
+		</h5>
 	</nav>
 	
 	@if ( session('message') )
@@ -20,27 +23,30 @@
 		</div>
 	@endif
 
-	<div class="row mb-4 p-3">
-		<form action="{{ route('investments.store') }}" method="post" class="border border-custom p-4 mb-0 bg-white rounded">
-			@csrf
-			<h6 class="fs-7 text-uppercase">Update instrument</h6>
-			<hr>
-			<div class="col-md-4">
-				<label class="mb-2">Instrument</label>
-				<select name="instrument_id" class="form-select">
-					@foreach ($instruments as $instrument)
-						<option>{{ $instrument }}</option>	
-					@endforeach
-				</select>
-			</div>
-			<div class="col-md-4 mt-3">
-				<label class="mb-2">Amount</label>
-				<input type="text" name="amount" class="form-control">
-			</div>
-			<div class="col-md-4 mt-2">
-				<input type="submit" class="btn btn-sm btn-primary" value="Done">
-			</div>
-		</form>
+	<div class="row mb-3 p-3">
+		<div class="col border border-custom p-4 mb-0 bg-white rounded">
+			<form action="{{ route('investments.store') }}" method="post">
+				@csrf
+				<h6 class="border-bottom pb-2 fs-7 text-uppercase fw-bold">
+					Update instrument
+				</h6>
+				<div class="col-md-4">
+					<label class="mb-2">Instrument</label>
+					<select name="instrument_id" class="form-select">
+						@foreach ($instruments as $instrument)
+							<option>{{ $instrument }}</option>	
+						@endforeach
+					</select>
+				</div>
+				<div class="col-md-4 mt-3">
+					<label class="mb-2">Amount</label>
+					<input type="text" name="amount" class="form-control">
+				</div>
+				<div class="col-md-4 mt-2">
+					<input type="submit" class="btn btn-sm btn-primary" value="Done">
+				</div>
+			</form>
+		</div>
 	</div>
 	
 	<div class="row mb-4">

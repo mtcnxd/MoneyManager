@@ -10,16 +10,20 @@
 
 @section('container')		
 	<nav class="navbar bg-body-tertiary">
-		<h5 class="text-uppercase fw-bold">credit cards</h5>
+		<h5 class="text-uppercase fw-bold">
+			<x-feathericon-credit-card class="icon-vertical-align" style="color: #000;"/>
+			credit cards
+		</h5>
 	</nav>
 	
 	@if ( session('message') )
-		<div class="alert alert-warning">
+		<div class="alert alert-warning alert-dismissible fade show">
 			{{ session('message') }}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 	@endif
 	
-	<div class="row mb-4">
+	<div class="row mb-3">
 		@foreach ($results as $result)
 			<div class="col-md-4 mb-4">
 				<div class="card border-custom shadow-sm">
