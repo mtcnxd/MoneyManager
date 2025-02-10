@@ -30,12 +30,20 @@
                     <table class="table table-hover">
                         <thead>
                             <tr class="table-custom text-uppercase fs-7">
-                                <th>#</th>
                                 <th>Currency</th>
                                 <th class="text-end">Amount</th>
                                 <th class="text-end">Value</th>
                             </tr>
                         </thead>
+                        <tbody>
+                        @foreach ($balance as $currency)
+                            <tr>
+                                <td class="text-uppercase"><span class="badge badge-primary text-secondary">{{ $currency->currency }}</span></td>
+                                <td class="text-end">{{ $currency->available }}</td>
+                                <td class="text-end">{{ $currency->total }}</td>
+                            </tr>    
+                        @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -98,7 +106,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Parity</th scope="col">
+                    <th scope="col">Book</th>
                     <th scope="col" class="text-end">Change 24</th>
                     <th scope="col" class="text-end">Last price</th>
                     <th scope="col" class="text-end">Highter price</th>
@@ -106,26 +114,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($results as $result)
-                    @php
-                        $currency = explode("_", $result['book']);
-                        $favorites[$result['book']] = $result['last'];
-                    @endphp
-                    @if ($currency[1] == 'usdt')
-                        <tr>
-                            <td>{{ $result['book'] }}</td>
-                            <td class="text-end">
-                                @if ($result['change_24'] < 0)
-                                    <span class="badge text-bg-danger">{{ $result['change_24'] }}</span>
-                                @else
-                                    <span class="badge text-bg-success">{{ $result['change_24'] }}</span>
-                                @endif
-                            </td>
-                            <td class="text-end">{{ number_format($result['last'],2) }}</td>
-                            <td class="text-end">{{ $result['high'] }}</td>
-                            <td class="text-end">{{ $result['low'] }}</td>
-                        </tr>
-                    @endif
+                @foreach ($ticker as $result)
+                    <tr>
+                        <td>{{ $result->book }}</td>
+                        <td class="text-end">
+                            @if ($result->change_24 < 0)
+                                <span class="badge text-bg-danger">{{ $result->change_24 }}</span>
+                            @else
+                                <span class="badge text-bg-success">{{ $result->change_24 }}</span>
+                            @endif
+                        </td>
+                        <td class="text-end">{{ number_format($result->last, 2) }}</td>
+                        <td class="text-end">{{ $result->high }}</td>
+                        <td class="text-end">{{ $result->low }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -144,7 +146,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Parity</th scope="col">
+                    <th scope="col">Book</th scope="col">
                     <th scope="col" class="text-end">Amount</th>
                     <th scope="col" class="text-end">Purchase price</th>
                     <th scope="col" class="text-end">Purchase value</th>
@@ -157,18 +159,18 @@
             <tbody>
                 @foreach ($myCurrencies as $currency)
                     @php
-                        $crypto_price = $favorites[$currency->parity];
+                        $crypto_price = $favorites[$currency->book];
 						$difference   = $crypto_price - $currency->price;
 						$percentage   = $difference/$crypto_price * 100;
 
-                        $diff = ($currency->amount * $favorites[$currency->parity])-($currency->amount * $currency->price);
+                        $diff = ($currency->amount * $favorites[$currency->book])-($currency->amount * $currency->price);
                     @endphp
                     <tr>
-                        <td>{{ $currency->parity }}</td>
+                        <td>{{ $currency->book }}</td>
                         <td class="text-end">{{ $currency->amount }}</td>
                         <td class="text-end">{{ number_format($currency->price,3) }}</td>
                         <td class="text-end">{{ number_format($currency->amount * $currency->price, 3) }}</td>
-                        <td class="text-end">{{ number_format($currency->amount * $favorites[$currency->parity], 3) }}</td>
+                        <td class="text-end">{{ number_format($currency->amount * $favorites[$currency->book], 3) }}</td>
                         <td class="text-end">
                             <span class="badge text-bg-success">{{ number_format($percentage, 2)."%" }}</span>
                         </td>

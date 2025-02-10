@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\BitsoController as Bitso;
 use Carbon\Carbon;
 use DB;
 
@@ -14,13 +15,13 @@ class CryptoController extends Controller
      */
     public function index()
     {
-        $response = Http::get('https://api-stage.bitso.com/api/v3/ticker');
-        $json = $response->json();
-        $results = $json['payload'];
-
+        $bitso = new Bitso();
+        $ticker = $bitso->getTicker();
         $myCurrencies = DB::table('crypto_currencies')->get();
 
-        return view('dashboard.crypto_index', compact('results','myCurrencies'));
+        $balance = $bitso->getBalance();
+
+        return view('dashboard.crypto_index', compact('ticker','myCurrencies', 'balance'));
     }
 
     /**
