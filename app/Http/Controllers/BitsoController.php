@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 class BitsoController extends Controller
 {
 
-    protected function getBitsoRequest($url, $method = "GET", $json = null)
+
+    protected function getBitsoRequest($url, $json = null, $method = "GET")
 	{
 		$nonce = (integer)round(microtime(true) * 10000 * 100);
 		$message = $nonce.$method.$url.$json;
@@ -19,15 +20,11 @@ class BitsoController extends Controller
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, "https://api.bitso.com". $url);
 
-		if ($method == 'DELETE'){
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-		}
-
 		if ( !is_null($json) ){
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 		}
-
+		
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, "true");
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: '. $authHeader,'Content-Type: application/json'));
 		$response = curl_exec($ch);
@@ -38,21 +35,18 @@ class BitsoController extends Controller
 			throw new Exception("Error Processing Request: ". $json->error->message);
 		}
 
-		return $response;
+		return $json;
 	}
 
     public function getTicker()
 	{
-		$payload = $this->getBitsoRequest("/v3/ticker/");
-		$object  = json_decode($payload);
-		
+		$object = $this->getBitsoRequest("/v3/ticker/");
         return $object->payload;
 	}
 
     public function getBalance()
 	{
-        $payload = $this->getBitsoRequest("/v3/balance/");
-        $object  = json_decode($payload);
+        $object = $this->getBitsoRequest("/v3/balance/");
 
         $results = array();
         foreach ($object->payload->balances as $key => $value) {
@@ -66,17 +60,25 @@ class BitsoController extends Controller
     
     public function userTrades()
     {
-        $payload = $this->getBitsoRequest('/v3/user_trades/');
-        $object  = json_decode($payload);
-        
+        $object = $this->getBitsoRequest('/v3/user_trades/');
         return $object->payload;
     }
 
-    public function placeOrder()
+    public function placeOrder(Request $data)
     {
-        $response = $this->getBitsoRequest('/v3/orders');
-        dd ($response);
+		try {
+			$response = $this->getBitsoRequest('/v3/orders/', $data);
+
+		} catch(Exception $err){
+			return response()->json([
+				"success" => false,
+				"message" => $err->getMessage()
+			]);
+		}
         
-        return $response;
+        return response()->json([
+			"data"	   => $data->all(),
+			"response" => $response
+		]);
     }
 }

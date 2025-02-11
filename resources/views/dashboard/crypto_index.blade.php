@@ -223,11 +223,34 @@
 	<div class="row mb-4">
 		<div class="col-md-4">
 			<a href="{{ route('trades') }}" class="btn btn-sm btn-primary">Trades history</a>
+            <a href="#" class="btn btn-sm btn-secondary" id="placeOrder">Place order</a>
 		</div>
 	</div>
 @endsection
 
+
+@section('javascript')
 <script>
+    $("#placeOrder").on('click', function(btn){
+        btn.preventDefault();
+        
+        $.ajax({
+            url: "/api/placeOrder",
+            type: "POST",
+            data:{
+                book:"btc_usdt",
+                major:"btc",
+                minor:"usdt",
+                price:"1",
+                side:"sell"
+            },
+            success:function(results){
+                console.log(results);
+            }
+        });
+    });
+
+
     function deleteRow(id){
         $.ajax({
             url: "/api/destroyCryto",
@@ -261,3 +284,4 @@
     }
 
 </script>
+@endsection

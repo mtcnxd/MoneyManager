@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CardsController;
 use App\Http\Controllers\CryptoController;
 use App\Http\Controllers\SpendsController;
+use App\Http\Controllers\BitsoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,7 @@ Route::post('destroyCryto', [
 Route::post('searchItems', [
     SpendsController::class, 'searchItems'
 ])->name('searchItems');
+
+Route::post('placeOrder', [
+    BitsoController::class, 'placeOrder'
+])->name('placeOrder');
