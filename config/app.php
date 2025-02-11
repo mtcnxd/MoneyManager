@@ -31,6 +31,10 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'bitso_key' => env('BITSO_KEY', 'TMJEPCYmIv'),
+
+    'bitso_secret' => env('BITSO_SECRET', 'd181cda5b0f939ee1b42e7b45ebd93e5'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -70,7 +74,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    # 'timezone' => 'UTC',
+    'timezone' => 'America/Mexico_City',
 
     /*
     |--------------------------------------------------------------------------

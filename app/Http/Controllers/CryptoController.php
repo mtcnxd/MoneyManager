@@ -55,7 +55,7 @@ class CryptoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**

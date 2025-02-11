@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 class BitsoController extends Controller
 {
 
-
     protected function getBitsoRequest($url, $method = "GET", $json = null)
 	{
 		$nonce = (integer)round(microtime(true) * 10000 * 100);
@@ -36,7 +35,7 @@ class BitsoController extends Controller
 		$json = json_decode($response);
 
 		if(isset($json->error)){
-			var_dump($json->error->message);
+			throw new Exception("Error Processing Request: ". $json->error->message);
 		}
 
 		return $response;
@@ -45,31 +44,15 @@ class BitsoController extends Controller
     public function getTicker()
 	{
 		$payload = $this->getBitsoRequest("/v3/ticker/");
-
-		$json   = json_decode($payload);
-		$ticker = $json->payload;
-		$currencys = array();
-
-        return $ticker;
-
-		foreach ($ticker as $value) {
-			if( strpos($value->book, "_mxn") or strpos($value->book, "_usd") ){
-				$currencys[$value->book] = array(
-                    "last"      => $value->last,
-                    "high"      => $value->high,
-                    "low"       => $value->low,
-                    "change_24" => $value->change_24
-                );
-			}
-		}
-
-		return $currencys;
+		$object  = json_decode($payload);
+		
+        return $object->payload;
 	}
 
     public function getBalance()
 	{
         $payload = $this->getBitsoRequest("/v3/balance/");
-        $object = json_decode($payload);
+        $object  = json_decode($payload);
 
         $results = array();
         foreach ($object->payload->balances as $key => $value) {
@@ -80,4 +63,20 @@ class BitsoController extends Controller
 
         return $results;
 	}
+    
+    public function userTrades()
+    {
+        $payload = $this->getBitsoRequest('/v3/user_trades/');
+        $object  = json_decode($payload);
+        
+        return $object->payload;
+    }
+
+    public function placeOrder()
+    {
+        $response = $this->getBitsoRequest('/v3/orders');
+        dd ($response);
+        
+        return $response;
+    }
 }

@@ -7,6 +7,8 @@ use App\Http\Controllers\CardsController;
 use App\Http\Controllers\SpendsController;
 use App\Http\Controllers\CategoriesController;
 
+use App\Http\Controllers\BitsoController as Bitso;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +46,13 @@ Route::get('/reports', function () {
     return view('dashboard.reports_index', compact('totalInvestment','totalSpends'));
 
 })->name('reports');
+
+Route::get('/trades', function() {
+    $bitso = new Bitso();
+    $trades = $bitso->userTrades();
+
+    return view('dashboard.crypto_show', compact('trades'));
+})->name('trades');
 
 Route::resource('/cards', CardsController::class);
 

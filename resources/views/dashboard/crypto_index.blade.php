@@ -8,9 +8,9 @@
 	@include('components.main_menu')
 @endsection
 
-@section('container')		
+@section('container')
 	<nav class="navbar bg-body-tertiary">
-        <h4 class="text-uppercase fw-bold">Crypto currencies</h4>
+        <h5 class="text-uppercase fw-bold">Crypto currencies</h5>
 	</nav>
 	
 	@if ( session('message') )
@@ -102,7 +102,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="overflow-y: scroll; max-height: 550px;">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -218,6 +218,13 @@
             </div>
           </div>
     </div>
+
+    <hr>
+	<div class="row mb-4">
+		<div class="col-md-4">
+			<a href="{{ route('trades') }}" class="btn btn-sm btn-primary">Trades history</a>
+		</div>
+	</div>
 @endsection
 
 <script>
