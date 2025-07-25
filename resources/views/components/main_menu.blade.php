@@ -25,7 +25,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('cryptocurrencies.index') }}" class="nav-link px-3 link-dark hstack gap-1">
+            <a href="{{ route('crypto.index') }}" class="nav-link px-3 link-dark hstack gap-1">
                 <x-feathericon-bold class="main-menu-icon"/>
                 Crypto
             </a>

@@ -47,19 +47,19 @@ Route::get('/reports', function () {
 
 })->name('reports');
 
-Route::get('/trades', function() {
-    $bitso = new Bitso();
-    $trades = $bitso->userTrades();
 
-    return view('dashboard.crypto_show', compact('trades'));
-})->name('trades');
+Route::group(['prefix' => 'user'], function(){
+    
+    Route::get('/trades', [CryptoController::class, 'trades'], function() {})->name('user.trades');
+    
+    Route::resource('/crypto', CryptoController::class)->only('index','destroy');
 
-Route::resource('/cards', CardsController::class);
+    Route::resource('/cards', CardsController::class)->only('index');
+    
+    Route::resource('/investments', InvestmentController::class)->only('index');
+    
+    Route::resource('/spends', SpendsController::class)->only('index');
+    
+    Route::resource('/categories', CategoriesController::class)->only('index');
 
-Route::resource('/investments', InvestmentController::class);
-
-Route::resource('/cryptocurrencies', CryptoController::class);
-
-Route::resource('/spends', SpendsController::class);
-
-Route::resource('/categories', CategoriesController::class);
+});

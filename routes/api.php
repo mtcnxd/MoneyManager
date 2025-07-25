@@ -22,6 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['prefix' => 'crypto', 'controller' => CryptoController::class], function () {
+    Route::post('/store', 'store')->name('cryto.store');
+    Route::post('/destroy', 'destroy')->name('cryto.destroy');
+});
+
 Route::post('deleteSpending', [
     CardsController::class, 'destroy'
 ])->name('deleteSpending');
@@ -29,14 +34,6 @@ Route::post('deleteSpending', [
 Route::post('processMonth', [
     CardsController::class, 'process'
 ])->name('processMonth');
-
-Route::post('storeCryto', [
-    CryptoController::class, 'store'
-])->name('storeCryto');
-
-Route::post('destroyCryto', [
-    CryptoController::class, 'destroy'
-])->name('destroyCryto');
 
 Route::post('searchItems', [
     SpendsController::class, 'searchItems'

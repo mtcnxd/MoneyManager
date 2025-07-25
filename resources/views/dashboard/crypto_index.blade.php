@@ -37,11 +37,15 @@
                         </thead>
                         <tbody>
                         @foreach ($balance as $currency)
-                            <tr>
-                                <td class="text-uppercase"><span class="badge badge-primary text-secondary">{{ $currency->currency }}</span></td>
-                                <td class="text-end">{{ $currency->available }}</td>
-                                <td class="text-end">{{ $currency->total }}</td>
-                            </tr>    
+                            @if ($currency->total > 0.001)
+                                <tr>
+                                    <td class="text-uppercase">
+                                        <span class="badge badge-primary text-secondary">{{ $currency->currency }}</span>
+                                    </td>
+                                    <td class="text-end">{{ $currency->available }}</td>
+                                    <td class="text-end">{{ $currency->total }}</td>
+                                </tr>    
+                            @endif
                         @endforeach
                         </tbody>
                     </table>
@@ -158,29 +162,26 @@
             </thead>
             <tbody>
                 @foreach ($myCurrencies as $currency)
-                    @php
-                        $crypto_price = $favorites[$currency->book];
-						$difference   = $crypto_price - $currency->price;
-						$percentage   = $difference/$crypto_price * 100;
-
-                        $diff = ($currency->amount * $favorites[$currency->book])-($currency->amount * $currency->price);
-                    @endphp
                     <tr>
-                        <td>{{ $currency->book }}</td>
+                        <td>{{ $currency->parity }}</td>
                         <td class="text-end">{{ $currency->amount }}</td>
                         <td class="text-end">{{ number_format($currency->price,3) }}</td>
                         <td class="text-end">{{ number_format($currency->amount * $currency->price, 3) }}</td>
-                        <td class="text-end">{{ number_format($currency->amount * $favorites[$currency->book], 3) }}</td>
+                        <td class="text-end">{{ number_format($currency->amount * $currency->book, 3) }}</td>
                         <td class="text-end">
-                            <span class="badge text-bg-success">{{ number_format($percentage, 2)."%" }}</span>
+                            <span class="badge text-bg-success">{{ number_format(0.0, 2)."%" }}</span>
                         </td>
                         <td class="text-end">
-                            <span class="badge text-bg-success">{{ number_format($diff, 3) }}</span>
+                            <span class="badge text-bg-success">{{ number_format(0.0, 3) }}</span>
                         </td>
                         <td>
-                            <a href="#" onclick="deleteRow({{ $currency->id }})">
-                                <x-feathericon-trash-2 class="icon-vertical-align"/>
-                            </a>
+                            <form action="{{ route('crypto.destroy', $currency->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn" style="margin-top: 0; padding: 0;">
+                                    <x-feathericon-trash-2 class="icon-vertical-align"/>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -213,7 +214,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onClick="insertData()">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="insertData">Save changes</button>
                   </div>
             </div>
           </div>
@@ -222,7 +223,7 @@
     <hr>
 	<div class="row mb-4">
 		<div class="col-md-4">
-			<a href="{{ route('trades') }}" class="btn btn-sm btn-primary">Trades history</a>
+			<a href="{{ route('user.trades') }}" class="btn btn-sm btn-primary">Trades history</a>
             <a href="#" class="btn btn-sm btn-secondary" id="placeOrder">Place order</a>
 		</div>
 	</div>
@@ -239,10 +240,9 @@
             type: "POST",
             data:{
                 book:"btc_usdt",
-                major:"btc",
-                minor:"usdt",
+                side:"sell",
                 price:"1",
-                side:"sell"
+                type:"limit",
             },
             success:function(results){
                 console.log(results);
@@ -250,26 +250,15 @@
         });
     });
 
+    $("#insertData").on('click', function(Event){
+        Event.preventDefault();
 
-    function deleteRow(id){
-        $.ajax({
-            url: "/api/destroyCryto",
-            type:'POST',
-            data:{id},
-            success:function(jsonResponse){
-                console.log(jsonResponse);
-                location.reload();
-            }
-        });      
-    }
-
-    function insertData(){
         let parity = $("#parity");
         let amount = $("#amount");
         let price  = $("#price");
 
         $.ajax({
-            url: "/api/storeCryto",
+            url: "{{ route('cryto.store') }}",
             type:'POST',
             data:{
                 parity:parity.val(),
@@ -278,10 +267,8 @@
             },
             success:function(jsonResponse){
                 console.log(jsonResponse);
-                location.reload();
             }
         });
-    }
-
+    });
 </script>
 @endsection

@@ -6,7 +6,14 @@ use Illuminate\Http\Request;
 
 class BitsoController extends Controller
 {
+	protected $bitsoKey;
+	protected $bitsoSecret;
 
+	public function __construct()
+	{
+		$this->bitsoKey 	= config('services.bitso.key');
+		$this->bitsoSecret  = config('services.bitso.secret');
+	}
 
     protected function getBitsoRequest($url, $json = null, $method = "GET")
 	{
@@ -38,12 +45,6 @@ class BitsoController extends Controller
 		return $json;
 	}
 
-    public function getTicker()
-	{
-		$object = $this->getBitsoRequest("/v3/ticker/");
-        return $object->payload;
-	}
-
     public function getBalance()
 	{
         $object = $this->getBitsoRequest("/v3/balance/");
@@ -57,19 +58,35 @@ class BitsoController extends Controller
 
         return $results;
 	}
+
+    public function getTicker()
+	{
+		return $this->getBitsoRequest("/v3/ticker/")->payload;
+	}
     
     public function userTrades()
     {
-        $object = $this->getBitsoRequest('/v3/user_trades/');
-        return $object->payload;
+        return $this->getBitsoRequest('/v3/user_trades/')->payload;
     }
+
+	public function getCurrencyPrice(string $book)
+	{
+		foreach ($this->getTicker() as $tickerBook){
+			if ($tickerBook->book == $book){
+				return $tickerBook;
+			}
+		}
+
+		return null;
+	}
 
     public function placeOrder(Request $data)
     {
 		try {
 			$response = $this->getBitsoRequest('/v3/orders/', $data);
-
-		} catch(Exception $err){
+		}
+		
+		catch(Exception $err){
 			return response()->json([
 				"success" => false,
 				"message" => $err->getMessage()

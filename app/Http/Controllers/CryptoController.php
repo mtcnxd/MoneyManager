@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Crypto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\BitsoController as Bitso;
-use Carbon\Carbon;
-use DB;
+use Exception;
 
 class CryptoController extends Controller
 {
@@ -15,21 +16,22 @@ class CryptoController extends Controller
      */
     public function index()
     {
-        $bitso = new Bitso();
-        $ticker = $bitso->getTicker();
-        $myCurrencies = DB::table('crypto_currencies')->get();
+        try {
+            $bitso = new Bitso();
+            $ticker  = $bitso->getTicker();        
+            $balance = $bitso->getBalance();
 
-        $balance = $bitso->getBalance();
+            // $bitso->getCurrencyPrice('usdt_mxn');
+        }
+
+        catch (\Exception $e){
+            return view('dashboard.crypto_index')
+                ->with('error', 'Error fetching data from Bitso: '. $e->getMessage());
+        }
+
+        $myCurrencies = Crypto::get();
 
         return view('dashboard.crypto_index', compact('ticker','myCurrencies', 'balance'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -37,53 +39,44 @@ class CryptoController extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('crypto_currencies')->insert([
-            "parity" => $request->parity,
-            "amount" => $request->amount,
-            "price"  => $request->price,
-            "created_at" => Carbon::now(),
-        ]);
+        try {
+            Crypto::create([
+                'parity' => $request->parity,
+                'amount' => $request->amount,
+                'price'  => $request->price,
+                'status' => 'Pending',
+            ]);
+        }
+
+        catch (\Exception $e){
+            return response()->json([
+                "success" => false,
+                "message" => $e->getMessage()
+            ]);
+        }
 
         return response()->json([
             "success" => true,
-            "message" => "Data save successfully"
+            "message" => "Data saved successfully"
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function trades()
     {
-        
-    }
+        $bitso = new Bitso();
+        $trades = $bitso->userTrades();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        return view('dashboard.crypto_show', compact('trades'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(string $id)
     {
-        DB::table('crypto_currencies')->where('id', $request->id)->delete();
+        Crypto::destroy($id);
 
-        return response()->json([
-            "success" => true,
-            "message" => "Data delete successfully"
-        ]);
+        return to_route('crypto.index')
+            ->with('success', 'Crypto deleted successfully');
     }
 }
