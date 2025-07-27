@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('crypto_currencies', function (Blueprint $table) {
+        Schema::create('shopping_book', function (Blueprint $table) {
             $table->id();
-            $table->string('parity');
+            $table->string('book');
             $table->string('price');
             $table->string('amount');
-            $table->string('status');
+            $table->enum('status',['Pending','Deleted']);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cryptocurrency');
+        Schema::dropIfExists('shopping_book');
     }
 };

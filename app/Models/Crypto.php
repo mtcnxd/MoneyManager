@@ -9,10 +9,10 @@ class Crypto extends Model
 {
     use HasFactory;
 
-    protected $table = 'crypto_currencies';
+    protected $table = 'shopping_book';
 
     protected $fillable = [
-        'parity',
+        'book',
         'amount',
         'price',
         'status',

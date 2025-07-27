@@ -11,7 +11,7 @@
 @section('container')
     <nav class="navbar bg-body-tertiary">
         <h5 class="text-uppercase fw-bold">My Trades</h5>
-        <a href="{{ route('cryptocurrencies.index') }}" class="btn btn-secondary">
+        <a href="{{ route('crypto.index') }}" class="btn btn-secondary">
 			<x-feathericon-arrow-left class="main-menu-icon" style="color: #fff;"/>
 			Back
 		</a>

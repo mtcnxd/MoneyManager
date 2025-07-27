@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\Crypto;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\BitsoController as Bitso;
-use Exception;
 
 class CryptoController extends Controller
 {
@@ -17,11 +14,9 @@ class CryptoController extends Controller
     public function index()
     {
         try {
-            $bitso = new Bitso();
-            $ticker  = $bitso->getTicker();        
+            $bitso   = new Bitso();
+            $ticker  = $bitso->getTicker();
             $balance = $bitso->getBalance();
-
-            // $bitso->getCurrencyPrice('usdt_mxn');
         }
 
         catch (\Exception $e){
@@ -29,9 +24,9 @@ class CryptoController extends Controller
                 ->with('error', 'Error fetching data from Bitso: '. $e->getMessage());
         }
 
-        $myCurrencies = Crypto::get();
+        $myCurrencies = Crypto::where('status','Pending')->get();
 
-        return view('dashboard.crypto_index', compact('ticker','myCurrencies', 'balance'));
+        return view('dashboard.crypto_index', compact('ticker','balance','myCurrencies'));
     }
 
     /**
@@ -41,7 +36,7 @@ class CryptoController extends Controller
     {
         try {
             Crypto::create([
-                'parity' => $request->parity,
+                'book'   => $request->parity,
                 'amount' => $request->amount,
                 'price'  => $request->price,
                 'status' => 'Pending',
@@ -51,7 +46,7 @@ class CryptoController extends Controller
         catch (\Exception $e){
             return response()->json([
                 "success" => false,
-                "message" => $e->getMessage()
+                "message" => sprintf('Error saving data: %s', $e->getMessage())
             ]);
         }
 
@@ -74,7 +69,9 @@ class CryptoController extends Controller
      */
     public function destroy(string $id)
     {
-        Crypto::destroy($id);
+        Crypto::where('id', $id)->update([
+            'status' => 'Deleted'
+        ]);
 
         return to_route('crypto.index')
             ->with('success', 'Crypto deleted successfully');

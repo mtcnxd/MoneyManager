@@ -13,9 +13,9 @@
         <h5 class="text-uppercase fw-bold">Crypto currencies</h5>
 	</nav>
 	
-	@if ( session('message') )
+	@if ( session('success') )
 		<div class="alert alert-warning">
-			{{ session('message') }}
+			{{ session('success') }}
 		</div>
 	@endif
 	
@@ -36,6 +36,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @php
+                            $sumTotal = 0;
+                        @endphp                            
                         @foreach ($balance as $currency)
                             @if ($currency->total > 0.001)
                                 <tr>
@@ -43,7 +46,19 @@
                                         <span class="badge badge-primary text-secondary">{{ $currency->currency }}</span>
                                     </td>
                                     <td class="text-end">{{ $currency->available }}</td>
-                                    <td class="text-end">{{ $currency->total }}</td>
+                                    
+                                    @if ($currency->currency == 'mxn')
+                                        @php
+                                            $sumTotal = $sumTotal + $currency->total;
+                                        @endphp
+                                        <td class="text-end">{{ "$".number_format($currency->total, 2) }}</td>
+                                    @else
+                                        @php
+                                            $calculate = (new App\Http\Controllers\BitsoController)->getCurrencyPrice($currency->currency.'_mxn')->last * $currency->total;
+                                            $sumTotal = $sumTotal + $calculate;
+                                        @endphp
+                                        <td class="text-end">{{ "$".number_format($calculate, 2) }}</td>
+                                    @endif
                                 </tr>    
                             @endif
                         @endforeach
@@ -74,6 +89,7 @@
                                         Total Balance
                                     </h6>
                                     <h5 class="card-subtitle mb-2 fs-6">
+                                        {{ "$".number_format($sumTotal, 2) }}
                                     </h5>
                                 </div>
                                 <div class="col-auto">
@@ -163,11 +179,11 @@
             <tbody>
                 @foreach ($myCurrencies as $currency)
                     <tr>
-                        <td>{{ $currency->parity }}</td>
+                        <td>{{ $currency->book }}</td>
                         <td class="text-end">{{ $currency->amount }}</td>
                         <td class="text-end">{{ number_format($currency->price,3) }}</td>
                         <td class="text-end">{{ number_format($currency->amount * $currency->price, 3) }}</td>
-                        <td class="text-end">{{ number_format($currency->amount * $currency->book, 3) }}</td>
+                        <td class="text-end"></td>
                         <td class="text-end">
                             <span class="badge text-bg-success">{{ number_format(0.0, 2)."%" }}</span>
                         </td>
@@ -199,7 +215,7 @@
                   <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="mb-2">Paridad</label>
+                            <label class="mb-2">Book</label>
                             <input type="text" id="parity" class="form-control">
                         </div>
                         <div class="col-md-12 mt-3">
@@ -253,17 +269,17 @@
     $("#insertData").on('click', function(Event){
         Event.preventDefault();
 
-        let parity = $("#parity");
-        let amount = $("#amount");
-        let price  = $("#price");
+        var parity = $("#parity").val();
+        var amount = $("#amount").val();
+        var price  = $("#price").val();
 
         $.ajax({
             url: "{{ route('cryto.store') }}",
             type:'POST',
             data:{
-                parity:parity.val(),
-                amount:amount.val(),
-                price:price.val()
+                parity,
+                amount,
+                price
             },
             success:function(jsonResponse){
                 console.log(jsonResponse);
