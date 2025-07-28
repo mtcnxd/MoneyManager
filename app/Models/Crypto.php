@@ -9,6 +9,8 @@ class Crypto extends Model
 {
     use HasFactory;
 
+    public    $currentValue = 0.0;
+    protected $additionals = [];
     protected $table = 'shopping_book';
 
     protected $fillable = [
@@ -17,4 +19,27 @@ class Crypto extends Model
         'price',
         'status',
     ];
+
+    public function setAdditionals($additionals)
+    {
+        $this->additionals = $additionals;
+    }
+
+    public function getCurrentValue()
+    {
+        return $this->amount * $this->additionals->last;
+    }
+
+    public function getChange()
+    {
+        $lastValue    = $this->amount * $this->price;
+        $currentValue = $this->getCurrentValue();
+
+        return ($currentValue - $lastValue);
+    }
+
+    public function getPercentage()
+    {        
+        return ($this->getChange() / $this->getCurrentValue()) * 100;
+    }
 }

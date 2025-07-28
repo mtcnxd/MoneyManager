@@ -3,33 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\Instrument;
-use App\Models\InstrumentModel;
+use App\Models\Investment;
 use DB;
 
 class InvestmentController extends Controller
 {
     public function index()
     {
-        $instruments = DB::table('investments')
-            ->select('instrument_id')
-            ->groupBy('instrument_id')
-            ->get();
-
         $results = array();
-        foreach($instruments as $instrument){
-            $results[] = new Instrument($instrument->instrument_id);
-        }
-
+        $investments = array();
         $instruments = [
-            'Cetes',
             'Doopla',
             'GBM',
-            'Mercado Pago',
             'Yo te presto',
         ];
 
-        return view('dashboard.investment_index', compact('results','instruments'));
+        return view('admin.investments.investment_index', compact('investments', 'results','instruments'));
     }
 
     public function create()
@@ -42,7 +31,7 @@ class InvestmentController extends Controller
             'Yo te presto',
         ];
 
-        return view('dashboard.investment_create', compact('instruments'));
+        return view('admin.investments.investment_create', compact('instruments'));
     }
 
     public function show(String $request)
@@ -57,12 +46,12 @@ class InvestmentController extends Controller
         $last  = $results->last();
         $change = number_format( (($first->amount - $last->amount) / $first->amount) * 100, 2 );
 
-        return view('dashboard.investment_show', compact('results', 'first', 'last', 'change'));
+        return view('admin.investments.investment_show', compact('results', 'first', 'last', 'change'));
     }
 
     public function store(Request $request)
     {
-        InstrumentModel::create($request->all());
+        Investment::create($request->all());
 
         return to_route('investments.index')
             ->with('message', 'Data save successfully');

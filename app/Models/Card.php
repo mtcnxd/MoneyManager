@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CardsModel extends Model
+class Card extends Model
 {
     use HasFactory;
 
@@ -18,4 +18,14 @@ class CardsModel extends Model
         'cutoff_day',
         'network'
     ];
+
+    public function getUsage()
+    {
+        return $this->limit;
+    }
+
+    public function cardMovs()
+    {
+        return $this->hasMany(CardMovs::class, 'card_id');
+    }
 }

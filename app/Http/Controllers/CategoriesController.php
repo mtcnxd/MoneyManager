@@ -13,7 +13,7 @@ class CategoriesController extends Controller
     {
         $categories = array();
 
-        return view('dashboard.categories_index', compact('categories'));
+        return view('admin.categories_index', compact('categories'));
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Crypto;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BitsoController as Bitso;
 
@@ -13,20 +14,31 @@ class CryptoController extends Controller
      */
     public function index()
     {
+        $balances = array();
         try {
             $bitso   = new Bitso();
-            $ticker  = $bitso->getTicker();
-            $balance = $bitso->getBalance();
+            
+            /*
+            foreach ($bitso->getTicker() as $value) {
+                $currencies[] = new Currency($value);
+            }
+            */
+
+            $balances = $bitso->getBalance();
         }
 
         catch (\Exception $e){
-            return view('dashboard.crypto_index')
+            return view('admin.currencies.crypto_index')
                 ->with('error', 'Error fetching data from Bitso: '. $e->getMessage());
         }
 
-        $myCurrencies = Crypto::where('status','Pending')->get();
+        $currencies = Crypto::where('status','Pending')->get();
 
-        return view('dashboard.crypto_index', compact('ticker','balance','myCurrencies'));
+        foreach($currencies as $item){
+            $item->setAdditionals($bitso->getBookPrice($item->book));
+        }
+
+        return view('admin.currencies.crypto_index', compact('balances','currencies'));
     }
 
     /**
@@ -61,7 +73,7 @@ class CryptoController extends Controller
         $bitso = new Bitso();
         $trades = $bitso->userTrades();
 
-        return view('dashboard.crypto_show', compact('trades'));
+        return view('admin.currencies.crypto_show', compact('trades'));
     }
 
     /**

@@ -10,7 +10,7 @@
 
 @section('container')
 	<nav class="navbar bg-body-tertiary">
-        <h5 class="text-uppercase fw-bold">Crypto currencies</h5>
+        <h5 class="text-uppercase fw-bold">Bitso Wallet</h5>
 	</nav>
 	
 	@if ( session('success') )
@@ -39,22 +39,22 @@
                         @php
                             $sumTotal = 0;
                         @endphp                            
-                        @foreach ($balance as $currency)
-                            @if ($currency->total > 0.001)
+                        @foreach ($balances as $balance)
+                            @if ($balance->total > 0.001)
                                 <tr>
                                     <td class="text-uppercase">
-                                        <span class="badge badge-primary text-secondary">{{ $currency->currency }}</span>
+                                        <span class="badge badge-primary text-secondary">{{ $balance->currency }}</span>
                                     </td>
-                                    <td class="text-end">{{ $currency->available }}</td>
+                                    <td class="text-end">{{ $balance->available }}</td>
                                     
-                                    @if ($currency->currency == 'mxn')
+                                    @if ($balance->currency == 'mxn')
                                         @php
-                                            $sumTotal = $sumTotal + $currency->total;
+                                            $sumTotal = $sumTotal + $balance->total;
                                         @endphp
-                                        <td class="text-end">{{ "$".number_format($currency->total, 2) }}</td>
+                                        <td class="text-end">{{ "$".number_format($balance->total, 2) }}</td>
                                     @else
                                         @php
-                                            $calculate = (new App\Http\Controllers\BitsoController)->getCurrencyPrice($currency->currency.'_mxn')->last * $currency->total;
+                                            $calculate = (new App\Http\Controllers\BitsoController)->getBookPrice($balance->currency.'_mxn')->last * $balance->total;
                                             $sumTotal = $sumTotal + $calculate;
                                         @endphp
                                         <td class="text-end">{{ "$".number_format($calculate, 2) }}</td>
@@ -122,37 +122,6 @@
         </div>
     </div>
 
-    <div class="row" style="overflow-y: scroll; max-height: 550px;">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Book</th>
-                    <th scope="col" class="text-end">Change 24</th>
-                    <th scope="col" class="text-end">Last price</th>
-                    <th scope="col" class="text-end">Highter price</th>
-                    <th scope="col" class="text-end">Lower price</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($ticker as $result)
-                    <tr>
-                        <td>{{ $result->book }}</td>
-                        <td class="text-end">
-                            @if ($result->change_24 < 0)
-                                <span class="badge text-bg-danger">{{ $result->change_24 }}</span>
-                            @else
-                                <span class="badge text-bg-success">{{ $result->change_24 }}</span>
-                            @endif
-                        </td>
-                        <td class="text-end">{{ number_format($result->last, 2) }}</td>
-                        <td class="text-end">{{ $result->high }}</td>
-                        <td class="text-end">{{ $result->low }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
     <div class="row mt-5">
         <h5>Shopping list
             <a href="#" style="padding-left: 3px;" data-bs-toggle="modal" data-bs-target="#addShopping">
@@ -171,24 +140,24 @@
                     <th scope="col" class="text-end">Purchase price</th>
                     <th scope="col" class="text-end">Purchase value</th>
                     <th scope="col" class="text-end">Current value</th>
-                    <th scope="col" class="text-end">G/L</th>
                     <th scope="col" class="text-end">G/L $</th>
+                    <th scope="col" class="text-end">G/L %</th>
                     <th scope="col" style="width: 30px;"></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($myCurrencies as $currency)
+                @foreach ($currencies as $currency)
                     <tr>
                         <td>{{ $currency->book }}</td>
-                        <td class="text-end">{{ $currency->amount }}</td>
-                        <td class="text-end">{{ number_format($currency->price,3) }}</td>
+                        <td class="text-end">{{ number_format($currency->amount, 3) }}</td>
+                        <td class="text-end">{{ number_format($currency->price, 3) }}</td>
                         <td class="text-end">{{ number_format($currency->amount * $currency->price, 3) }}</td>
-                        <td class="text-end"></td>
+                        <td class="text-end">{{ number_format($currency->getCurrentValue(), 3) }}</td>
+                        <td class="text-end">{{ number_format($currency->getChange(), 2) }}</td>
                         <td class="text-end">
-                            <span class="badge text-bg-success">{{ number_format(0.0, 2)."%" }}</span>
-                        </td>
-                        <td class="text-end">
-                            <span class="badge text-bg-success">{{ number_format(0.0, 3) }}</span>
+                            <span class="badge text-bg-{{ ($currency->getPercentage() < 0) ? 'danger' : 'success' }}">
+                                {{ number_format($currency->getPercentage() , 2)."%" }}
+                            </span>
                         </td>
                         <td>
                             <form action="{{ route('crypto.destroy', $currency->id) }}" method="post">
@@ -236,7 +205,6 @@
           </div>
     </div>
 
-    <hr>
 	<div class="row mb-4">
 		<div class="col-md-4">
 			<a href="{{ route('user.trades') }}" class="btn btn-sm btn-primary">Trades history</a>

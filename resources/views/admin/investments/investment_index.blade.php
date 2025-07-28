@@ -11,8 +11,7 @@
 @section('container')		
 	<nav class="navbar bg-body-tertiary">
 		<h5 class="text-uppercase fw-bold">
-			<x-feathericon-trending-up class="icon-vertical-align" style="color: #000;"/>
-			Investment portfolio
+			Portfolio
 		</h5>
 	</nav>
 	
@@ -28,7 +27,7 @@
 			<form action="{{ route('investments.store') }}" method="post">
 				@csrf
 				<h6 class="border-bottom pb-2 fs-7 text-uppercase fw-bold">
-					Update instrument
+					Update invest
 				</h6>
 				<div class="col-md-4">
 					<label class="mb-2">Instrument</label>
@@ -65,7 +64,7 @@
 	<hr>
 	<div class="row mb-4">
 		<div class="col-md-4">
-			<a href="{{ route('investments.create') }}" class="btn btn-sm btn-primary">Add new</a>
+			<a href="{{ route('investments.index') }}" class="btn btn-sm btn-primary">Add new</a>
 		</div>
 	</div>
 @endsection

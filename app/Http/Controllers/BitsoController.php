@@ -69,7 +69,7 @@ class BitsoController extends Controller
         return $this->getBitsoRequest('/v3/user_trades/')->payload;
     }
 
-	public function getCurrencyPrice(string $book)
+	public function getBookPrice(string $book)
 	{
 		foreach ($this->getTicker() as $tickerBook){
 			if ($tickerBook->book == $book){

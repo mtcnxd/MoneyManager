@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\CardsModel;
-use App\Services\Card;
+use App\Models\Card;
 use Carbon\Carbon;
-use DB;
 
 class CardsController extends Controller
 {
@@ -15,19 +13,9 @@ class CardsController extends Controller
      */
     public function index()
     {
-        $results = array();
-        $results = CardsModel::get();
+        $cards = Card::get();
 
-        foreach ($results as $key => $card) {
-            $currentUsage = DB::table('credit_cards_movs')
-                ->where('card_id', $card->id)
-                ->sum('amount');
-
-            $current[$card->name] = $currentUsage;
-            $usage[$card->name]   = number_format(($currentUsage/$card->limit) * 100, 2);
-        }
-
-        return view('dashboard.cards_index', compact('results','usage','current'));
+        return view('admin.creditcards.cards_index', compact('cards'));
     }
 
     /**
@@ -35,7 +23,7 @@ class CardsController extends Controller
      */
     public function create()
     {
-        return view('dashboard.cards_create');
+        return view('admin.creditcards.cards_create');
     }
 
     /**
@@ -68,7 +56,7 @@ class CardsController extends Controller
             ->groupBy('concept')
             ->get();
 
-        return view('dashboard.cards_show', compact('movs', 'card', 'chart'));
+        return view('admin.creditcards.cards_show', compact('movs', 'card', 'chart'));
     }
 
     /**
