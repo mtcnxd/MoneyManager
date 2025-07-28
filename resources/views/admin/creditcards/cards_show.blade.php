@@ -29,24 +29,24 @@
         <div class="col text-center">
             <div class="rounded p-2" style="background-color: #efefef;">
                 <x-feathericon-credit-card class="icon-vertical-align"/>
-                {{ $card->getCardInfo()->name }}
+                {{ $card->name }}
             </div>
         </div>
         <div class="col text-center">
             <div class="rounded p-2" style="background-color: #efefef;">
                 <x-feathericon-dollar-sign class="icon-vertical-align"/>
-                {{ number_format($card->getCardInfo()->limit, 2) }}
+                {{ number_format($card->limit, 2) }}
             </div>
         </div>
         <div class="col text-center">
             <div class="rounded p-2" style="background-color: #efefef;">
                 <x-feathericon-pie-chart class="icon-vertical-align"/>
-                {{ $card->getPercentageUsed()."%" }}
+                {{ 0 }}
             </div>
         </div>
         <div class="col text-center">
             <div class="rounded p-1" style="background-color: #efefef;">
-                <input type="button" onclick="processMonth({{ $card->getCardInfo()->id }})" value="Restart month" class="btn btn-sm">
+                <input type="button" onclick="processMonth({{ $card->id }})" value="Restart month" class="btn btn-sm">
             </div>
         </div>
     </div>
@@ -64,32 +64,20 @@
                 </tr>
             </thead>
             <tbody>
-                @php
-                    $total = 0;
-                    $labels = array();
-                    $values = array();
-                @endphp
-                @foreach ($movs as $mov)
+                @foreach ($card->movs as $index => $item)
                     <tr>
-                        <td>{{ $mov->id }}</td>
-                        <td>{{ \Carbon\Carbon::parse($mov->created_at)->format('d-m-Y') }}</td>
-                        <td>{{ $mov->concept}}</td>
-                        <td>{{ $mov->comment}}</td>
-                        <td class="text-end">{{ "$".number_format($mov->amount, 2) }}</td>
-                        <td><a href="#" id="{{ $mov->id }}" onClick="deleteSpending(this.id)"><x-feathericon-x-circle class="icon-vertical-align"/></a></td>
+                        <td>{{ $item->index }}</td>
+                        <td>{{ $item->created_at->format('d M Y') }}</td>
+                        <td>{{ $item->concept }}</td>
+                        <td>{{ $item->comment }}</td>
+                        <td>{{ $item->amount }}</td>
                     </tr>
-                    @php
-                        $total += $mov->amount
-                    @endphp
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-end">{{ "$".number_format($total, 2) }}</td>
+                    <td colspan="4"></td>
+                    <td class="text-end">{{ "$".number_format(0, 2) }}</td>
                     <td></td>
                 </tr>
             </tfoot>
@@ -106,38 +94,6 @@
 @section('javascript')
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-
-@foreach ($chart as $item)
-@php
-    $labels[] = $item->concept;
-    $values[] = $item->amount;
-@endphp
-@endforeach
-
-<script>
-    const barChart = document.getElementById('myChart').getContext('2d');
-    const myBar = new Chart(barChart, {
-        type: 'bar',
-        data: {
-            labels: {!! json_encode($labels) !!},
-            datasets: [{
-                label: 'Spends',
-                data: {{ json_encode($values) }},
-                borderColor: ["#1c83c6","#8d2f87","#000000","#2e9f30","#563d7c","#01d781"],
-                backgroundColor: ["#1c83c666","#8d2f8766","#00000066","#2e9f3066","#563d7c66","#01d78166"],
-                borderWidth: 0.1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position:'none'
-                }
-            }
-        }
-    });
-</script>
 
 <script>
     function deleteSpending(id){

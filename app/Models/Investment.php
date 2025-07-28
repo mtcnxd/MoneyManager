@@ -14,5 +14,14 @@ class Investment extends Model
     protected $fillable = [
         'instrument_id',
         'amount',
-    ];  
+    ];
+
+    protected $hidden = [
+        'updated_at',
+    ];
+
+    public function instrument()
+    {
+        return $this->belongsTo(Instrument::class, 'instrument_id');
+    }
 }

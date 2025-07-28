@@ -22,47 +22,50 @@
 		</div>
 	@endif
 
-	<div class="row mb-3 p-3">
-		<div class="col border border-custom p-4 mb-0 bg-white rounded">
-			<form action="{{ route('investments.store') }}" method="post">
-				@csrf
-				<h6 class="border-bottom pb-2 fs-7 text-uppercase fw-bold">
+	<div class="row mb-3">
+		<div class="col-md-12">
+			<div class="border border-custom p-0 bg-white rounded shadow">
+				<h6 class="border-bottom p-3 fs-7 text-uppercase fw-bold bg-color-title-bar">
 					Update invest
 				</h6>
-				<div class="col-md-4">
-					<label class="mb-2">Instrument</label>
-					<select name="instrument_id" class="form-select">
-						@foreach ($instruments as $instrument)
-							<option>{{ $instrument }}</option>	
-						@endforeach
-					</select>
+				<div class="p-3">
+					<form action="{{ route('investments.store') }}" method="post">
+						@csrf
+						<div class="col-md-4">
+							<label class="mb-2">Instrument</label>
+							<select name="instrument_id" class="form-select">
+								@foreach ($instruments as $instrument)
+									<option>{{ $instrument->name }}</option>
+								@endforeach
+							</select>
+						</div>
+						<div class="col-md-4 mt-3">
+							<label class="mb-2">Amount</label>
+							<input type="text" name="amount" class="form-control">
+						</div>
+						<div class="col-md-4 mt-2">
+							<input type="submit" class="btn btn-sm btn-primary" value="Done">
+						</div>
+					</form>
 				</div>
-				<div class="col-md-4 mt-3">
-					<label class="mb-2">Amount</label>
-					<input type="text" name="amount" class="form-control">
-				</div>
-				<div class="col-md-4 mt-2">
-					<input type="submit" class="btn btn-sm btn-primary" value="Done">
-				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 	
-	<div class="row mb-4">
-		@foreach ($results as $result)
+	<div class="row mb-3">
+		@foreach ($investments as $investment)
 			<div class="col-md-4 mb-4">
-				@include('components.card', [
-					'card_title' 	 => $result->getName(), 
-					'card_content_1' => "$".number_format( $result->getLatestInvest(), 2),
-					'card_content_2' => $result->getLastInvestDate(),
-					'card_content_3' => "$".number_format( $result->getTotalInvest(), 2),
-					'card_link'		 => route('investments.show', $result->investName)
-				])
+				<x-card>
+					<x-slot:card_title>{{ $investment->instrument->name }}</x-slot:card_title>
+					<x-slot:card_content_2>{{ $investment->created_at->format('d M Y') }}</x-slot:card_content_2>
+					<x-slot:card_content_3>{{ $investment->amount }}</x-slot:card_content_3>
+					<x-slot:card_link>{{ $investment->id }}</x-slot:card_link>
+				</x-card>
 			</div>							
 		@endforeach
 	</div>
-	<hr>
-	<div class="row mb-4">
+
+	<div class="row mb-3">
 		<div class="col-md-4">
 			<a href="{{ route('investments.index') }}" class="btn btn-sm btn-primary">Add new</a>
 		</div>

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Card;
 use Carbon\Carbon;
+use App\Models\Card;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CardsController extends Controller
 {
@@ -40,14 +41,9 @@ class CardsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        $card = new Card($id);
-
-        $movs = DB::table('credit_cards_movs')
-            ->where('card_id', $id)
-            ->where('active', true)
-            ->get();
+        $card = Card::find($id);
         
         $chart = DB::table('credit_cards_movs')
             ->select('concept', DB::raw('sum(amount) as amount'))
@@ -56,7 +52,7 @@ class CardsController extends Controller
             ->groupBy('concept')
             ->get();
 
-        return view('admin.creditcards.cards_show', compact('movs', 'card', 'chart'));
+        return view('admin.creditcards.cards_show', compact('card', 'chart'));
     }
 
     /**

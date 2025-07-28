@@ -24,7 +24,7 @@ class Card extends Model
         return $this->limit;
     }
 
-    public function cardMovs()
+    public function movs()
     {
         return $this->hasMany(CardMovs::class, 'card_id');
     }

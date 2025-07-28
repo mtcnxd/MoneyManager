@@ -30,7 +30,7 @@ Route::group(['prefix' => 'user'], function(){
 
     Route::resource('/cards', CardsController::class);
     
-    Route::resource('/investments', InvestmentController::class)->only('index','store');
+    Route::resource('/investments', InvestmentController::class)->only('index','store','show');
     
     Route::resource('/spends', SpendsController::class);
     

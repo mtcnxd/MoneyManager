@@ -2,36 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Investment;
 use DB;
+use App\Models\Instrument;
+use App\Models\Investment;
+use Illuminate\Http\Request;
 
 class InvestmentController extends Controller
 {
     public function index()
     {
-        $results = array();
-        $investments = array();
-        $instruments = [
-            'Doopla',
-            'GBM',
-            'Yo te presto',
-        ];
+        $investments = Investment::all();
+        $instruments = Instrument::all();
 
-        return view('admin.investments.investment_index', compact('investments', 'results','instruments'));
+        return view('admin.investments.investment_index', compact('investments', 'instruments'));
     }
 
     public function create()
     {
-        $instruments = [
-            'Cetes',
-            'Doopla',
-            'GBM',
-            'Mercado Pago',
-            'Yo te presto',
-        ];
-
-        return view('admin.investments.investment_create', compact('instruments'));
+        return view('admin.investments.investment_create');
     }
 
     public function show(String $request)

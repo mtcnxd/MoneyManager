@@ -1,4 +1,4 @@
-<div class="card border-custom shadow-sm">
+<div class="card border-custom shadow">
     <div class="card-body">
         <div class="align-items-center row">
             <div class="col">
@@ -6,10 +6,6 @@
                     {{ $card_title }}
                 </h6>
                 <div class="card-subtitle">
-                    <div style="display: flex; justify-content: space-between;" class="mb-2">
-                        <div>Last invest amount:</div>
-                        <div><span class="text-muted">{{ $card_content_1 }}</span></div>
-                    </div>
                     <div style="display: flex; justify-content: space-between;" class="mb-2">
                         <div>Last invest date:</div>
                         <div><span class="text-muted">{{ $card_content_2 }}</span></div>
