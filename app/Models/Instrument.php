@@ -18,4 +18,9 @@ class Instrument extends Model
         'name',
         'type',
     ];
+
+    public function investments()
+    {
+        return $this->hasMany(investments::class, 'instrument_id');
+    }
 }

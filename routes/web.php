@@ -24,16 +24,16 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'user'], function(){
     
-    Route::get('/trades', [CryptoController::class, 'trades'], function() {})->name('user.trades');
-    
     Route::resource('/crypto', CryptoController::class)->only('index','destroy');
 
     Route::resource('/cards', CardsController::class);
     
-    Route::resource('/investments', InvestmentController::class)->only('index','store','show');
-    
-    Route::resource('/spends', SpendsController::class);
+    Route::resource('/investments', InvestmentController::class)->except('edit','update');
     
     Route::resource('/categories', CategoriesController::class);
+
+    Route::get('/trades', [CryptoController::class, 'trades'])->name('user.trades');
+
+    Route::get('/spends/{card}', [CardsController::class, 'spends'])->name('user.spends');
 
 });

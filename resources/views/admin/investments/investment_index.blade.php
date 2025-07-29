@@ -25,23 +25,23 @@
 	<div class="row mb-3">
 		<div class="col-md-12">
 			<div class="border border-custom p-0 bg-white rounded shadow">
-				<h6 class="border-bottom p-3 fs-7 text-uppercase fw-bold bg-color-title-bar">
+				<h6 class="border-bottom p-3 fs-7 text-uppercase fw-bold bg-color-title-bar mb-0">
 					Update invest
 				</h6>
 				<div class="p-3">
 					<form action="{{ route('investments.store') }}" method="post">
 						@csrf
 						<div class="col-md-4">
-							<label class="mb-2">Instrument</label>
+							<label class="mb-1 fw-bold text-uppercase fs-7">Instrument</label>
 							<select name="instrument_id" class="form-select">
 								@foreach ($instruments as $instrument)
-									<option>{{ $instrument->name }}</option>
+									<option value="{{ $instrument->id }}">{{ $instrument->name }}</option>
 								@endforeach
 							</select>
 						</div>
 						<div class="col-md-4 mt-3">
-							<label class="mb-2">Amount</label>
-							<input type="text" name="amount" class="form-control">
+							<label class="mb-1 fw-bold text-uppercase fs-7">Amount</label>
+							<input type="number" name="amount" class="form-control" required>
 						</div>
 						<div class="col-md-4 mt-2">
 							<input type="submit" class="btn btn-sm btn-primary" value="Done">
@@ -56,9 +56,9 @@
 		@foreach ($investments as $investment)
 			<div class="col-md-4 mb-4">
 				<x-card>
-					<x-slot:card_title>{{ $investment->instrument->name }}</x-slot:card_title>
-					<x-slot:card_content_2>{{ $investment->created_at->format('d M Y') }}</x-slot:card_content_2>
-					<x-slot:card_content_3>{{ $investment->amount }}</x-slot:card_content_3>
+					<x-slot:card_title>{{ $investment->name }}</x-slot:card_title>
+					<x-slot:card_content_2>{{ $investment->name }}</x-slot:card_content_2>
+					<x-slot:card_content_3>${{ number_format ($investment->amount, 2) }}</x-slot:card_content_3>
 					<x-slot:card_link>{{ $investment->id }}</x-slot:card_link>
 				</x-card>
 			</div>							

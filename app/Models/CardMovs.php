@@ -20,7 +20,7 @@ class CardMovs extends Model
         'updated_at'
     ];
 
-    public function card()
+    public function car()
     {
         return $this->belongsTo(Card::class, 'card_id');
     }

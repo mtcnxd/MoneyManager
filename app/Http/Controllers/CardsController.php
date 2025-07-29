@@ -14,7 +14,7 @@ class CardsController extends Controller
      */
     public function index()
     {
-        $cards = Card::get();
+        $cards = Card::all();
 
         return view('admin.creditcards.cards_index', compact('cards'));
     }
@@ -44,15 +44,8 @@ class CardsController extends Controller
     public function show($id)
     {
         $card = Card::find($id);
-        
-        $chart = DB::table('credit_cards_movs')
-            ->select('concept', DB::raw('sum(amount) as amount'))
-            ->where('card_id', $id)
-            ->where('active', true)
-            ->groupBy('concept')
-            ->get();
 
-        return view('admin.creditcards.cards_show', compact('card', 'chart'));
+        return view('admin.creditcards.cards_show', compact('card'));
     }
 
     /**
@@ -96,5 +89,10 @@ class CardsController extends Controller
                 'message' => 'Data save successfully',
             ]);
         }
+    }
+
+    public function spends(Card $card)
+    {
+        return view('admin.creditcards.cards_spends', compact('card'));
     }
 }

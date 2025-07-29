@@ -51,12 +51,13 @@
         </div>
     </div>
 	
-	<div class="row mt-5">
+	<div class="row mt-4">
+        <span class="mb-3">Se encontraron {{ $card->movs->count() }} movimientos </span>
         <table class="table table-hover">
             <thead>
                 <tr class="table-custom text-uppercase fs-7">
                     <td style="width: 3%">#</td>
-                    <td style="width: 10%">Date</td>
+                    <td style="width: 20%">Date</td>
                     <td>Concept</td>
                     <td>Comment</td>
                     <td class="text-end">Amount</td>
@@ -66,11 +67,16 @@
             <tbody>
                 @foreach ($card->movs as $index => $item)
                     <tr>
-                        <td>{{ $item->index }}</td>
+                        <td>{{ ($item->index) +1 }}</td>
                         <td>{{ $item->created_at->format('d M Y') }}</td>
                         <td>{{ $item->concept }}</td>
                         <td>{{ $item->comment }}</td>
-                        <td>{{ $item->amount }}</td>
+                        <td class="text-end">{{ "$".number_format($item->amount, 2) }}</td>
+                        <td>
+                            <button class="btn btn-sm" onclick="deleteSpending({{ $item->id }})">
+                                <x-feathericon-trash-2 class="icon-vertical-align"/>
+                            </button>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -78,17 +84,17 @@
                 <tr>
                     <td colspan="4"></td>
                     <td class="text-end">{{ "$".number_format(0, 2) }}</td>
-                    <td></td>
+                    <td colspan="2"></td>
                 </tr>
             </tfoot>
         </table>
 	</div>
 
-    <div class="row">
-        <div class="col-md-6 bg-white border p-4 rounded">
-            <canvas id="myChart"></canvas>
-        </div>
-    </div>
+    <div class="row mb-4">
+		<div class="col-md-4">
+			<a href="{{ route('user.spends', $card) }}" class="btn btn-sm btn-primary">Add spend</a>
+		</div>
+	</div>
 @endsection
 
 @section('javascript')
