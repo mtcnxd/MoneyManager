@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "74d40158fc9f735c2ee855ec39db53c1",
+    "content-hash": "81d21a834f285e8adcfa0778d34ffa63",
     "packages": [
         {
             "name": "blade-ui-kit/blade-icons",
@@ -276,6 +276,67 @@
                 }
             ],
             "time": "2023-12-11T17:09:12+00:00"
+        },
+        {
+            "name": "devrabiul/laravel-toaster-magic",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/devrabiul/laravel-toaster-magic.git",
+                "reference": "e717c19e908532f50dcc699bcb51fade74abaad7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/devrabiul/laravel-toaster-magic/zipball/e717c19e908532f50dcc699bcb51fade74abaad7",
+                "reference": "e717c19e908532f50dcc699bcb51fade74abaad7",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "ToastMagic": "Devrabiul\\ToastMagic\\Facades\\ToastMagic"
+                    },
+                    "providers": [
+                        "Devrabiul\\ToastMagic\\ToastMagicServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Devrabiul\\ToastMagic\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muhammad Rabiul",
+                    "email": "devrabiul@gmail.com"
+                }
+            ],
+            "description": "Laravel Toaster Magic is a lightweight, flexible toast library for Laravel projects, with no jQuery, Bootstrap, or Tailwind dependency.",
+            "homepage": "https://github.com/devrabiul/laravel-toaster-magic",
+            "keywords": [
+                "dynamic-notifications",
+                "flash-notifications",
+                "laravel",
+                "laravel-toastr",
+                "livewire",
+                "livewire-toaster",
+                "magic",
+                "notifications",
+                "php",
+                "toaster",
+                "toastr"
+            ],
+            "support": {
+                "issues": "https://github.com/devrabiul/laravel-toaster-magic/issues",
+                "source": "https://github.com/devrabiul/laravel-toaster-magic/tree/v1.2"
+            },
+            "time": "2025-06-26T04:36:05+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

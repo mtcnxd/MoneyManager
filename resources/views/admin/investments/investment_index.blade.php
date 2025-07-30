@@ -41,7 +41,7 @@
 						</div>
 						<div class="col-md-4 mt-3">
 							<label class="mb-1 fw-bold text-uppercase fs-7">Amount</label>
-							<input type="number" name="amount" class="form-control" required>
+							<input type="text" name="amount" class="form-control" required>
 						</div>
 						<div class="col-md-4 mt-2">
 							<input type="submit" class="btn btn-sm btn-primary" value="Done">

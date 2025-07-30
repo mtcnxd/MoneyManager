@@ -27,24 +27,25 @@
                     Create
                 </h6>
                 <div class="p-3">
-                    <form action="" method="post">
+                    <form id="formSpend">
                         <div class="row">
                             <div class="col-md-4 mt-3">
                                 <label class="mb-1 fs-8 text-uppercase fw-bold">Credit card</label>
                                 <input type="text" name="credit_card" class="form-control" value="{{ $card->name }}" disabled>
+                                <input type="hidden" name="card" value="{{ $card->id }}">
                             </div>
                             <div class="col-md-4 mt-3">
                                 <label class="mb-1 fs-8 text-uppercase fw-bold">Category</label>
                                 <select name="category" class="form-select">
-                                    <option value="">Abono a tarjeta</option>
-                                    <option value="">Pago a tarjeta</option>
+                                    <option>Abono a tarjeta</option>
+                                    <option>Pago a tarjeta</option>
                                     <optgroup label="Spends">
-                                        <option value="">Servicios</option>
-                                        <option value="">Entretenimiento</option>
-                                        <option value="">Gastos de casa</option>
-                                        <option value="">Gustos y caprichos</option>
-                                        <option value="">Imprevistos y otros</option>
-                                        <option value="">Mantenimiento y casa</option>
+                                        <option>Servicios</option>
+                                        <option>Entretenimiento</option>
+                                        <option>Gastos de casa</option>
+                                        <option>Gustos y caprichos</option>
+                                        <option>Imprevistos y otros</option>
+                                        <option>Mantenimiento y casa</option>
                                     </optgroup>
                                 </select>
                             </div>
@@ -52,27 +53,27 @@
                         
                         <div class="row">
                             <div class="col-md-4 mt-3">
-                                <label class="mb-1 fs-8 text-uppercase fw-bold">Concept</label>
-                                <input type="text" name="concept" class="form-control" onkeyup="searchItem(this.value)" id="concept">
+                                <label class="mb-1 fs-8 text-uppercase fw-bold">Spend</label>
+                                <input type="text" name="concept" class="form-control" onkeyup="searchItem(this.value)" id="spend">
                                 <ul id="autocomplete" class="autocomplete shadow"></ul>
                             </div>
                             <div class="col-md-4 mt-3">
                                 <label class="mb-1 fs-8 text-uppercase fw-bold">Amount</label>
-                                <input type="text" name="amount" class="form-control">
+                                <input type="text" name="amount" class="form-control" id="amount">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-8 mt-3">
                                 <label class="mb-1 fs-8 text-uppercase fw-bold">Comment</label>
-                                <textarea name="comment" class="form-control"></textarea>
+                                <textarea name="description" class="form-control" id="description"></textarea>
                             </div>
                         </div>
 
                         <div class="col-md-4 mt-3">
-                            <button type="submit" class="btn btn-primary">
-                                Save
+                            <button type="button" class="btn btn-primary" id="btnsave">
                                 <x-feathericon-save class="icon-vertical-align" style="color: #fff;"/>
+                                Save
                             </button>
                         </div>
                     </form>
@@ -82,8 +83,47 @@
     </div>
 @endsection
 
+@section('javascript')    
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
+    $("#btnsave").on('click', function(e){
+        e.preventDefault();
+        var formSpend = $("#formSpend");
+
+        $.ajax({
+            url: "{{ route('spend.store') }}",
+            type: 'POST',
+            data: {
+                card:formSpend[0].card.value,
+                category:formSpend[0].category.value,
+                spend:formSpend[0].spend.value,
+                amount:formSpend[0].amount.value,
+                description:formSpend[0].description.value
+            },
+            success: function(response) {
+                
+                if (response.success) {
+                    const toast = new ToastMagic();
+                    
+                    console.log(toast);
+                    
+                    toast.warning("Success!", response.message, {
+                        positionClass: 'toast-bottom-right' 
+                    });
+                    
+                    formSpend[0].reset();
+                    $("#autocomplete").hide();
+
+                } else {
+                    alert('Error saving data: ' + response.message);
+                }
+            },
+            error: function(xhr) {
+                alert('An error occurred: ' + xhr.responseText);
+            }
+        });
+    });
+
     function searchItem(value){
         if (value.length >= 3){
             $.ajax({
@@ -106,3 +146,4 @@
         $("#autocomplete").hide();
     };
 </script>
+@endsection

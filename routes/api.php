@@ -27,6 +27,12 @@ Route::group(['prefix' => 'crypto', 'controller' => CryptoController::class], fu
     Route::post('/destroy', 'destroy')->name('cryto.destroy');
 });
 
+Route::group(['prefix' => 'cards'], function () {
+    Route::post('/store', [CardsController::class, 'storeSpend'])->name('spend.store');
+});
+
+
+
 Route::post('deleteSpending', [
     CardsController::class, 'destroy'
 ])->name('deleteSpending');

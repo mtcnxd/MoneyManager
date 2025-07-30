@@ -161,7 +161,7 @@
                             </span>
                         </td>
                         <td>
-                            <form action="{{ route('crypto.destroy', $currency->id) }}" method="post">
+                            <form action="{{ route('crypto.destroy', $currency->id) }}" method="post" class="mb-0">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn" style="margin-top: 0; padding: 0;">

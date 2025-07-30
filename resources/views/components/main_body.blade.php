@@ -1,6 +1,7 @@
 <html lang="es">
 	<head>
 		@yield('main_head')
+		{!! ToastMagic::styles() !!}
 	</head>
 
 	<body class="mb-5">
@@ -20,5 +21,6 @@
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</body>
+	{!! ToastMagic::scripts() !!}
 	@yield('javascript')
 </html>

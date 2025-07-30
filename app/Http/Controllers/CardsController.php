@@ -32,7 +32,7 @@ class CardsController extends Controller
      */
     public function store(Request $request)
     {
-        CardsModel::create($request->all());
+        Card::create($request->all());
 
         return to_route('cards.index')
             ->with('message','Data saved successfully');
@@ -94,5 +94,14 @@ class CardsController extends Controller
     public function spends(Card $card)
     {
         return view('admin.creditcards.cards_spends', compact('card'));
+    }
+
+    public function storeSpend(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'request' => $request->all(),
+            'message' => 'Spend saved successfully'
+        ]);
     }
 }
