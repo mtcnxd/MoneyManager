@@ -28,4 +28,11 @@ class Card extends Model
     {
         return $this->hasMany(CardMovs::class, 'card_id');
     }
+
+    public function usage()
+    {
+        $usage = $this->movs->sum('amount');
+        $percentage = ($usage / $this->limit) * 100;
+        return number_format($percentage, 2) . '%';
+    }
 }

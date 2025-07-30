@@ -59,7 +59,7 @@
 					<x-slot:card_title>{{ $investment->name }}</x-slot:card_title>
 					<x-slot:card_content_2>{{ $investment->name }}</x-slot:card_content_2>
 					<x-slot:card_content_3>${{ number_format ($investment->amount, 2) }}</x-slot:card_content_3>
-					<x-slot:card_link>{{ $investment->id }}</x-slot:card_link>
+					<x-slot:card_link>{{ route('investments.show', $investment->instrument_id) }}</x-slot:card_link>
 				</x-card>
 			</div>							
 		@endforeach

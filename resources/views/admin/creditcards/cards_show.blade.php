@@ -23,30 +23,33 @@
 		</div>
 	@endif
 
-    <div class="row bg-white rounded shadow-sm p-2 pb-3">
-        <h6>Detalles de cuenta</h6>
-        <hr>
-        <div class="col text-center">
-            <div class="rounded p-2" style="background-color: #efefef;">
-                <x-feathericon-credit-card class="icon-vertical-align"/>
-                {{ $card->name }}
+    <div class="row bg-white rounded shadow border border-custom">
+        <h6 class="border-bottom p-3 fs-7 text-uppercase fw-bold bg-color-title-bar mb-0">
+            Detalles de cuenta
+        </h6>
+        <div class="row pt-3 pb-3">
+            <div class="col text-center">
+                <div class="rounded p-2" style="background-color: #efefef;">
+                    <x-feathericon-credit-card class="icon-vertical-align"/>
+                    {{ $card->name }}
+                </div>
             </div>
-        </div>
-        <div class="col text-center">
-            <div class="rounded p-2" style="background-color: #efefef;">
-                <x-feathericon-dollar-sign class="icon-vertical-align"/>
-                {{ number_format($card->limit, 2) }}
+            <div class="col text-center">
+                <div class="rounded p-2" style="background-color: #efefef;">
+                    <x-feathericon-dollar-sign class="icon-vertical-align"/>
+                    {{ number_format($card->limit, 2) }}
+                </div>
             </div>
-        </div>
-        <div class="col text-center">
-            <div class="rounded p-2" style="background-color: #efefef;">
-                <x-feathericon-pie-chart class="icon-vertical-align"/>
-                {{ 0 }}
+            <div class="col text-center">
+                <div class="rounded p-2" style="background-color: #efefef;">
+                    <x-feathericon-pie-chart class="icon-vertical-align"/>
+                    {{ $card->usage() }}
+                </div>
             </div>
-        </div>
-        <div class="col text-center">
-            <div class="rounded p-1" style="background-color: #efefef;">
-                <input type="button" onclick="processMonth({{ $card->id }})" value="Restart month" class="btn btn-sm">
+            <div class="col text-center">
+                <div class="rounded p-1" style="background-color: #efefef;">
+                    <input type="button" onclick="processMonth({{ $card->id }})" value="Restart month" class="btn btn-sm">
+                </div>
             </div>
         </div>
     </div>
@@ -58,8 +61,8 @@
                 <tr class="table-custom text-uppercase fs-7">
                     <td style="width: 3%">#</td>
                     <td style="width: 20%">Date</td>
-                    <td>Concept</td>
-                    <td>Comment</td>
+                    <td>Spend name</td>
+                    <td>Description</td>
                     <td class="text-end">Amount</td>
                     <td style="width: 3%"></td>
                 </tr>
@@ -69,8 +72,8 @@
                     <tr>
                         <td>{{ ($item->index) +1 }}</td>
                         <td>{{ $item->created_at->format('d M Y') }}</td>
-                        <td>{{ $item->concept }}</td>
-                        <td>{{ $item->comment }}</td>
+                        <td>{{ $item->spend }}</td>
+                        <td>{{ $item->description }}</td>
                         <td class="text-end">{{ "$".number_format($item->amount, 2) }}</td>
                         <td>
                             <button class="btn btn-sm" onclick="deleteSpending({{ $item->id }})">
@@ -83,7 +86,7 @@
             <tfoot>
                 <tr>
                     <td colspan="4"></td>
-                    <td class="text-end">{{ "$".number_format(0, 2) }}</td>
+                    <td class="text-end">{{ "$".number_format( $card->movs->sum('amount') , 2) }}</td>
                     <td colspan="2"></td>
                 </tr>
             </tfoot>

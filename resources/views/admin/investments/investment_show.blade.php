@@ -23,32 +23,35 @@
 		</div>
 	@endif
 
-	<div class="row">
-		<div class="card-title">
-			<div class="row col">
-				<span class="text-uppercase fs-6">Increment {{ "$".number_format($first->amount - $last->amount, 2) }}</span>
+	<div class="border border-custom p-0 bg-white rounded shadow mb-4">
+		<div class="row p-3">
+			<div class="col">
+				<span class="text-uppercase fs-7 fw-bold">
+					{{ $instrument->name }}
+				</span>
 			</div>
-			<div class="row col">
-				<span>{{ $change."%" }}</span>
+			<div class="col">
+				<span class="text-uppercase fs-7 fw-bold">
+					Increment {{ "$".number_format(0, 2) }}
+				</span>
 			</div>
 		</div>
 	</div>
 
 	<div class="row mb-4">
-        @foreach ($results as $count => $result)
+        @foreach ($instrument->investments as $investment)
             <div class="row m-2 p-3 border rounded shadow-sm bg-white">
                 <div class="col-md-1 text-center">
-                    <span style="background-color: #f5ab67; border-radius:20px; padding: 4px 8px;">{{ $result->id }}</span>
+                    <span style="background-color: #f5ab67; border-radius:20px; padding: 4px 8px;">{{ $investment->instrument_id }}</span>
                 </div>
                 <div class="col">
-					{{ $result->created_at }}
+					{{ $investment->created_at->format('d M Y') }}
 				</div>
 				<div class="col">
-					{{ \Carbon\Carbon::parse($result->created_at)->diffInDays() }}
-					days ago
+					{{ $investment->created_at->diffInDays(\Carbon\Carbon::now()) }} days ago
 				</div>
                 <div class="col text-end">
-					{{ "$".number_format($result->amount, 2) }}
+					{{ "$".number_format( $investment->amount, 2) }}
 				</div>
             </div>
         @endforeach

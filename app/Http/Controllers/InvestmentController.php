@@ -18,7 +18,7 @@ class InvestmentController extends Controller
 
         $investments = Investment::from(DB::raw("(SELECT tbl.instrument_id, amount FROM ($subQuery) tbl JOIN investments ON tbl.latest = investments.created_at) as tbl2"))
             ->join('instruments', 'tbl2.instrument_id', 'instruments.id')
-            ->select('instruments.name', 'tbl2.amount')
+            ->select('instruments.name', 'tbl2.amount','tbl2.instrument_id')
             ->get();
 
         $instruments = Instrument::all();
@@ -31,19 +31,11 @@ class InvestmentController extends Controller
         return view('admin.investments.investment_create');
     }
 
-    public function show(String $request)
+    public function show(String $id)
     {
-        $results = DB::table('investments')
-            ->where('instrument_id', $request)
-            ->orderBy('created_at','desc')
-            ->limit(10)
-            ->get();
+        $instrument = Instrument::find($id);
 
-        $first = $results->first();
-        $last  = $results->last();
-        $change = number_format( (($first->amount - $last->amount) / $first->amount) * 100, 2 );
-
-        return view('admin.investments.investment_show', compact('results', 'first', 'last', 'change'));
+        return view('admin.investments.investment_show', compact('instrument'));
     }
 
     public function store(Request $request)

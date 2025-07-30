@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Card;
+use App\Models\CardMovs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -98,9 +99,15 @@ class CardsController extends Controller
 
     public function storeSpend(Request $request)
     {
+        CardMovs::create([
+            'card_id' => $request->card,
+            'spend'   => $request->spend,
+            'amount'  => $request->amount,
+            'description' => $request->description,
+        ]);
+
         return response()->json([
             'success' => true,
-            'request' => $request->all(),
             'message' => 'Spend saved successfully'
         ]);
     }

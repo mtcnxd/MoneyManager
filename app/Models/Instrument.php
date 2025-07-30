@@ -21,6 +21,6 @@ class Instrument extends Model
 
     public function investments()
     {
-        return $this->hasMany(investments::class, 'instrument_id');
+        return $this->hasMany(Investment::class, 'instrument_id');
     }
 }

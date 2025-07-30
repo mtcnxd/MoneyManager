@@ -26,7 +26,7 @@ Route::group(['prefix' => 'user'], function(){
     
     Route::resource('/crypto', CryptoController::class)->only('index','destroy');
 
-    Route::resource('/cards', CardsController::class);
+    Route::resource('/cards', CardsController::class)->except('edit','update');
     
     Route::resource('/investments', InvestmentController::class)->except('edit','update');
     

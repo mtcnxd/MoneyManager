@@ -88,7 +88,8 @@
 <script>
     $("#btnsave").on('click', function(e){
         e.preventDefault();
-        var formSpend = $("#formSpend");
+        const toast = new ToastMagic();
+        const formSpend = $("#formSpend");
 
         $.ajax({
             url: "{{ route('spend.store') }}",
@@ -101,21 +102,15 @@
                 description:formSpend[0].description.value
             },
             success: function(response) {
-                
-                if (response.success) {
-                    const toast = new ToastMagic();
-                    
-                    console.log(toast);
-                    
-                    toast.warning("Success!", response.message, {
-                        positionClass: 'toast-bottom-right' 
-                    });
-                    
-                    formSpend[0].reset();
-                    $("#autocomplete").hide();
+                console.log(response);
 
-                } else {
-                    alert('Error saving data: ' + response.message);
+                if (response.success) {
+                    toast.warning("Success!", response.message);
+                    formSpend[0].reset();
+                }
+                
+                else {
+                    toast.error("Error!", response.message);
                 }
             },
             error: function(xhr) {
