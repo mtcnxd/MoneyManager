@@ -19,20 +19,20 @@ class Card extends Model
         'network'
     ];
 
-    public function getUsage()
-    {
-        return $this->limit;
-    }
-
     public function movs()
     {
         return $this->hasMany(CardMovs::class, 'card_id');
     }
 
+    public function total()
+    {
+        return number_format($this->movs->where('active', true)->sum('amount'), 2);
+    }
+
     public function usage()
     {
-        $usage = $this->movs->sum('amount');
+        $usage = $this->movs->where('active', true)->sum('amount');
         $percentage = ($usage / $this->limit) * 100;
-        return number_format($percentage, 2) . '%';
+        return number_format($percentage, 2);
     }
 }

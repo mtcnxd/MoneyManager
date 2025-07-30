@@ -6,6 +6,7 @@ use App\Models\Crypto;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BitsoController as Bitso;
+use IcehouseVentures\LaravelChartjs\Facades\Chartjs;
 
 class CryptoController extends Controller
 {
@@ -15,15 +16,9 @@ class CryptoController extends Controller
     public function index()
     {
         $balances = array();
+        
         try {
             $bitso   = new Bitso();
-            
-            /*
-            foreach ($bitso->getTicker() as $value) {
-                $currencies[] = new Currency($value);
-            }
-            */
-
             $balances = $bitso->getBalance();
         }
 

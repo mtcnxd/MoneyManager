@@ -1,21 +1,7 @@
 @extends('components.main_body')
 
-@section('main_head')
-	@include('components.main_head')
-@endsection
-
-@section('main_menu')
-	@include('components.main_menu')
-@endsection
-
-@section('container')		
-	<nav class="navbar bg-body-tertiary">
-		<h5 class="text-uppercase fw-bold">Shopping list</h5>
-        <a href="{{ route('cards.index') }}" class="btn btn-secondary">
-			<x-feathericon-arrow-left class="main-menu-icon" style="color: #fff;"/>
-			Back
-		</a>
-	</nav>
+@section('container')
+    <x-page_title title="Shopping list"/>
 	
 	@if ( session('message') )
 		<div class="alert alert-warning">
@@ -43,7 +29,7 @@
             <div class="col text-center">
                 <div class="rounded p-2" style="background-color: #efefef;">
                     <x-feathericon-pie-chart class="icon-vertical-align"/>
-                    {{ $card->usage() }}
+                    {{ $card->usage() }} %
                 </div>
             </div>
             <div class="col text-center">
@@ -55,7 +41,7 @@
     </div>
 	
 	<div class="row mt-4">
-        <span class="mb-3">Se encontraron {{ $card->movs->count() }} movimientos </span>
+        <span class="mb-3">Se encontraron {{ $card->movs->where('active', true)->count() }} movimientos </span>
         <table class="table table-hover">
             <thead>
                 <tr class="table-custom text-uppercase fs-7">
@@ -68,11 +54,16 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($card->movs as $index => $item)
+                @foreach ($card->movs->where('active', true) as $item)
                     <tr>
-                        <td>{{ ($item->index) +1 }}</td>
+                        <td>{{ $item->id }}</td>
                         <td>{{ $item->created_at->format('d M Y') }}</td>
-                        <td>{{ $item->spend }}</td>
+                        <td>
+                            {{ $item->spend }}
+                            @if ($item->msi)
+                                <span class="badge text-bg-success">MSI</span>
+                            @endif
+                        </td>
                         <td>{{ $item->description }}</td>
                         <td class="text-end">{{ "$".number_format($item->amount, 2) }}</td>
                         <td>
@@ -86,7 +77,7 @@
             <tfoot>
                 <tr>
                     <td colspan="4"></td>
-                    <td class="text-end">{{ "$".number_format( $card->movs->sum('amount') , 2) }}</td>
+                    <td class="text-end">{{ "$".number_format( $card->movs->where('active', true)->sum('amount') , 2) }}</td>
                     <td colspan="2"></td>
                 </tr>
             </tfoot>
@@ -95,6 +86,7 @@
 
     <div class="row mb-4">
 		<div class="col-md-4">
+            <a href="{{ route('cards.index') }}" class="btn btn-sm btn-secondary">Back</a>
 			<a href="{{ route('user.spends', $card) }}" class="btn btn-sm btn-primary">Add spend</a>
 		</div>
 	</div>
@@ -124,21 +116,20 @@
     }
 
     function processMonth(card){
-        console.log(card);
-
         $.ajax({
-            url: '/api/processMonth',
+            url: "{{ route('cards.processMonth') }}",
             type:'post',
             data:{ card },
-            success:function(json){
-                Swal.fire({
-                    text: json.message,
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar'
-                })
-                .then(() => {
-                    location.reload();
-                });
+            success:function(response){
+                if (response.success){
+                    console.log(response);
+    
+                    Swal.fire({
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
             }
         });
     }

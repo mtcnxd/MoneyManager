@@ -9,6 +9,7 @@
         "brunocfalcao/blade-feather-icons": "^4.0",
         "devrabiul/laravel-toaster-magic": "^1.2",
         "guzzlehttp/guzzle": "^7.2",
+        "icehouse-ventures/laravel-chartjs": "^4.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8"

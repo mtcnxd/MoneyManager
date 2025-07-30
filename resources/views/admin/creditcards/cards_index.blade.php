@@ -1,21 +1,8 @@
 @extends('components.main_body')
 
-@section('main_head')
-	@include('components.main_head')
-@endsection
+@section('container')
+	<x-page_title title="Credit Cards"/>
 
-@section('main_menu')
-	@include('components.main_menu')
-@endsection
-
-@section('container')		
-	<nav class="navbar bg-body-tertiary">
-		<h5 class="text-uppercase fw-bold">
-			<x-feathericon-credit-card class="icon-vertical-align" style="color: #000;"/>
-			credit cards
-		</h5>
-	</nav>
-	
 	@if ( session('message') )
 		<div class="alert alert-warning alert-dismissible fade show">
 			{{ session('message') }}
@@ -40,15 +27,15 @@
 									</div>
 									<div style="display: flex; justify-content: space-between;" class="mb-1">
 										<div>Usage</div>
-										<div><span class="text-muted">{{ "$".number_format($card->getUsage(), 2) }}</span></div>
+										<div><span class="text-muted">${{ $card->total() }}</span></div>
 									</div>
 									<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-										<div class="progress-bar" style="width: {{ 0 }}%">{{ 0 }}</div>
+										<div class="progress-bar" style="width: {{ $card->usage() }}%">{{ $card->usage() }}%</div>
 									</div>
 									<div style="display: flex; justify-content: space-between;" class="mt-2">
 										<div></div>
 										<div>
-											<a href="{{ route('cards.show', $card->id) }}" class="btn btn-sm btn-secondary">
+											<a href="{{ route('cards.show', $card->id) }}" class="btn btn-sm btn-primary">
 												Details
 												<x-feathericon-info class="icon-vertical-align" style="color: #fff;"/>
 											</a>

@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use App\Models\Card;
 use App\Models\CardMovs;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class CardsController extends Controller
 {
@@ -50,39 +49,11 @@ class CardsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function process(Request $request)
-    {
-        $update = DB::table('credit_cards_movs')
-            ->where('active', true)
-            ->where('card_id', $request->card)
-            ->update([
-                'active' => false
-            ]);
-        
-        if ($update){
-            return response()->json([
-                'success' => true,
-                'message' => 'Data updated successfully',
-            ]);
-        }
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request)
     {
-        $deleted = DB::table('credit_cards_movs')->where('id', $request->id)->delete();
+        $deleted = CardMovs::where('id', $request->id)->delete();
         
         if ($deleted){
             return response()->json([
@@ -110,5 +81,25 @@ class CardsController extends Controller
             'success' => true,
             'message' => 'Spend saved successfully'
         ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function process(Request $request)
+    {
+        $updated = CardMovs::where('active', true)
+            ->where('card_id', $request->card)
+            ->where('msi', false)
+            ->update([
+                'active' => false
+            ]);
+        
+        if ($updated){
+            return response()->json([
+                'success' => true,
+                'message' => 'Data updated successfully',
+            ]);
+        }
     }
 }

@@ -27,19 +27,15 @@ Route::group(['prefix' => 'crypto', 'controller' => CryptoController::class], fu
     Route::post('/destroy', 'destroy')->name('cryto.destroy');
 });
 
-Route::group(['prefix' => 'cards'], function () {
-    Route::post('/store', [CardsController::class, 'storeSpend'])->name('spend.store');
+Route::group(['prefix' => 'cards', 'controller' => CardsController::class], function () {
+    Route::post('/store', 'storeSpend')->name('spend.store');
+    Route::post('/process', 'process')->name('cards.processMonth');
 });
-
 
 
 Route::post('deleteSpending', [
     CardsController::class, 'destroy'
 ])->name('deleteSpending');
-
-Route::post('processMonth', [
-    CardsController::class, 'process'
-])->name('processMonth');
 
 Route::post('searchItems', [
     SpendsController::class, 'searchItems'

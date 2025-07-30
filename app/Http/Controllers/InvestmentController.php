@@ -19,6 +19,7 @@ class InvestmentController extends Controller
         $investments = Investment::from(DB::raw("(SELECT tbl.instrument_id, amount FROM ($subQuery) tbl JOIN investments ON tbl.latest = investments.created_at) as tbl2"))
             ->join('instruments', 'tbl2.instrument_id', 'instruments.id')
             ->select('instruments.name', 'tbl2.amount','tbl2.instrument_id')
+            ->orderBy('instruments.name')
             ->get();
 
         $instruments = Instrument::all();

@@ -1,13 +1,13 @@
 <html lang="es">
 	<head>
-		@yield('main_head')
+		@include('components.main_head')
 		{!! ToastMagic::styles() !!}
 	</head>
 
 	<body class="mb-5">
 		<header class="p-3 mb-3 border-bottom border-custom bg-custom-menu shadow-sm">
 			<div class="container">
-				@yield('main_menu')
+				@include('components.main_menu')
 			</div>
 		</header>
 		
@@ -20,7 +20,7 @@
 		        crossorigin="anonymous">
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		{!! ToastMagic::scripts() !!}
+		@yield('javascript')		
 	</body>
-	{!! ToastMagic::scripts() !!}
-	@yield('javascript')
 </html>

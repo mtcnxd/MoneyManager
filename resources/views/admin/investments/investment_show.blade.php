@@ -1,21 +1,7 @@
 @extends('components.main_body')
 
-@section('main_head')
-	@include('components.main_head')
-@endsection
-
-@section('main_menu')
-	@include('components.main_menu')
-@endsection
-
 @section('container')		
-	<nav class="navbar bg-body-tertiary">
-		<h4 class="text-uppercase fw-bold">Investment History</h4>
-		<a href="{{ route('investments.index') }}" class="btn btn-secondary">
-			<x-feathericon-arrow-left class="main-menu-icon" style="color: #fff;"/>
-			Back
-		</a>
-	</nav>
+	<x-page_title title="Investment History"/>
 	
 	@if ( session('message') )
 		<div class="alert alert-warning">
@@ -56,4 +42,10 @@
             </div>
         @endforeach
 	</div>
+
+    <div class="row mb-4">
+		<div class="col-md-4">
+            <a href="{{ route('cards.index') }}" class="btn btn-sm btn-secondary">Back</a>
+		</div>
+	</div>	
 @endsection

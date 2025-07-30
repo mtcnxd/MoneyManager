@@ -71,10 +71,13 @@
                         </div>
 
                         <div class="col-md-4 mt-3">
+                            <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('cards.show', $card->id) }}'">
+                                Back
+                            </button>
                             <button type="button" class="btn btn-primary" id="btnsave">
                                 <x-feathericon-save class="icon-vertical-align" style="color: #fff;"/>
                                 Save
-                            </button>
+                            </button>                            
                         </div>
                     </form>
                 </div>

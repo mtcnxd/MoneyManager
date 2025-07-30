@@ -1,19 +1,7 @@
 @extends('components.main_body')
 
-@section('main_head')
-	@include('components.main_head')
-@endsection
-
-@section('main_menu')
-	@include('components.main_menu')
-@endsection
-
 @section('container')		
-	<nav class="navbar bg-body-tertiary">
-		<h5 class="text-uppercase fw-bold">
-			Portfolio
-		</h5>
-	</nav>
+	<x-page_title title="Portfolio"/>
 	
 	@if ( session('message') )
 		<div class="alert alert-warning alert-dismissible fade show">
