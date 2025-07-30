@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\CryptoController;
 use App\Http\Controllers\CardsController;
-use App\Http\Controllers\SpendsController;
 use App\Http\Controllers\CategoriesController;
 
 /*

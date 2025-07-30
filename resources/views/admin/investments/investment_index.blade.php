@@ -54,7 +54,15 @@
 	</div>
 
 	<div class="row mb-3">
-		<div class="col-md-4">
+		<div class="col-md-12">
+			<div class="bg-white p-3 border border-custom">
+				<p class="text-uppercase fs-7 fw-bold mb-0">Total invest: ${{ number_format($investments->sum('amount'), 2) }}</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-md-12">
 			<a href="{{ route('investments.index') }}" class="btn btn-sm btn-primary">Add new</a>
 		</div>
 	</div>

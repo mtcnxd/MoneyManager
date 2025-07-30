@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CardsController;
 use App\Http\Controllers\CryptoController;
-use App\Http\Controllers\SpendsController;
 use App\Http\Controllers\BitsoController;
 
 /*
@@ -30,16 +29,14 @@ Route::group(['prefix' => 'crypto', 'controller' => CryptoController::class], fu
 Route::group(['prefix' => 'cards', 'controller' => CardsController::class], function () {
     Route::post('/store', 'storeSpend')->name('spend.store');
     Route::post('/process', 'process')->name('cards.processMonth');
+    
+    Route::get('/autocomplete', 'autocomplete')->name('cards.autocomplete');
 });
 
 
 Route::post('deleteSpending', [
     CardsController::class, 'destroy'
 ])->name('deleteSpending');
-
-Route::post('searchItems', [
-    SpendsController::class, 'searchItems'
-])->name('searchItems');
 
 Route::post('placeOrder', [
     BitsoController::class, 'placeOrder'

@@ -19,6 +19,11 @@ class Card extends Model
         'network'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     public function movs()
     {
         return $this->hasMany(CardMovs::class, 'card_id');

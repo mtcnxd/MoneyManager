@@ -68,6 +68,21 @@ class CardsController extends Controller
         return view('admin.creditcards.cards_spends', compact('card'));
     }
 
+    public function autocomplete(Request $request)
+    {
+        $search = $request->get('term');
+        $spends = CardMovs::where('spend', 'LIKE', "%{$search}%")
+            ->select('spend')
+            ->groupBy('spend')
+            ->take(10)
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'suggestions' => $spends,
+        ]);
+    }
+
     public function storeSpend(Request $request)
     {
         CardMovs::create([

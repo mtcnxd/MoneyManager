@@ -54,7 +54,7 @@
                         <div class="row">
                             <div class="col-md-4 mt-3">
                                 <label class="mb-1 fs-8 text-uppercase fw-bold">Spend</label>
-                                <input type="text" name="concept" class="form-control" onkeyup="searchItem(this.value)" id="spend">
+                                <input type="text" name="concept" class="form-control" onkeyup="searchItem(this)" id="spend">
                                 <ul id="autocomplete" class="autocomplete shadow"></ul>
                             </div>
                             <div class="col-md-4 mt-3">
@@ -122,17 +122,20 @@
         });
     });
 
-    function searchItem(value){
-        if (value.length >= 3){
+    function searchItem(textbox)
+    {
+        if (textbox.value.length >= 3){
             $.ajax({
-                url: '/api/searchItems',
-                type:'POST',
-                data:{value},
-                success:function(json){
+                url: "{{ route('cards.autocomplete') }}",
+                type:'GET',
+                data:{
+                    term:textbox.value
+                },
+                success:function(response){
                     $("#autocomplete").show();
                     $("#autocomplete").empty();
-                    json.suggestions.forEach(element => {
-                        $("#autocomplete").append("<li class='autocomplete-item' onClick='selectItem(this)'>" + element.concept +"</li>");
+                    response.suggestions.forEach(element => {
+                        $("#autocomplete").append("<li class='autocomplete-item' onClick='selectItem(this)'>" + element.spend +"</li>");
                     });
                 }
             });
@@ -140,7 +143,7 @@
     }
 
     function selectItem(item){
-        $("#concept").val($(item).text());
+        $("#spend").val($(item).text());
         $("#autocomplete").hide();
     };
 </script>

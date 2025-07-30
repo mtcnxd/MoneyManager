@@ -18,10 +18,11 @@ class Investment extends Model
 
     protected $hidden = [
         'updated_at',
+        'created_at',
     ];
 
     public function instrument()
     {
         return $this->belongsTo(Instrument::class, 'instrument_id');
-    }
+    }    
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use NumberFormatter;
 use App\Models\Instrument;
 use App\Models\Investment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvestmentController extends Controller
 {
@@ -36,7 +36,7 @@ class InvestmentController extends Controller
     {
         $instrument = Instrument::find($id);
 
-        return view('admin.investments.investment_show', compact('instrument'));
+        return view('admin.investments.investment_show', compact('instrument', ));
     }
 
     public function store(Request $request)

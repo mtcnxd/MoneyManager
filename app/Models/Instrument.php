@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Instrument extends Model
 {
@@ -22,5 +23,14 @@ class Instrument extends Model
     public function investments()
     {
         return $this->hasMany(Investment::class, 'instrument_id');
+    }
+
+    public function diff()
+    {
+        $movs = $this->load('investments');
+        $first = $movs->investments->first()->amount;
+        $last  = $movs->investments->last()->amount;
+
+        return ($last - $first);
     }
 }
