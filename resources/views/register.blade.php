@@ -20,43 +20,39 @@
 	<body class="bg-light">
 		<div class="col-md-4 position-absolute top-50 start-50 translate-middle">
 			<div class="header rounded border bg-white shadow-sm">
-				<form action="{{ route('user.login') }}" method="post">
+				<form action="{{ route('user.store') }}" method="post">
 					@csrf
 					<div class="card-header pt-0">
-						<h3 class="p-3 pb-0">Iniciar sesión</h3>
+						<h3 class="p-3 pb-0">Registro</h3>
 					</div>					
-					<div class="card-body pb-0">
-						<p>Rellene los campos para iniciar sesion.</p>		
+					<div class="card-body">
+						<p>Rellene los campos para iniciar sesion.</p>
+                        <div class="mb-3 row">
+                            <div class="col-md-12">
+                                <label class="col-sm-2 col-form-label">Nombre</label>			
+								<input type="text" name="name" class="form-control" />
+							</div>
+						</div>
+                        
 						<div class="mb-3 row">
-							<label class="col-sm-2 col-form-label">Usuario</label>
-							<div class="col-sm-10">
+                            <div class="col-sm-6">
+                                <label class="col-sm-2 col-form-label">email</label>
 								<input type="text" name="email" class="form-control" placeholder="user@email.com" autocomplete="off"/>
 							</div>
-						</div>
-							
-						<div class="mb-3 row">
-							<label class="col-sm-2 col-form-label">Contraseña</label>			
-							<div class="col-md-10">
+                            <div class="col-md-6">
+                                <label class="col-sm-2 col-form-label">Contraseña</label>			
 								<input type="password" name="password" class="form-control" placeholder="Contraseña" autocomplete="off"/>
-							</div>
+							</div>                            
 						</div>
 							
 						<div class="mb-3 row">
-							<div class="col-md-6">
-								<a href="{{ route('user.register') }}" type="reset">Register</a>
-							</div>
-							<div class="col-md-6 text-end">
+							<div class="col-md-12 text-end">
 								<button class="btn btn-sm btn-secondary" type="reset">Cancel</button>
-								<button class="btn btn-sm btn-primary" type="submit">Aceptar</button>
+								<button class="btn btn-sm btn-primary" type="submit">Register</button>
 							</div>
 						</div>
 					</div>
 				</form>
-				@if (session('message'))
-					<div class="alert alert-warning m-4 mt-0 rounded-0 border-4 border-warning border-start border-0">
-						The email you entered is not admin
-					</div>
-				@endif
 			</div>
 		</div>
 
