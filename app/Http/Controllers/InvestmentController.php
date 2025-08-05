@@ -16,9 +16,9 @@ class InvestmentController extends Controller
             ->groupBy('instrument_id')
             ->toSql();
 
-        $investments = Investment::from(DB::raw("(SELECT tbl.instrument_id, amount FROM ($subQuery) tbl JOIN investments ON tbl.latest = investments.created_at) as tbl2"))
+        $investments = Investment::from(DB::raw("(SELECT tbl.instrument_id, tbl.latest, amount FROM ($subQuery) tbl JOIN investments ON tbl.latest = investments.created_at) as tbl2"))
             ->join('instruments', 'tbl2.instrument_id', 'instruments.id')
-            ->select('instruments.name', 'tbl2.amount','tbl2.instrument_id')
+            ->select('instruments.name', 'tbl2.amount','tbl2.instrument_id','tbl2.latest')
             ->orderBy('instruments.name')
             ->get();
 

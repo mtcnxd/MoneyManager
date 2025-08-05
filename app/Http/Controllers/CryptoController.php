@@ -43,6 +43,7 @@ class CryptoController extends Controller
     {
         try {
             Crypto::create([
+                'userid' => Auth::user()->id,
                 'book'   => $request->parity,
                 'amount' => $request->amount,
                 'price'  => $request->price,

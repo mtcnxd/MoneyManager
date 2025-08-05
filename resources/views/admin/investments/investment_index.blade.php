@@ -42,10 +42,13 @@
 	
 	<div class="row mb-3">
 		@foreach ($investments as $investment)
+
+			{{ $investment->investments }}
+
 			<div class="col-md-4 mb-4">
 				<x-card>
 					<x-slot:card_title>{{ $investment->name }}</x-slot:card_title>
-					<x-slot:card_content_2>{{ $investment->name }}</x-slot:card_content_2>
+					<x-slot:card_content_2>{{ Carbon\Carbon::parse($investment->latest)->format('d M Y') }}</x-slot:card_content_2>
 					<x-slot:card_content_3>${{ number_format ($investment->amount, 2) }}</x-slot:card_content_3>
 					<x-slot:card_link>{{ route('investments.show', $investment->instrument_id) }}</x-slot:card_link>
 				</x-card>

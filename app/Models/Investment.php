@@ -21,6 +21,10 @@ class Investment extends Model
         'created_at',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime'
+    ];
+
     public function instrument()
     {
         return $this->belongsTo(Instrument::class, 'instrument_id');

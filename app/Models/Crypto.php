@@ -14,6 +14,7 @@ class Crypto extends Model
     protected $table = 'shopping_book';
 
     protected $fillable = [
+        'userid',
         'book',
         'amount',
         'price',
