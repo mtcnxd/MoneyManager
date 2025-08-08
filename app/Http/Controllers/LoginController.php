@@ -27,8 +27,18 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-            $request->session()->regenerate();
-            return to_route('crypto.index');
+            switch (Auth::user()->rol){
+                case 'admin':
+                    $request->session()->regenerate();
+                    return redirect()->route('crypto.index');
+
+                case 'client':
+                    $request->session()->regenerate();
+                    return redirect()->route('crypto.index');
+                
+                default:
+                    return 'You dont have enogth permissions';
+            }
         }
 
         else {
@@ -36,8 +46,12 @@ class LoginController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        return 'logout';
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();        
+        
+        return to_route('user.login');
     }
 }

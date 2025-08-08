@@ -21,29 +21,22 @@ use App\Http\Controllers\InvestmentController;
 
 Route::get('/', [LoginController::class, 'index'])->name('login');
 
+Route::group(['controller' => LoginController::class], function()
+    {    
+        Route::get('/register', 'create')->name('user.register');
+        Route::post('/store', 'store')->name('user.store');
+        Route::post('/login', 'login')->name('user.login');
+        Route::get('/logout', 'logout')->name('user.logout');
+    }
+);
 
-Route::group(['controller' => LoginController::class], function(){
-    
-    Route::get('/register', 'create')->name('user.register');
-
-    Route::post('/store', 'store')->name('user.store');
-
-    Route::post('/login', 'login')->name('user.login');
-});
-
-
-
-Route::group(['prefix' => 'user', 'middleware' => ['auth', 'isAdmin']], function(){
-        
-    Route::resource('/crypto', CryptoController::class)->only('index','destroy');
-
-    Route::resource('/cards', CardsController::class)->except('edit','update');
-    
-    Route::resource('/investments', InvestmentController::class)->except('edit','update');
-    
-    Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
-
-    Route::get('/trades', [CryptoController::class, 'trades'])->name('user.trades');
-
-    Route::get('/spends/{card}', [CardsController::class, 'spends'])->name('user.spends');
-});
+Route::group(['prefix' => 'user', 'middleware' => ['auth']], function()
+    {   
+        Route::resource('/crypto', CryptoController::class)->only('index','destroy');
+        Route::resource('/cards', CardsController::class)->except('edit','update');
+        Route::resource('/investments', InvestmentController::class)->except('edit','update');
+        Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
+        Route::get('/trades', [CryptoController::class, 'trades'])->name('user.trades');
+        Route::get('/spends/{card}', [CardsController::class, 'spends'])->name('user.spends');
+    }
+);

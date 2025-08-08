@@ -36,5 +36,11 @@
                 Categories
             </a>
         </li>
+        <li>
+            <a href="{{ route('user.logout') }}" class="nav-link px-3 link-dark hstack gap-1">
+                <x-feathericon-log-out class="main-menu-icon"/>
+                Logout
+            </a>
+        </li>
     </ul>
 </div>

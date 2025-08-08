@@ -236,11 +236,15 @@
             url: "{{ route('cryto.store') }}",
             type:'POST',
             data:{
+                userid: {{ Auth::user()->id }},
                 parity,
                 amount,
                 price
             },
-            success:function(jsonResponse){
+            success: function(jsonResponse){
+                location.reaload();
+            },
+            error: function(jsonResponse){
                 console.log(jsonResponse);
             }
         });

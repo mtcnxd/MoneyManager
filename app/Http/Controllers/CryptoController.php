@@ -18,7 +18,7 @@ class CryptoController extends Controller
         $balances = array();
         
         try {
-            $bitso   = new Bitso();
+            $bitso    = new Bitso();
             $balances = $bitso->getBalance();
         }
 
@@ -43,7 +43,7 @@ class CryptoController extends Controller
     {
         try {
             Crypto::create([
-                'userid' => Auth::user()->id,
+                'userid' => $request->userid,
                 'book'   => $request->parity,
                 'amount' => $request->amount,
                 'price'  => $request->price,
