@@ -16,6 +16,7 @@ class CardMovs extends Model
         'spend',
         'amount',
         'description',
+        'msi',
         'active',
         'created_at',
         'updated_at'

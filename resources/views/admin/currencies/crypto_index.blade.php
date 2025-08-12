@@ -1,14 +1,15 @@
 @extends('components.main_body')
 
 @section('container')
-    <x-page_title title="Bitso Wallet"/>
-	
-	@if ( session('success') )
-		<div class="alert alert-warning">
-			{{ session('success') }}
+	@if ( session('message') )
+		<div class="alert alert-warning alert-dismissible fade show">
+			{{ session('message') }}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 	@endif
 	
+    <x-page_title title="Bitso Wallet"/>
+
     <div class="row mb-4">
         <div class="col">
             <div class="card rounded border border-custom shadow-sm mb-4">
@@ -242,7 +243,8 @@
                 price
             },
             success: function(jsonResponse){
-                location.reaload();
+                console.log(jsonResponse.message);
+                location.reload();
             },
             error: function(jsonResponse){
                 console.log(jsonResponse);

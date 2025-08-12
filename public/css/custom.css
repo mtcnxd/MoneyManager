@@ -8,7 +8,8 @@
 }
 
 .bg-color-title-bar {
-	background-color: var(--titlebar-bg-color);
+	/* background-color: var(--titlebar-bg-color);	*/
+	background: linear-gradient(to bottom, #9965f4, #7E57C2);
 	color: #fff;
 }
 
@@ -99,15 +100,15 @@ a {
 }
 
 .card-header {
-	 background-color: var(--titlebar-bg-color);
-	 color: #fff;
+	/* background-color: var(--titlebar-bg-color);	*/
+	background: linear-gradient(to bottom, #9965f4, #7E57C2);
+	color: #fff;
 }
 
 .card-header-title{
 	width: 100%;
 	margin-top:4px;
 	margin-bottom:4px;
-	background-color: var(--titlebar-bg-color);
 }
 
 .card-header-icon {

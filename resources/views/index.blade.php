@@ -22,7 +22,7 @@
 			<div class="header rounded border bg-white shadow-sm">
 				<form action="{{ route('user.login') }}" method="post">
 					@csrf
-					<div class="card-header pt-0">
+					<div class="card-header">
 						<h3 class="p-3 pb-0">Iniciar sesión</h3>
 					</div>					
 					<div class="card-body pb-0">

@@ -45,11 +45,11 @@
         <table class="table table-hover">
             <thead>
                 <tr class="table-custom text-uppercase fs-7">
-                    <td style="width: 3%">#</td>
-                    <td style="width: 20%">Date</td>
-                    <td>Spend name</td>
-                    <td>Description</td>
-                    <td class="text-end">Amount</td>
+                    <td style="width: 4%">#</td>
+                    <td style="width: 27%">Spend name</td>
+                    <td style="width: 49%">Description</td>
+                    <td style="width: 15%">Date</td>
+                    <td style="width: 5%" class="text-end">Amount</td>
                     <td style="width: 3%"></td>
                 </tr>
             </thead>
@@ -57,14 +57,14 @@
                 @foreach ($card->movs->where('active', true) as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->created_at->format('d M Y') }}</td>
                         <td>
-                            {{ $item->spend }}
+                            <a href="#">{{ $item->spend }}</a>
                             @if ($item->msi)
                                 <span class="badge text-bg-success">MSI</span>
                             @endif
                         </td>
                         <td>{{ $item->description }}</td>
+                        <td>{{ $item->created_at->format('d M Y') }}</td>
                         <td class="text-end">{{ "$".number_format($item->amount, 2) }}</td>
                         <td>
                             <button class="btn btn-sm" onclick="deleteSpending({{ $item->id }})">
@@ -99,7 +99,7 @@
 <script>
     function deleteSpending(id){
         $.ajax({
-            url: '/api/deleteSpending',
+            url: "{{ route('spend.delete') }}",
             type:'post',
             data:{ id },
             success:function(json){

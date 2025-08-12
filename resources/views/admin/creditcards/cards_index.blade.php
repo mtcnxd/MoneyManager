@@ -1,15 +1,15 @@
 @extends('components.main_body')
 
 @section('container')
-	<x-page_title title="Credit Cards"/>
-
 	@if ( session('message') )
 		<div class="alert alert-warning alert-dismissible fade show">
 			{{ session('message') }}
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 	@endif
-	
+
+	<x-page_title title="Credit Cards"/>
+	<p>Consumos de tarjetas de credito registradas</p>
 	<div class="row mb-3">
 		@foreach ($cards as $card)
 			<div class="col-md-4 mb-4">

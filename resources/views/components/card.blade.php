@@ -16,7 +16,7 @@
                     </div>
                     <div style="display: flex; justify-content: space-between;" class="mt-4">
                         <div></div>
-                        <div><a href="{{ $card_link }}" class="btn btn-sm btn-primary">Details</a></div>
+                        <div><a href="{{ $card_link }}" class="btn btn-sm btn-secondary">Details</a></div>
                     </div>
                 </div>
             </div>

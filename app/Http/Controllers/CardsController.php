@@ -85,16 +85,23 @@ class CardsController extends Controller
 
     public function storeSpend(Request $request)
     {
+        $credit = false;
+        if ($request->months != 0){
+            $credit = true;
+        }
+
         CardMovs::create([
             'card_id' => $request->card,
             'spend'   => $request->spend,
             'amount'  => $request->amount,
+            'msi'     => $credit,
             'description' => $request->description,
         ]);
 
         return response()->json([
             'success' => true,
-            'message' => 'Spend saved successfully'
+            'message' => 'Spend saved successfully',
+            'data'    => $request->all(),
         ]);
     }
 

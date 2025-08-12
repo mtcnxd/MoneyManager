@@ -9,10 +9,6 @@
 @endsection
 
 @section('container')
-    <nav class="navbar bg-body-tertiary">
-        <h5 class="text-uppercase fw-bold">Create spend</h5>
-    </nav>
-
     @if ( session('message') )
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>Message:</strong> {{ session('message') }}
@@ -20,6 +16,9 @@
     </div>
     @endif
 
+    <nav class="navbar bg-body-tertiary">
+        <h5 class="text-uppercase fw-bold">Create spend</h5>
+    </nav>    
     <div class="row mb-3">
         <div class="col-md-12">
             <div class="border border-custom p-0 bg-white rounded shadow">
@@ -53,13 +52,26 @@
                         
                         <div class="row">
                             <div class="col-md-4 mt-3">
-                                <label class="mb-1 fs-8 text-uppercase fw-bold">Spend</label>
+                                <label class="mb-1 fs-8 text-uppercase fw-bold">Spend name</label>
                                 <input type="text" name="concept" class="form-control" onkeyup="searchItem(this)" id="spend">
                                 <ul id="autocomplete" class="autocomplete shadow"></ul>
                             </div>
-                            <div class="col-md-4 mt-3">
-                                <label class="mb-1 fs-8 text-uppercase fw-bold">Amount</label>
-                                <input type="text" name="amount" class="form-control" id="amount">
+                            <div class="col-md-2 mt-3">
+                                <label class="mb-1 fs-8 text-uppercase fw-bold">Price</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">$</span>
+                                    <input type="text" name="amount" class="form-control" id="amount">
+                                </div>
+                            </div>
+                            <div class="col-md-2 mt-3">
+                                <label class="mb-1 fs-8 text-uppercase fw-bold">Months</label>
+                                <select name="months" id="months" class="form-select">
+                                    <option value="0">N/A</option>
+                                    <option value="3">3 MSI</option>
+                                    <option value="6">6 MSI</option>
+                                    <option value="9">9 MSI</option>
+                                    <option value="12">12 MSI</option>
+                                </select>
                             </div>
                         </div>
 
@@ -102,6 +114,7 @@
                 category:formSpend[0].category.value,
                 spend:formSpend[0].spend.value,
                 amount:formSpend[0].amount.value,
+                months:formSpend[0].months.value,
                 description:formSpend[0].description.value
             },
             success: function(response) {

@@ -38,7 +38,7 @@ Route::group(['prefix' => 'cards', 'controller' => CardsController::class], func
         
         Route::post('/process', 'process')->name('cards.processMonth');
         
-        Route::post('/deleteSpending', 'destroy')->name('deleteSpending');
+        Route::post('/delete', 'destroy')->name('spend.delete');
         
         Route::get('/autocomplete', 'autocomplete')->name('cards.autocomplete');
     }
