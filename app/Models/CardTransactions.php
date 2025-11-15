@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CardMovs extends Model
+class CardTransactions extends Model
 {
     use HasFactory;
 

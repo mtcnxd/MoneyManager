@@ -26,7 +26,7 @@ class Card extends Model
 
     public function movs()
     {
-        return $this->hasMany(CardMovs::class, 'card_id');
+        return $this->hasMany(CardTransactions::class, 'card_id');
     }
 
     public function total()

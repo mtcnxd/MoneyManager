@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Card;
-use App\Models\CardMovs;
+use App\Models\CardMSI;
+use App\Models\CardTransactions;
 use Illuminate\Http\Request;
 
 class CardsController extends Controller
@@ -53,7 +54,7 @@ class CardsController extends Controller
      */
     public function destroy(Request $request)
     {
-        $deleted = CardMovs::where('id', $request->id)->delete();
+        $deleted = CardTransactions::where('id', $request->id)->delete();
         
         if ($deleted){
             return response()->json([
@@ -71,7 +72,7 @@ class CardsController extends Controller
     public function autocomplete(Request $request)
     {
         $search = $request->get('term');
-        $spends = CardMovs::where('spend', 'LIKE', "%{$search}%")
+        $spends = CardTransactions::where('spend', 'LIKE', "%{$search}%")
             ->select('spend')
             ->groupBy('spend')
             ->take(10)
@@ -85,18 +86,32 @@ class CardsController extends Controller
 
     public function storeSpend(Request $request)
     {
-        $credit = false;
+        $msi = false;
         if ($request->months != 0){
-            $credit = true;
+            $msi = true;
+            $price = ((double) $request->amount / (double) $request->months);
         }
 
-        CardMovs::create([
+        $movId = CardTransactions::insertGetId([
             'card_id' => $request->card,
             'spend'   => $request->spend,
             'amount'  => $request->amount,
-            'msi'     => $credit,
+            'msi'     => $msi,
             'description' => $request->description,
+            'created_at'  => Carbon::now(),
+            'updated_at'  => Carbon::now(),
         ]);
+
+        if ($msi){
+            for ($i=1; $i <= $request->months; $i++) {
+                CardMSI::create([
+                    'mov_id'     => $movId,
+                    'price'      => $price,
+                    'pay_number' => $i,
+                    'due_date'   => Carbon::now()->addMonths($i),
+                ]);
+            }
+        }
 
         return response()->json([
             'success' => true,
@@ -110,7 +125,7 @@ class CardsController extends Controller
      */
     public function process(Request $request)
     {
-        $updated = CardMovs::where('active', true)
+        $updated = CardTransactions::where('active', true)
             ->where('card_id', $request->card)
             ->where('msi', false)
             ->update([

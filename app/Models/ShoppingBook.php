@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Crypto extends Model
+class ShoppingBook extends Model
 {
     use HasFactory;
 

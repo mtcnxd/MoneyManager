@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Crypto;
+use App\Models\ShoppingBook;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BitsoController as Bitso;
@@ -27,7 +27,7 @@ class CryptoController extends Controller
                 ->with('error', 'Error fetching data from Bitso: '. $e->getMessage());
         }
 
-        $currencies = Crypto::where('status','Pending')->get();
+        $currencies = ShoppingBook::where('status','Pending')->get();
 
         foreach($currencies as $item){
             $item->setAdditionals($bitso->getBookPrice($item->book));
@@ -42,7 +42,7 @@ class CryptoController extends Controller
     public function store(Request $request)
     {
         try {
-            Crypto::create([
+            ShoppingBook::create([
                 'userid' => $request->userid,
                 'book'   => $request->parity,
                 'amount' => $request->amount,

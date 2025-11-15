@@ -141,7 +141,7 @@
                 @foreach ($currencies as $currency)
                     <tr>
                         <td>{{ $currency->book }}</td>
-                        <td class="text-end">{{ number_format($currency->amount, 3) }}</td>
+                        <td class="text-end">{{ number_format($currency->amount, 4) }}</td>
                         <td class="text-end">{{ number_format($currency->price, 3) }}</td>
                         <td class="text-end">{{ number_format($currency->amount * $currency->price, 3) }}</td>
                         <td class="text-end">{{ number_format($currency->getCurrentValue(), 3) }}</td>
@@ -177,7 +177,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label class="mb-2">Book</label>
-                            <input type="text" id="parity" class="form-control">
+                            <select id="parity" class="form-select">
+                                @foreach (\App\Models\FavoriteBooks::all() as $row)
+                                    <option>{{ $row->book }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-12 mt-3">
                             <label class="mb-2">Cantidad</label>

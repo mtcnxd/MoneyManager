@@ -35,6 +35,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function()
         Route::resource('/crypto', CryptoController::class)->only('index','destroy');
         Route::resource('/cards', CardsController::class)->except('edit','update');
         Route::resource('/investments', InvestmentController::class)->except('edit','update');
+        
         Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
         Route::get('/trades', [CryptoController::class, 'trades'])->name('user.trades');
         Route::get('/spends/{card}', [CardsController::class, 'spends'])->name('user.spends');
