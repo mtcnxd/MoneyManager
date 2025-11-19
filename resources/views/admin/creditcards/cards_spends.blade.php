@@ -39,12 +39,14 @@
                                     <option>Abono a tarjeta</option>
                                     <option>Pago a tarjeta</option>
                                     <optgroup label="Spends">
-                                        <option>Servicios</option>
+                                        <option>Alimentos y bebidas</option>
                                         <option>Entretenimiento</option>
                                         <option>Gastos de casa</option>
+                                        <option>Gasolina y transporte</option>
                                         <option>Gustos y caprichos</option>
                                         <option>Imprevistos y otros</option>
                                         <option>Mantenimiento y casa</option>
+                                        <option>Servicios</option>
                                     </optgroup>
                                 </select>
                             </div>

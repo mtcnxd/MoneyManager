@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('price');
             $table->string('amount');
             $table->enum('status',['Active','Pending','Deleted']);
+            $table->boolean('notified')->default(false);
             $table->timestamps();
         });
     }

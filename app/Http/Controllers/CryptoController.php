@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Currency;
 use App\Models\ShoppingBook;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Services\FallingPrice;
 use App\Http\Controllers\BitsoController as Bitso;
-use IcehouseVentures\LaravelChartjs\Facades\Chartjs;
 
 class CryptoController extends Controller
 {
@@ -30,8 +28,6 @@ class CryptoController extends Controller
         }
 
         $currencies = ShoppingBook::where('status','Active')->get();
-
-        // $currencies = DB::table('shopping_list_view')->get();
 
         foreach($currencies as $item){
             $item->setTicker($bitso->getBookPrice($item->book));
@@ -68,7 +64,7 @@ class CryptoController extends Controller
         ]);
     }
 
-    public function trades()
+    public function trades(FallingPrice $fallingPrice)
     {
         $bitso = new Bitso();
         $trades = $bitso->userTrades();

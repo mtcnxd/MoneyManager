@@ -36,7 +36,7 @@ class InvestmentController extends Controller
     {
         $instrument = Instrument::find($id);
 
-        return view('admin.investments.investment_show', compact('instrument', ));
+        return view('admin.investments.investment_show', compact('instrument'));
     }
 
     public function store(Request $request)

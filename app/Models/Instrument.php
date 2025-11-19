@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\Support\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Instrument extends Model
@@ -11,7 +12,6 @@ class Instrument extends Model
     use HasFactory;
 
     protected $hidden = [
-        'created_at',
         'updated_at',
     ];
 
@@ -25,12 +25,23 @@ class Instrument extends Model
         return $this->hasMany(Investment::class, 'instrument_id');
     }
 
-    public function diff()
+    public function diffLastMonth()
     {
-        $movs = $this->load('investments');
-        $first = $movs->investments->first()->amount;
-        $last  = $movs->investments->last()->amount;
+        $deposits = $this->load('investments');
+        $latestDeposits = $deposits->investments->sortByDesc('id')->take(2);
 
-        return ($last - $first);
+        $result = 0;
+        foreach($latestDeposits as $key => $value){
+            if ($result == 0){
+                $result = $value->amount;
+            }
+            
+            else {
+                return [
+                    'value'      => $result - $value->amount,
+                    'percentage' => Helpers::calculatePercentage($value->amount, $result)
+                ];
+            }
+        };
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\Support\Helpers;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ShoppingBook extends Model
 {
@@ -45,7 +46,10 @@ class ShoppingBook extends Model
     }
 
     public function getPercentage()
-    {        
-        return ($this->getChange() / $this->getCurrentValue()) * 100;
+    {
+        $current = $this->getCurrentValue();
+        $last    = $this->amount * $this->price;
+
+        return Helpers::calculatePercentage($last, $current);
     }
 }

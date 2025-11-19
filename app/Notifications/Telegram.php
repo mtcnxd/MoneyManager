@@ -3,28 +3,31 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class Telegram extends Notification
 {
     use Queueable;
 
-    protected $api = null;
-    protected $chatId = null;
-
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct()
+    static function send(string $text)
     {
-        $this->api    = config('services.telegram.api');
-        $this->chatId = config('services.telegram.chat_id');
-    }
+        $token = 'bot8373335422:AAHcXOLPxVUZHMg5gQW1Zb_FZ7itqeuIm6I';
 
-    public function send(string $message) : void
-    {
-        dd(self::$chatId);
+        $url = 'https://api.telegram.org/'. $token .'/sendMessage';
+        
+        $response = Http::post($url, array(
+            "chat_id"    => '-5014845636',
+            "text" 	     => $text,
+            "parse_mode" => "HTML"
+        ));
+
+        if ($response->getStatusCode() == 400){
+            throw new \Exception(
+                sprintf("Error Processing Request: %s", $response['description'])
+            );
+        }
     }
 }

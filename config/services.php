@@ -31,14 +31,16 @@ return [
         'region'    => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // 8373335422:AAHcXOLPxVUZHMg5gQW1Zb_FZ7itqeuIm6I
+
+    'telegram' => [
+        'api'     => env('TELEGRAM_API','bot8373335422:AAHcXOLPxVUZHMg5gQW1Zb_FZ7itqeuIm6I'),
+        'chat_id' => env('TELEGRAM_CHATID','-5014845636'),
+    ],
+
     'bitso' => [
         'key'       => env('BITSO_API'),
         'secret'    => env('BITSO_SECRET'),
     ],
-
-    'telegram' => [
-        'api'     => env('TELEGRAM_API'),
-        'chat_id' => env('TELEGRAM_CHATID'),
-    ]
 
 ];

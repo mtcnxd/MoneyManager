@@ -12,20 +12,25 @@
 	<div class="border border-custom p-0 bg-white rounded shadow mb-4">
 		<div class="row p-3">
 			<div class="col">
-				<span class="text-uppercase fs-7 fw-bold">
+				<span class="text-uppercase fs-5 fw-bold">
 					{{ $instrument->name }}
 				</span>
 			</div>
 			<div class="col text-end">
-				<span class="text-uppercase fs-7 fw-bold">
-					Increment {{ "$".number_format( $instrument->diff(), 2) }}
+				<span class="text-uppercase fs-5 fw-bold">
+					$ {{ number_format($instrument->diffLastMonth()['value'], 2) }}
+				</span>
+			</div>
+			<div class="col text-end">
+				<span class="text-uppercase fs-5 fw-bold">
+					{{ number_format($instrument->diffLastMonth()['percentage'], 2) }} %
 				</span>
 			</div>
 		</div>
 	</div>
 
 	<div class="mb-4">
-        @foreach ($instrument->investments as $investment)
+        @foreach ($instrument->investments->sortByDesc('id')->take(8) as $investment)
             <div class="row m-2 p-3 border rounded shadow-sm bg-white">
                 <div class="col-md-2 text-center">
                     <span style="background-color: #B2DFDB; border-radius:20px; padding: 4px 8px;">{{ $investment->created_at->format('d M Y') }}</span>
