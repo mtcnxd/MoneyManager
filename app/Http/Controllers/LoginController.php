@@ -30,11 +30,11 @@ class LoginController extends Controller
             switch (Auth::user()->rol){
                 case 'admin':
                     $request->session()->regenerate();
-                    return redirect()->route('crypto.index');
+                    return redirect()->route('currencies.index');
 
                 case 'client':
                     $request->session()->regenerate();
-                    return redirect()->route('crypto.index');
+                    return redirect()->route('currencies.index');
                 
                 default:
                     return 'You dont have enogth permissions';

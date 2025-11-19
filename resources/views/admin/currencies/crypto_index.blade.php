@@ -31,7 +31,7 @@
                         @php
                             $sumTotal = 0;
                         @endphp                            
-                        @foreach ($balances as $balance)
+                        @foreach ($results['balances'] as $balance)
                             @if ($balance->total > 0.001)
                                 <tr>
                                     <td class="text-uppercase">
@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    <div class="row mt-5">
+    <div class="row">
         <h5>Shopping list
             <a href="#" style="padding-left: 3px;" data-bs-toggle="modal" data-bs-target="#addShopping">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle" style="margin-bottom: 2px;">
@@ -123,48 +123,82 @@
                 <line x1="8" y1="12" x2="16" y2="12"></line></svg>
             </a>
         </h5>
-        <hr>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Book</th scope="col">
-                    <th scope="col" class="text-end">Amount</th>
-                    <th scope="col" class="text-end">Purchase price</th>
-                    <th scope="col" class="text-end">Purchase value</th>
-                    <th scope="col" class="text-end">Current value</th>
-                    <th scope="col" class="text-end">G/L $</th>
-                    <th scope="col" class="text-end">G/L %</th>
-                    <th scope="col" style="width: 30px;"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($currencies as $currency)
-                    <tr>
-                        <td>{{ $currency->book }}</td>
-                        <td class="text-end">{{ number_format($currency->amount, 4) }}</td>
-                        <td class="text-end">{{ number_format($currency->price, 3) }}</td>
-                        <td class="text-end">{{ number_format($currency->amount * $currency->price, 3) }}</td>
-                        <td class="text-end">{{ number_format($currency->getCurrentValue(), 3) }}</td>
-                        <td class="text-end">{{ number_format($currency->getChange(), 2) }}</td>
-                        <td class="text-end">
-                            <span class="badge text-bg-{{ ($currency->getPercentage() < 0) ? 'danger' : 'success' }}">
-                                {{ number_format($currency->getPercentage() , 2)."%" }}
-                            </span>
-                        </td>
-                        <td>
-                            <form action="{{ route('crypto.destroy', $currency->id) }}" method="post" class="mb-0">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn" style="margin-top: 0; padding: 0;">
-                                    <x-feathericon-trash-2 class="icon-vertical-align"/>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
     </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Book</th scope="col">
+                        <th scope="col" class="text-end">Amount</th>
+                        <th scope="col" class="text-end">Purchase price</th>
+                        <th scope="col" class="text-end">Purchase value</th>
+                        <th scope="col" class="text-end">Current value</th>
+                        <th scope="col" class="text-end">G/L $</th>
+                        <th scope="col" class="text-end">G/L %</th>
+                        <th scope="col" style="width: 30px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $sumCurrentValue  = 0;
+                        $sumPurchaseValue = 0;
+                        $sumGainAndLost   = 0;
+                    @endphp
+                    @foreach ($currencies as $currency)
+                        @php
+                            $sumPurchaseValue += $currency->getCurrentValue();
+                            $sumCurrentValue  += ($currency->amount * $currency->price);
+                            $sumGainAndLost   += $currency->getChange();
+                        @endphp
+
+                        <tr>
+                            <td>{{ $currency->book }}</td>
+                            <td class="text-end">{{ number_format($currency->amount, 5) }}</td>
+                            <td class="text-end">{{ number_format($currency->price, 2) }}</td>
+                            <td class="text-end">{{ number_format($currency->amount * $currency->price, 2) }}</td>
+                            <td class="text-end">{{ number_format($currency->getCurrentValue(), 2) }}</td>
+                            <td class="text-end">{{ number_format($currency->getChange(), 2) }}</td>
+                            <td class="text-end">
+                                <span class="badge text-bg-{{ ($currency->getPercentage() < 0) ? 'danger' : 'success' }}">
+                                    {{ number_format($currency->getPercentage() , 2)."%" }}
+                                </span>
+                            </td>
+                            <td>
+                                <form action="{{ route('currencies.destroy', $currency->id) }}" method="post" class="mb-0">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn" style="margin-top: 0; padding: 0;">
+                                        <x-feathericon-trash-2 class="icon-vertical-align"/>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-end">{{ number_format($sumCurrentValue, 2) }}</td>
+                        <td class="text-end">{{ number_format($sumPurchaseValue, 2) }}</td>
+                        <td class="text-end">{{ number_format($sumGainAndLost, 2) }}</td>
+                        <td colspan="2"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+	<div class="row mb-4">
+        <div class="col-md-6">
+            <a href="{{ route('user.trades') }}" class="btn btn-sm btn-primary">Trades history</a>
+            <a href="#" class="btn btn-sm btn-secondary" id="placeOrder">Place order</a>
+        </div>
+		<div class="col-md-6 text-end">
+            <a href="{{ route('user.trades') }}" class="btn btn-sm btn-secondary">Settings</a>
+		</div>
+	</div>
 
     <div class="modal fade" id="addShopping" tabindex="-1">
         <div class="modal-dialog">
@@ -178,8 +212,8 @@
                         <div class="col-md-12">
                             <label class="mb-2">Book</label>
                             <select id="parity" class="form-select">
-                                @foreach (\App\Models\FavoriteBooks::all() as $row)
-                                    <option>{{ $row->book }}</option>
+                                @foreach ($results['ticker'] as $row)
+                                    <option value="{{ $row->book }}">{{ $row->book }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -200,13 +234,6 @@
             </div>
           </div>
     </div>
-
-	<div class="row mb-4">
-		<div class="col-md-4">
-			<a href="{{ route('user.trades') }}" class="btn btn-sm btn-primary">Trades history</a>
-            <a href="#" class="btn btn-sm btn-secondary" id="placeOrder">Place order</a>
-		</div>
-	</div>
 @endsection
 
 
@@ -238,7 +265,7 @@
         var price  = $("#price").val();
 
         $.ajax({
-            url: "{{ route('cryto.store') }}",
+            url: "{{ route('currencies.store') }}",
             type:'POST',
             data:{
                 userid: {{ Auth::user()->id }},

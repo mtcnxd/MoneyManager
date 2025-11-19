@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Models\ShoppingBook;
+use App\Http\Controllers\BitsoController as Bitso;
 
 class HelloWorld extends Command
 {
@@ -25,16 +27,18 @@ class HelloWorld extends Command
      */
     public function handle()
     {
-        $wallets = [
-            'uno'    => 1,
-            'dos'    => 2,
-            'tres'   => 3,
-            'cuatro' => 4,
-            'cinco'  => 5,
-        ];
+        $bitso = new Bitso();
+        echo 'Connecting';
 
-        foreach ($wallets as $key => $value) {
-            echo $key .PHP_EOL;
+        for ($i=0; $i<=5; $i++) {
+            echo '.';
+            sleep(1);
         }
+
+        echo PHP_EOL;
+
+        $ticker = $bitso->getTicker();
+
+        echo ShoppingBook::orderBy('id', 'desc')->first()->price;
     }
 }

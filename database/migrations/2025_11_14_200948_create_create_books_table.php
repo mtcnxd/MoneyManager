@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('favorite_books', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('book');
+            $table->boolean('favorite')->default(true);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('favorite_books');
+        Schema::dropIfExists('books');
     }
 };

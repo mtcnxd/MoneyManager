@@ -34,6 +34,11 @@ return [
     'bitso' => [
         'key'       => env('BITSO_API'),
         'secret'    => env('BITSO_SECRET'),
+    ],
+
+    'telegram' => [
+        'api'     => env('TELEGRAM_API'),
+        'chat_id' => env('TELEGRAM_CHATID'),
     ]
 
 ];

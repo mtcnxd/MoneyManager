@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CryptoController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\InvestmentController;
+use App\Http\Controllers\Settings\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,11 +31,13 @@ Route::group(['controller' => LoginController::class], function()
     }
 );
 
-Route::group(['prefix' => 'user', 'middleware' => ['auth']], function()
+Route::group(['prefix' => 'user', 'middleware' => 'auth'], function()
     {   
-        Route::resource('/crypto', CryptoController::class)->only('index','destroy');
+        Route::resource('/currencies', CryptoController::class)->only('index','destroy');
         Route::resource('/cards', CardsController::class)->except('edit','update');
         Route::resource('/investments', InvestmentController::class)->except('edit','update');
+
+        Route::resource('/settings', SettingsController::class)->except('edit','update');
         
         Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
         Route::get('/trades', [CryptoController::class, 'trades'])->name('user.trades');

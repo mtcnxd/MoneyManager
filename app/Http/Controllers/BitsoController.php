@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Notifications\Telegram;
+use App\Providers\NotificatorServiceProvider;
 
 class BitsoController extends Controller
 {
 	protected $bitsoKey;
 	protected $bitsoSecret;
+	protected $ticker = null;
 
 	public function __construct()
 	{
@@ -61,7 +65,16 @@ class BitsoController extends Controller
 
     public function getTicker()
 	{
-		return $this->getBitsoRequest("/v3/ticker/")->payload;
+		if (is_null($this->ticker)){
+			Log::debug("Ticker null");
+			$this->ticker = $this->getBitsoRequest("/v3/ticker/")->payload;
+			return $this->ticker;
+		}
+
+		// Log::debug("Ticker not null");
+		// NotificatorServiceProvider::sendNotification(new Telegram, 'Que onda');
+
+		return $this->ticker;
 	}
     
     public function userTrades()

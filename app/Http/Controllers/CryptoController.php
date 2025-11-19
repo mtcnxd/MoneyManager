@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ShoppingBook;
 use App\Models\Currency;
+use App\Models\ShoppingBook;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BitsoController as Bitso;
 use IcehouseVentures\LaravelChartjs\Facades\Chartjs;
 
@@ -15,11 +16,12 @@ class CryptoController extends Controller
      */
     public function index()
     {
-        $balances = array();
+        $results  = [];
         
         try {
             $bitso    = new Bitso();
-            $balances = $bitso->getBalance();
+            $results['balances'] = $bitso->getBalance();
+            $results['ticker']   = $bitso->getTicker();
         }
 
         catch (\Exception $e){
@@ -27,13 +29,15 @@ class CryptoController extends Controller
                 ->with('error', 'Error fetching data from Bitso: '. $e->getMessage());
         }
 
-        $currencies = ShoppingBook::where('status','Pending')->get();
+        $currencies = ShoppingBook::where('status','Active')->get();
+
+        // $currencies = DB::table('shopping_list_view')->get();
 
         foreach($currencies as $item){
-            $item->setAdditionals($bitso->getBookPrice($item->book));
+            $item->setTicker($bitso->getBookPrice($item->book));
         }
 
-        return view('admin.currencies.crypto_index', compact('balances','currencies'));
+        return view('admin.currencies.crypto_index', compact('results','currencies'));
     }
 
     /**
@@ -47,7 +51,7 @@ class CryptoController extends Controller
                 'book'   => $request->parity,
                 'amount' => $request->amount,
                 'price'  => $request->price,
-                'status' => 'Pending',
+                'status' => 'Active',
             ]);
         }
 

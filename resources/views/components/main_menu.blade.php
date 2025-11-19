@@ -9,7 +9,7 @@
         <li>
             <a href="{{ route('cards.index') }}" class="nav-link px-3 link-dark hstack gap-1">
                 <x-feathericon-credit-card class="main-menu-icon"/>
-                Cards
+                Spends
             </a>
         </li>
         <li>
@@ -19,9 +19,9 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('crypto.index') }}" class="nav-link px-3 link-dark hstack gap-1">
+            <a href="{{ route('currencies.index') }}" class="nav-link px-3 link-dark hstack gap-1">
                 <x-feathericon-bold class="main-menu-icon"/>
-                Crypto
+                Assets
             </a>
         </li>
         <li>
@@ -34,6 +34,12 @@
             <a href="{{ route('categories.index') }}" class="nav-link px-3 link-dark hstack gap-1">
                 <x-feathericon-align-justify class="main-menu-icon"/>
                 Categories
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('settings.index') }}" class="nav-link px-3 link-dark hstack gap-1">
+                <x-feathericon-settings class="main-menu-icon"/>
+                Settings
             </a>
         </li>
         <li>

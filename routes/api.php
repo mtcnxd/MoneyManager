@@ -23,11 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 */
 
-Route::group(['prefix' => 'crypto', 'controller' => CryptoController::class], function ()
+Route::group(['prefix' => 'currencies', 'controller' => CryptoController::class], function ()
     {
-        Route::post('/store', 'store')->name('cryto.store');
+        Route::post('/store', 'store')->name('currencies.store');
 
-        Route::post('/destroy', 'destroy')->name('cryto.destroy');
+        Route::post('/destroy', 'destroy')->name('currencies.destroy');
     }
 );
 

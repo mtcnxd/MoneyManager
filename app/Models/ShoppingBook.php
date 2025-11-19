@@ -10,8 +10,8 @@ class ShoppingBook extends Model
     use HasFactory;
 
     public    $currentValue = 0.0;
-    protected $additionals = [];
-    protected $table = 'shopping_book';
+    protected $ticker = [];
+    protected $table = 'shopping_list';
 
     protected $fillable = [
         'userid',
@@ -21,14 +21,19 @@ class ShoppingBook extends Model
         'status',
     ];
 
-    public function setAdditionals($additionals)
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    public function setTicker($ticker)
     {
-        $this->additionals = $additionals;
+        $this->ticker = $ticker;
     }
 
     public function getCurrentValue()
     {
-        return $this->amount * $this->additionals->last;
+        return $this->amount * $this->ticker->last;
     }
 
     public function getChange()

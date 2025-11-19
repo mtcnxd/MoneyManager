@@ -48,11 +48,11 @@
                                 <td class="text-uppercase">
                                     <span class="badge badge-primary text-secondary">{{ $trade->book  }}</span>
                                 </td>
-                                <td class="text-end">{{ number_format($trade->price, 2) }}</td>
+                                <td class="text-end">{{ Illuminate\Support\Number::currency($trade->price) }}</td>
                                 <td class="text-end">{{ $trade->side }}</td>
-                                <td class="text-end">{{ $trade->major }} {{ $trade->major_currency }}</td>
-                                <td class="text-end">{{ $trade->minor }} {{ $trade->minor_currency }}</td>
-                                <td class="text-end">{{ \Carbon\Carbon::parse($trade->created_at)->format('H:i - d-m-Y') }}</td>
+                                <td class="text-end">{{ number_format($trade->major, 4) }} {{ $trade->major_currency }}</td>
+                                <td class="text-end">{{ Illuminate\Support\Number::currency($trade->minor) }} {{ $trade->minor_currency }}</td>
+                                <td class="text-end">{{ \Carbon\Carbon::parse($trade->created_at)->format('d/m/Y') }}</td>
                             </tr>    
                         @endforeach
                         </tbody>
