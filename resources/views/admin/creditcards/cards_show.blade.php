@@ -58,7 +58,7 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>
-                            <a href="#">{{ $item->spend }}</a>
+                            <a href="{{ route('show.spend', $item->id) }}">{{ $item->spend }}</a>
                             @if ($item->msi)
                                 <span class="badge text-bg-success">MSI</span>
                             @endif

@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CryptoController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\InvestmentController;
+use App\Http\Controllers\Admin\SpendsController;
 use App\Http\Controllers\Settings\SettingsController;
 
 /*
@@ -42,5 +43,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function()
         Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
         Route::get('/trades', [CryptoController::class, 'trades'])->name('user.trades');
         Route::get('/spends/{card}', [CardsController::class, 'spends'])->name('user.spends');
+
+        Route::get('/spend/{id}', [SpendsController::class, 'show'])->name('show.spend');
     }
 );

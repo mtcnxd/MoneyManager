@@ -22,8 +22,13 @@ class CardTransactions extends Model
         'updated_at'
     ];
 
-    public function car()
+    public function card()
     {
-        return $this->belongsTo(Card::class, 'card_id');
+        return $this->hasOne(Card::class, 'id', 'card_id');
+    }
+
+    public function spendsMSI()
+    {
+        return $this->hasMany(CardMSI::class, 'mov_id');
     }
 }

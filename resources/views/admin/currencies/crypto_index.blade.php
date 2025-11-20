@@ -155,7 +155,7 @@
 
                         <tr>
                             <td>{{ $currency->book }}</td>
-                            <td class="text-end">{{ number_format($currency->amount, 5) }}</td>
+                            <td class="text-end">{{ $currency->amount }}</td>
                             <td class="text-end">{{ number_format($currency->price, 2) }}</td>
                             <td class="text-end">{{ number_format($currency->amount * $currency->price, 2) }}</td>
                             <td class="text-end">{{ number_format($currency->getCurrentValue(), 2) }}</td>
