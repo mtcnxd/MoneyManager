@@ -127,9 +127,9 @@
 
     <div class="row">
         <div class="col">
-            <table class="table table-hover">
+            <table class="table border table-hover">
                 <thead>
-                    <tr>
+                    <tr class="table-custom text-uppercase fs-7">
                         <th scope="col">Book</th scope="col">
                         <th scope="col" class="text-end">Amount</th>
                         <th scope="col" class="text-end">Purchase price</th>

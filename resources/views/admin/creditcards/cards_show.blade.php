@@ -42,7 +42,7 @@
 	
 	<div class="row mt-4">
         <span class="mb-3">Se encontraron {{ $card->movs->where('active', true)->count() }} movimientos </span>
-        <table class="table table-hover">
+        <table class="table border table-hover">
             <thead>
                 <tr class="table-custom text-uppercase fs-7">
                     <td style="width: 4%">#</td>

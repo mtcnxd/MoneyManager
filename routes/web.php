@@ -34,10 +34,10 @@ Route::group(['controller' => LoginController::class], function()
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function()
     {   
         Route::resource('/currencies', CryptoController::class)->only('index','destroy');
-        Route::resource('/cards', CardsController::class)->except('edit','update');
+        Route::resource('/cards', CardsController::class)->except('edit','store');
         Route::resource('/investments', InvestmentController::class)->except('edit','update');
 
-        Route::resource('/settings', SettingsController::class)->except('edit','update');
+        Route::resource('/settings', SettingsController::class)->only('index','store');
         
         Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
         Route::get('/trades', [CryptoController::class, 'trades'])->name('user.trades');
